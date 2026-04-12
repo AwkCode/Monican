@@ -9,7 +9,7 @@
 
 **Contact:** Charles Scott Sr.
 **Location:** 880 North Ave, Bridgeport, CT
-**Subject:** Quick question — learning from local brokerages
+**Subject:** Looking to chat about real estate
 
 Hi Charles,
 
@@ -31,7 +31,7 @@ New Haven, CT
 **Contact:** Patrick Carey
 **Location:** 59 Old Shelton Rd, Shelton, CT
 **Phone:** (203) 925-0058
-**Subject:** Quick question — learning from local brokerages
+**Subject:** Looking to chat about real estate
 
 Hi Patrick,
 
@@ -53,7 +53,7 @@ New Haven, CT
 **Contact:** Susan & Linda (Co-Owners)
 **Location:** 100 Huntington St, Shelton, CT
 **Phone:** (203) 926-1122
-**Subject:** Quick question — learning from local brokerages
+**Subject:** Looking to chat about real estate
 
 Hi Susan and Linda,
 
@@ -75,7 +75,7 @@ New Haven, CT
 **Contact:** Jack Hill
 **Location:** 233 Wooster Street, New Haven, CT
 **Phone:** (203) 562-1220
-**Subject:** Quick question — learning from local brokerages
+**Subject:** Looking to chat about real estate
 
 Hi Jack,
 
@@ -96,7 +96,7 @@ New Haven, CT
 
 **Contact:** Arnold Peck (Owner/Broker)
 **Location:** 500 Boston Post Rd, Milford, CT
-**Subject:** Quick question — learning from local brokerages
+**Subject:** Looking to chat about real estate
 
 Hi Arnold,
 
@@ -118,7 +118,7 @@ New Haven, CT
 **Contact:** Delaney Smith (Broker/Owner)
 **Location:** Milford, CT
 **Phone:** (203) 687-5107
-**Subject:** Quick question — learning from local brokerages
+**Subject:** Looking to chat about real estate
 
 Hi Delaney,
 
@@ -140,7 +140,7 @@ New Haven, CT
 **Contact:** Dagny Eason (Broker/Owner)
 **Location:** 20 Windy Ridge Pl, Wilton, CT
 **Phone:** (203) 858-4853
-**Subject:** Quick question — learning from local brokerages
+**Subject:** Looking to chat about real estate
 
 Hi Dagny,
 
@@ -162,7 +162,7 @@ New Haven, CT
 **Contact:** Mark Ballaro (Broker/Owner)
 **Location:** 50 Birdseye St, Stratford, CT
 **Phone:** (203) 377-1111
-**Subject:** Quick question — learning from local brokerages
+**Subject:** Looking to chat about real estate
 
 Hi Mark,
 
@@ -184,7 +184,7 @@ New Haven, CT
 **Contact:** Justine Lieberman-Fink (Managing Broker / Founding Partner)
 **Location:** 472 Riverside Ave, Westport, CT
 **Phone:** (203) 226-8300
-**Subject:** Quick question — learning from local brokerages
+**Subject:** Looking to chat about real estate
 
 Hi Justine,
 
@@ -206,7 +206,7 @@ New Haven, CT
 **Contact:** Andy Sachs (Managing Broker)
 **Location:** 17 Church Hill Rd, Newtown, CT
 **Phone:** (203) 200-0851
-**Subject:** Quick question — learning from local brokerages
+**Subject:** Looking to chat about real estate
 
 Hi Andy,
 
@@ -228,7 +228,7 @@ New Haven, CT
 **Contact:** Tommy Dorso (Owner/Broker)
 **Location:** 911-913 Meriden Rd, Waterbury, CT
 **Phone:** (203) 528-3872
-**Subject:** Quick question — learning from local brokerages
+**Subject:** Looking to chat about real estate
 
 Hi Tommy,
 
@@ -250,7 +250,7 @@ New Haven, CT
 **Contact:** Brian Godin (Principal)
 **Location:** 850 Straits Tpke Suite 204, Middlebury, CT
 **Phone:** (203) 577-2277
-**Subject:** Quick question — learning from local brokerages
+**Subject:** Looking to chat about real estate
 
 Hi Brian,
 
