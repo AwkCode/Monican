@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conduit AI — Real Estate Agent Demo</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 24px 40px;
+            border-bottom: 1px solid #2a2a4a;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+        .logo span { color: #4ecdc4; }
+        .header-subtitle {
+            font-size: 14px;
+            color: #888;
+        }
+
+        /* Tab Navigation */
+        .tabs {
+            display: flex;
+            background: #111;
+            border-bottom: 1px solid #222;
+            padding: 0 40px;
+        }
+        .tab {
+            padding: 16px 24px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .tab:hover { color: #aaa; }
+        .tab.active {
+            color: #4ecdc4;
+            border-bottom-color: #4ecdc4;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .agent-panel { display: none; }
+        .agent-panel.active { display: block; }
+
+        /* Description */
+        .agent-desc {
+            background: #1a1a2e;
+            border: 1px solid #2a2a4a;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+        .agent-desc h2 {
+            font-size: 20px;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .agent-desc p {
+            color: #999;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .agent-desc .stat {
+            display: inline-block;
+            background: #4ecdc420;
+            color: #4ecdc4;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 12px;
+            margin-right: 8px;
+        }
+
+        /* Form */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group.full { grid-column: 1 / -1; }
+        label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        input, textarea, select {
+            background: #1a1a2e;
+            border: 1px solid #2a2a4a;
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #e0e0e0;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #4ecdc4;
+        }
+        textarea { resize: vertical; min-height: 80px; }
+
+        /* Button */
+        .generate-btn {
+            background: linear-gradient(135deg, #4ecdc4, #44a39b);
+            color: #0a0a0a;
+            border: none;
+            padding: 14px 32px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .generate-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px #4ecdc440;
+        }
+        .generate-btn:active { transform: translateY(0); }
+
+        /* Output */
+        .output-section {
+            margin-top: 40px;
+            display: none;
+        }
+        .output-section.visible { display: block; }
+        .output-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .output-tab {
+            padding: 8px 16px;
+            background: #1a1a2e;
+            border: 1px solid #2a2a4a;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #888;
+            transition: all 0.2s;
+        }
+        .output-tab:hover { color: #ccc; }
+        .output-tab.active {
+            background: #4ecdc420;
+            border-color: #4ecdc4;
+            color: #4ecdc4;
+        }
+        .output-content {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 24px;
+            white-space: pre-wrap;
+            font-size: 14px;
+            line-height: 1.7;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .output-content h3 {
+            color: #4ecdc4;
+            margin-bottom: 12px;
+        }
+
+        /* Process visualization */
+        .process-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 24px 0;
+            padding: 20px;
+            background: #111;
+            border-radius: 12px;
+            border: 1px solid #222;
+        }
+        .process-step {
+            text-align: center;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .process-step.input { background: #2d1b69; color: #a78bfa; }
+        .process-step.process { background: #1a3a2a; color: #4ecdc4; }
+        .process-step.output { background: #3a2a1a; color: #f0b060; }
+        .arrow { color: #444; font-size: 20px; }
+
+        /* Loading animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        .loading.visible { display: block; }
+        .loading-dots span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #4ecdc4;
+            border-radius: 50%;
+            margin: 0 4px;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        /* Copy button */
+        .copy-btn {
+            float: right;
+            background: #2a2a4a;
+            border: none;
+            color: #888;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .copy-btn:hover { background: #3a3a5a; color: #ccc; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div style="display:flex;align-items:center;gap:14px">
+            <img src="logo.png" alt="Conduit AI" style="height:36px;filter:invert(1) brightness(2)">
+            <div class="header-subtitle" style="border-left:1px solid #333;padding-left:14px">Real Estate AI Workflow Demo</div>
+        </div>
+        <div style="font-size: 13px; color: #666;">Daniel Weadock & Evan Rolfe</div>
+    </div>
+
+    <div class="tabs">
+        <div class="tab active" onclick="switchAgent('listing')">Listing Generator</div>
+        <div class="tab" onclick="switchAgent('lead')">Lead Responder</div>
+    </div>
+
+    <div class="container">
+        <!-- LISTING GENERATOR -->
+        <div id="listing-panel" class="agent-panel active">
+            <div class="agent-desc">
+                <h2>Listing Description Generator</h2>
+                <p>Enter property details and instantly generate MLS descriptions, social media posts, email blasts, and open house announcements. What takes 30-60 minutes by hand takes 10 seconds with AI.</p>
+                <span class="stat">Saves 30-60 min per listing</span>
+                <span class="stat">4 output formats</span>
+                <span class="stat">$500 Quick Win</span>
+            </div>
+
+            <div class="process-flow">
+                <div class="process-step input">📋 Property Details</div>
+                <div class="arrow">→</div>
+                <div class="process-step process">🧠 AI Agent</div>
+                <div class="arrow">→</div>
+                <div class="process-step output">📝 4 Content Formats</div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group full">
+                    <label>Property Address</label>
+                    <input type="text" id="l-address" placeholder="47 Wattaquadock Hill Rd, Bolton, MA 01740">
+                </div>
+                <div class="form-group">
+                    <label>Price</label>
+                    <input type="text" id="l-price" placeholder="625000">
+                </div>
+                <div class="form-group">
+                    <label>Property Style</label>
+                    <select id="l-style">
+                        <option>Colonial</option>
+                        <option>Cape</option>
+                        <option>Ranch</option>
+                        <option>Contemporary</option>
+                        <option>Farmhouse</option>
+                        <option>Victorian</option>
+                        <option>Split-Level</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Bedrooms</label>
+                    <input type="number" id="l-beds" placeholder="4">
+                </div>
+                <div class="form-group">
+                    <label>Bathrooms</label>
+                    <input type="text" id="l-baths" placeholder="2.5">
+                </div>
+                <div class="form-group">
+                    <label>Square Footage</label>
+                    <input type="text" id="l-sqft" placeholder="2400">
+                </div>
+                <div class="form-group">
+                    <label>Lot (acres)</label>
+                    <input type="text" id="l-lot" placeholder="1.8">
+                </div>
+                <div class="form-group full">
+                    <label>Key Features (comma-separated)</label>
+                    <textarea id="l-features" placeholder="Updated kitchen with granite, hardwood floors, primary suite, finished basement, screened porch, 2-car garage"></textarea>
+                </div>
+                <div class="form-group full">
+                    <label>Neighborhood / Location Notes</label>
+                    <input type="text" id="l-neighborhood" placeholder="Quiet cul-de-sac in Bolton's Wattaquadock Hill neighborhood">
+                </div>
+            </div>
+
+            <button class="generate-btn" onclick="generateListing()">⚡ Generate All Content</button>
+
+            <div class="loading" id="listing-loading">
+                <div class="loading-dots"><span></span><span></span><span></span></div>
+                <p style="margin-top: 12px; color: #666;">Agent is generating 4 content formats...</p>
+            </div>
+
+            <div class="output-section" id="listing-output">
+                <div class="output-tabs">
+                    <div class="output-tab active" onclick="switchOutput('listing', 'mls')">MLS Description</div>
+                    <div class="output-tab" onclick="switchOutput('listing', 'social')">Social Media</div>
+                    <div class="output-tab" onclick="switchOutput('listing', 'email')">Email Blast</div>
+                    <div class="output-tab" onclick="switchOutput('listing', 'openhouse')">Open House</div>
+                </div>
+                <div class="output-content" id="listing-content"></div>
+            </div>
+        </div>
+
+        <!-- LEAD RESPONDER -->
+        <div id="lead-panel" class="agent-panel">
+            <div class="agent-desc">
+                <h2>Lead Response Auto-Drafter</h2>
+                <p>Paste an incoming lead inquiry and get a personalized response in seconds. The agent classifies the lead type, personalizes the response, and generates CRM notes with a follow-up plan.</p>
+                <span class="stat">Saves 10-15 min per lead</span>
+                <span class="stat">Auto-classifies lead type</span>
+                <span class="stat">Includes CRM notes</span>
+            </div>
+
+            <div class="process-flow">
+                <div class="process-step input">📨 Lead Inquiry</div>
+                <div class="arrow">→</div>
+                <div class="process-step process">🧠 Classify + Personalize</div>
+                <div class="arrow">→</div>
+                <div class="process-step output">✉️ Response + CRM + Plan</div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Lead Name</label>
+                    <input type="text" id="r-name" placeholder="Sarah Chen">
+                </div>
+                <div class="form-group">
+                    <label>Source</label>
+                    <select id="r-source">
+                        <option>Zillow</option>
+                        <option>Realtor.com</option>
+                        <option>Website</option>
+                        <option>Referral</option>
+                        <option>Facebook</option>
+                        <option>Open House</option>
+                    </select>
+                </div>
+                <div class="form-group full">
+                    <label>Property of Interest</label>
+                    <input type="text" id="r-property" placeholder="47 Wattaquadock Hill Rd, Bolton, MA">
+                </div>
+                <div class="form-group full">
+                    <label>Their Message</label>
+                    <textarea id="r-message" rows="4" placeholder="Hi, I saw this listing online and I'm interested in scheduling a showing. My husband and I are relocating from Worcester for the school district. Is this still available?"></textarea>
+                </div>
+            </div>
+
+            <button class="generate-btn" onclick="generateResponse()">⚡ Generate Response</button>
+
+            <div class="loading" id="lead-loading">
+                <div class="loading-dots"><span></span><span></span><span></span></div>
+                <p style="margin-top: 12px; color: #666;">Agent is classifying lead and drafting response...</p>
+            </div>
+
+            <div class="output-section" id="lead-output">
+                <div class="output-tabs">
+                    <div class="output-tab active" onclick="switchOutput('lead', 'response')">Email Response</div>
+                    <div class="output-tab" onclick="switchOutput('lead', 'crm')">CRM Notes</div>
+                    <div class="output-tab" onclick="switchOutput('lead', 'followup')">Follow-Up Plan</div>
+                </div>
+                <div class="output-content" id="lead-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching
+        function switchAgent(agent) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.agent-panel').forEach(p => p.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(agent + '-panel').classList.add('active');
+        }
+
+        function switchOutput(agent, tab) {
+            const parent = document.getElementById(agent + '-output');
+            parent.querySelectorAll('.output-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (agent === 'listing') showListingTab(tab);
+            if (agent === 'lead') showLeadTab(tab);
+        }
+
+        // Listing Generator
+        let listingData = {};
+
+        function generateListing() {
+            const address = document.getElementById('l-address').value || '47 Wattaquadock Hill Rd, Bolton, MA 01740';
+            const price = parseInt((document.getElementById('l-price').value || '625000').replace(/[,$]/g, ''));
+            const style = document.getElementById('l-style').value;
+            const beds = parseInt(document.getElementById('l-beds').value || '4');
+            const baths = document.getElementById('l-baths').value || '2.5';
+            const sqft = parseInt((document.getElementById('l-sqft').value || '2400').replace(/,/g, ''));
+            const lot = document.getElementById('l-lot').value || '1.8';
+            const features = (document.getElementById('l-features').value || 'Updated kitchen, hardwood floors, primary suite').split(',').map(f => f.trim());
+            const neighborhood = document.getElementById('l-neighborhood').value || 'a desirable neighborhood';
+            const town = address.split(',')[1]?.trim() || 'Bolton';
+            const priceFormatted = '$' + price.toLocaleString();
+
+            // Show loading
+            document.getElementById('listing-loading').classList.add('visible');
+            document.getElementById('listing-output').classList.remove('visible');
+
+            setTimeout(() => {
+                listingData = {
+                    mls: `${address}\n${priceFormatted} | ${beds} BD / ${baths} BA | ${sqft.toLocaleString()} SF\n\nWelcome to this stunning ${style} nestled in ${neighborhood}. This ${beds}-bedroom, ${baths}-bath home offers ${sqft.toLocaleString()} square feet of beautifully maintained living space on a ${lot}-acre lot.\n\n${features.map(f => '• ' + f).join('\n')}\n\nThis home has been thoughtfully updated while maintaining its classic charm. Easy access to Route 495, I-190, and commuter routes to Boston.\n\nDon't miss this exceptional opportunity. Schedule your private showing today!`,
+
+                    social: `🏠 Just Listed in ${town}! 🏠\n\n${beds} BD | ${baths} BA | ${sqft.toLocaleString()} SF\n💰 ${priceFormatted}\n\n${features.slice(0, 3).map(f => '✨ ' + f).join('\n')}\n\nThis ${style} on ${lot} acres won't last long!\n\n📞 DM me for a private showing!\n\n#${town.replace(/\s/g, '')}RealEstate #JustListed #NewListing #HomeForSale #DreamHome #${style} #Massachusetts`,
+
+                    email: `Subject: New Listing Alert: ${beds}BD ${style} in ${town} — ${priceFormatted}\n\nHi [First Name],\n\nI wanted you to be among the first to know about this incredible new listing:\n\n${address}\n${beds} Bedrooms | ${baths} Bathrooms | ${sqft.toLocaleString()} Sq Ft | ${priceFormatted}\n\nHere's what makes this one special:\n\n${features.slice(0, 5).map(f => '  • ' + f).join('\n')}\n\nSituated on ${lot} acres in ${neighborhood}, this property checks all the boxes.\n\nWant to see it in person? Reply to this email or call me to schedule a private showing.\n\nBest,\n[Agent Name]`,
+
+                    openhouse: `🏡 OPEN HOUSE 🏡\n\n${address}\n${priceFormatted} | ${beds} BD / ${baths} BA | ${sqft.toLocaleString()} SF\n\n📅 Saturday | 12:00 PM – 2:00 PM\n📅 Sunday | 1:00 PM – 3:00 PM\n\nCome see this beautiful ${style} in ${neighborhood}!\n\n• ${sqft.toLocaleString()} square feet on ${lot} acres\n• ${features[0]}\n• ${features[1] || 'Move-in ready'}\n\nNo appointment necessary — just stop by!\n\n[Agent Name] | [Brokerage] | [Phone]`
+                };
+
+                document.getElementById('listing-loading').classList.remove('visible');
+                document.getElementById('listing-output').classList.add('visible');
+                showListingTab('mls');
+            }, 1500);
+        }
+
+        function showListingTab(tab) {
+            document.getElementById('listing-content').textContent = listingData[tab] || '';
+        }
+
+        // Lead Responder
+        let leadData = {};
+
+        function generateResponse() {
+            const name = document.getElementById('r-name').value || 'Sarah Chen';
+            const firstName = name.split(' ')[0];
+            const source = document.getElementById('r-source').value;
+            const property = document.getElementById('r-property').value || 'your listing';
+            const message = document.getElementById('r-message').value || '';
+            const msgLower = message.toLowerCase();
+
+            // Classify
+            let leadType, quality;
+            if (['first-time', 'looking for', 'what do you have', 'searching', 'budget'].some(w => msgLower.includes(w))) {
+                leadType = 'Buyer Inquiry'; quality = '🟡 Warm';
+            } else if (['showing', 'see it', 'visit', 'tour', 'schedule', 'still available'].some(w => msgLower.includes(w))) {
+                leadType = 'Showing Request'; quality = '🔥 Hot';
+            } else if (['tax', 'hoa', 'basement', 'roof', 'question'].some(w => msgLower.includes(w))) {
+                leadType = 'Property Question'; quality = '🔵 Cool';
+            } else if (['sell', 'selling', 'list my', 'worth'].some(w => msgLower.includes(w))) {
+                leadType = 'Seller Inquiry'; quality = '🟡 Warm';
+            } else {
+                leadType = 'General'; quality = '🔵 Cool';
+            }
+
+            document.getElementById('lead-loading').classList.add('visible');
+            document.getElementById('lead-output').classList.remove('visible');
+
+            setTimeout(() => {
+                let responseBody = '';
+                if (leadType === 'Showing Request') {
+                    responseBody = `Hi ${firstName},\n\nThank you for reaching out about ${property}! Great news — it's still available and generating a lot of interest.\n\nI'd love to set up a private showing for you. I have availability this week:\n\n  • Tomorrow at 10:00 AM or 4:00 PM\n  • Thursday at 11:00 AM or 5:30 PM\n  • Saturday at 12:00 PM or 2:00 PM\n\nWhich works best for you?`;
+                    if (msgLower.includes('school') || msgLower.includes('relocat')) {
+                        responseBody += `\n\nBy the way — you mentioned relocating for the schools. The Nashoba Regional School District is excellent and recently ranked in the top 15% statewide. I'd love to share more when we meet.`;
+                    }
+                } else if (leadType === 'Buyer Inquiry') {
+                    responseBody = `Hi ${firstName},\n\nThanks for reaching out! I'd love to help you find the right home.\n\nBased on what you're looking for, I have a few properties in mind that could be a great fit. The market is moving quickly, so the best next step would be a quick 15-minute call.\n\nDo you have time this week?\n\n  • Tomorrow at 10:00 AM or 2:00 PM\n  • Thursday at 11:00 AM or 4:00 PM\n\nI'll pull together some listings that match your criteria so we can hit the ground running.`;
+                } else if (leadType === 'Property Question') {
+                    responseBody = `Hi ${firstName},\n\nGreat questions about ${property}! Let me get you those answers.\n\nI'm pulling the detailed property information right now and will have specifics within the hour. In the meantime, would you like to schedule a showing?`;
+                } else {
+                    responseBody = `Hi ${firstName},\n\nThank you for reaching out! I'd love to help.\n\nCould you tell me a bit more about what you're looking for? The easiest next step would be a quick 10-minute call.\n\nDo you have any availability this week?`;
+                }
+                responseBody += `\n\nBest,\n[Agent Name]\n[Brokerage]\n[Phone]`;
+
+                let signals = [];
+                if (msgLower.includes('relocat')) signals.push('• Relocating (motivated buyer)');
+                if (msgLower.includes('school')) signals.push('• Schools are a priority');
+                if (msgLower.includes('first-time')) signals.push('• First-time buyer (may need FHA guidance)');
+                if (msgLower.includes('invest')) signals.push('• Investment-minded');
+
+                leadData = {
+                    response: `Subject: Re: ${property}\n\n${responseBody}`,
+                    crm: `LEAD CLASSIFICATION\n\nName: ${name}\nSource: ${source}\nType: ${leadType}\nQuality: ${quality}\nProperty: ${property}\n\nOriginal Message:\n"${message}"\n\nKey Signals Detected:\n${signals.length ? signals.join('\n') : '• No special signals detected'}\n\n⚡ SPEED MATTERS: Leads contacted within 5 minutes are 21x more likely to convert.`,
+                    followup: `FOLLOW-UP PLAN FOR ${name.toUpperCase()}\n\nDay 0 (TODAY): Send email response immediately\nDay 1: Call if phone was provided, text if mobile\nDay 3: Follow-up email if no response\nDay 7: Send new listings or market update\nDay 14: Add to monthly newsletter\nDay 30: Check in with market conditions update\n\nNOTES:\n• ${leadType} leads typically convert in 7-14 days\n• Always reference their original message in follow-ups\n• If they go quiet after Day 7, switch to value-add content (market reports, new listings)`
+                };
+
+                document.getElementById('lead-loading').classList.remove('visible');
+                document.getElementById('lead-output').classList.add('visible');
+                showLeadTab('response');
+            }, 1200);
+        }
+
+        function showLeadTab(tab) {
+            document.getElementById('lead-content').textContent = leadData[tab] || '';
+        }
+    </script>
+</body>
+</html>

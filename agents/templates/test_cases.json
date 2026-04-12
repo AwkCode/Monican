@@ -1,0 +1,912 @@
+{
+  "description": "50 test cases for the Lead Responder agent. Each case has an input lead + expected classification. Used to verify the Claude prompt handles real-world variety.",
+  "version": "1.0",
+  "cases": [
+    {
+      "id": 1,
+      "category": "showing_request_standard",
+      "input": {
+        "lead_name": "Sarah Chen",
+        "lead_email": "sarah.chen@gmail.com",
+        "lead_phone": "(508) 555-0147",
+        "source": "Zillow",
+        "property_interest": "47 Wattaquadock Hill Rd, Bolton, MA",
+        "message": "Hi, I saw this listing online and I'm interested in scheduling a showing. My husband and I are relocating from Worcester for the school district. Is this still available?"
+      },
+      "expected": {
+        "lead_type": "showing_request",
+        "quality": "hot",
+        "must_include_signals": ["relocating", "schools_priority"],
+        "response_must_mention": ["47 Wattaquadock Hill Rd", "Nashoba", "showing times"]
+      }
+    },
+    {
+      "id": 2,
+      "category": "buyer_inquiry_first_time",
+      "input": {
+        "lead_name": "Mike Rodriguez",
+        "lead_email": "mrodriguez87@yahoo.com",
+        "lead_phone": "",
+        "source": "Website",
+        "property_interest": "General - Bolton/Stow area",
+        "message": "We're first-time buyers looking for a 3BR under $500K in the Bolton or Stow area. What do you have available?"
+      },
+      "expected": {
+        "lead_type": "buyer_inquiry",
+        "quality": "warm",
+        "must_include_signals": ["first_time_buyer", "price_sensitive"],
+        "response_must_mention": ["Mike", "budget", "qualifying call"]
+      }
+    },
+    {
+      "id": 3,
+      "category": "property_question",
+      "input": {
+        "lead_name": "Jennifer Walsh",
+        "lead_email": "jwalsh@comcast.net",
+        "lead_phone": "(978) 555-0293",
+        "source": "Realtor.com",
+        "property_interest": "12 Main St, Bolton, MA",
+        "message": "What's the tax situation on this property? Also curious about the basement - is it finished?"
+      },
+      "expected": {
+        "lead_type": "property_question",
+        "quality": "warm",
+        "must_include_signals": [],
+        "response_must_mention": ["Jennifer", "12 Main St", "showing"]
+      }
+    },
+    {
+      "id": 4,
+      "category": "seller_inquiry",
+      "input": {
+        "lead_name": "Robert Kim",
+        "lead_email": "rkim@outlook.com",
+        "lead_phone": "(617) 555-0432",
+        "source": "Website",
+        "property_interest": "Home valuation",
+        "message": "Thinking about selling our home in Bolton. We've been here 12 years and want to know what it's worth in today's market."
+      },
+      "expected": {
+        "lead_type": "seller_inquiry",
+        "quality": "warm",
+        "must_include_signals": [],
+        "response_must_mention": ["Robert", "free valuation", "call"]
+      }
+    },
+    {
+      "id": 5,
+      "category": "showing_request_urgent",
+      "input": {
+        "lead_name": "Amanda Park",
+        "lead_email": "apark.realestate@gmail.com",
+        "lead_phone": "(508) 555-0901",
+        "source": "Zillow",
+        "property_interest": "88 Lancaster Rd, Harvard, MA",
+        "message": "Need to see this ASAP. Cash offer ready. Can you show me today or tomorrow?"
+      },
+      "expected": {
+        "lead_type": "showing_request",
+        "quality": "hot",
+        "must_include_signals": ["urgent_timeline", "cash_buyer"],
+        "response_must_mention": ["Amanda", "88 Lancaster", "today", "tomorrow"]
+      }
+    },
+    {
+      "id": 6,
+      "category": "investor",
+      "input": {
+        "lead_name": "David Chen",
+        "lead_email": "dchen.investor@gmail.com",
+        "lead_phone": "(617) 555-1122",
+        "source": "Referral",
+        "property_interest": "Investment properties Worcester County",
+        "message": "Looking for 2-4 unit investment properties in Worcester county. 20% down, conventional financing. What do you have off-market?"
+      },
+      "expected": {
+        "lead_type": "buyer_inquiry",
+        "quality": "warm",
+        "must_include_signals": ["investor"],
+        "response_must_mention": ["David", "investment", "call"]
+      }
+    },
+    {
+      "id": 7,
+      "category": "out_of_state_relocating",
+      "input": {
+        "lead_name": "Lisa Martinez",
+        "lead_email": "lmartinez@protonmail.com",
+        "lead_phone": "(512) 555-0456",
+        "source": "Website",
+        "property_interest": "Bolton area homes",
+        "message": "My husband just got a job at Raytheon. We're moving from Austin, TX and need to find a home by August. 4 bedrooms, good schools, under $750K. We can fly in one weekend to look."
+      },
+      "expected": {
+        "lead_type": "buyer_inquiry",
+        "quality": "hot",
+        "must_include_signals": ["relocating", "out_of_state", "schools_priority", "urgent_timeline"],
+        "response_must_mention": ["Lisa", "Austin", "schools", "weekend"]
+      }
+    },
+    {
+      "id": 8,
+      "category": "vague_general",
+      "input": {
+        "lead_name": "John Smith",
+        "lead_email": "jsmith@gmail.com",
+        "lead_phone": "",
+        "source": "Website",
+        "property_interest": "",
+        "message": "I want to buy a house."
+      },
+      "expected": {
+        "lead_type": "general",
+        "quality": "warm",
+        "must_include_signals": [],
+        "response_must_mention": ["John", "budget", "area", "timeline"]
+      }
+    },
+    {
+      "id": 9,
+      "category": "downsizing",
+      "input": {
+        "lead_name": "Margaret Sullivan",
+        "lead_email": "msullivan1952@aol.com",
+        "lead_phone": "(978) 555-0234",
+        "source": "Referral",
+        "property_interest": "Single-level homes Bolton/Harvard",
+        "message": "My husband and I are empty nesters looking to downsize from our 4BR colonial. We want something on one level, 2-3 bedrooms, easy maintenance. No stairs. Ideally under $500K."
+      },
+      "expected": {
+        "lead_type": "buyer_inquiry",
+        "quality": "warm",
+        "must_include_signals": ["downsizing", "price_sensitive"],
+        "response_must_mention": ["Margaret", "single-level", "ranch"]
+      }
+    },
+    {
+      "id": 10,
+      "category": "upsizing_family",
+      "input": {
+        "lead_name": "Brian Park",
+        "lead_email": "bpark.family@gmail.com",
+        "lead_phone": "(508) 555-3344",
+        "source": "Zillow",
+        "property_interest": "47 Wattaquadock Hill Rd, Bolton, MA",
+        "message": "Third baby on the way and our current house is too small. Really interested in this one. When can we come see it?"
+      },
+      "expected": {
+        "lead_type": "showing_request",
+        "quality": "hot",
+        "must_include_signals": ["upsizing"],
+        "response_must_mention": ["Brian", "47 Wattaquadock", "showing"]
+      }
+    },
+    {
+      "id": 11,
+      "category": "spanish_language",
+      "input": {
+        "lead_name": "Carlos Ramirez",
+        "lead_email": "cramirez@gmail.com",
+        "lead_phone": "(508) 555-7788",
+        "source": "Website",
+        "property_interest": "47 Wattaquadock Hill Rd, Bolton, MA",
+        "message": "Hola, estoy interesado en ver esta propiedad. Mi familia y yo queremos mudarnos de Worcester. Cuando puedo visitarla?"
+      },
+      "expected": {
+        "lead_type": "showing_request",
+        "quality": "hot",
+        "must_include_signals": ["relocating"],
+        "response_language": "spanish",
+        "response_must_mention": ["Carlos", "Wattaquadock"]
+      }
+    },
+    {
+      "id": 12,
+      "category": "typos_bad_grammar",
+      "input": {
+        "lead_name": "tyler k",
+        "lead_email": "tyler.k@gmail.com",
+        "lead_phone": "",
+        "source": "Zillow",
+        "property_interest": "47 Wattaquadock Hill Rd",
+        "message": "hey i wanna see this how do i do that when can i do it thx"
+      },
+      "expected": {
+        "lead_type": "showing_request",
+        "quality": "warm",
+        "must_include_signals": [],
+        "response_must_mention": ["Tyler", "showing times"]
+      }
+    },
+    {
+      "id": 13,
+      "category": "multiple_questions",
+      "input": {
+        "lead_name": "Rachel Green",
+        "lead_email": "rgreen@yahoo.com",
+        "lead_phone": "(978) 555-4455",
+        "source": "Realtor.com",
+        "property_interest": "47 Wattaquadock Hill Rd, Bolton, MA",
+        "message": "Hi! A few questions: 1) What are the property taxes? 2) How old is the roof? 3) Is the basement waterproofed? 4) Are there HOA fees? 5) Can we see it this Saturday?"
+      },
+      "expected": {
+        "lead_type": "showing_request",
+        "quality": "hot",
+        "must_include_signals": [],
+        "response_must_mention": ["Rachel", "Saturday", "answers"]
+      }
+    },
+    {
+      "id": 14,
+      "category": "angry_hostile",
+      "input": {
+        "lead_name": "Frustrated Buyer",
+        "lead_email": "angry.buyer@gmail.com",
+        "lead_phone": "",
+        "source": "Website",
+        "property_interest": "General",
+        "message": "I've been trying to get ANYONE to call me back for two weeks. This market is a joke. Does anyone actually want to sell a house or are you all just wasting my time???"
+      },
+      "expected": {
+        "lead_type": "general",
+        "quality": "cool",
+        "must_include_signals": [],
+        "internal_notes_must_mention": ["caution", "angry"],
+        "suggested_next_action_must_mention": ["human review", "call"]
+      }
+    },
+    {
+      "id": 15,
+      "category": "spam_bot",
+      "input": {
+        "lead_name": "SEO Services",
+        "lead_email": "marketing@seogrowth2000.com",
+        "lead_phone": "",
+        "source": "Website",
+        "property_interest": "",
+        "message": "Hello, I noticed your website could benefit from our SEO optimization services. We can guarantee first page Google rankings for just $299/month. Reply STOP to unsubscribe."
+      },
+      "expected": {
+        "lead_type": "general",
+        "quality": "cool",
+        "draft_response_body_empty": true,
+        "internal_notes_must_mention": ["spam"],
+        "suggested_next_action_must_mention": ["delete", "spam"]
+      }
+    },
+    {
+      "id": 16,
+      "category": "price_objection",
+      "input": {
+        "lead_name": "Tom Hughes",
+        "lead_email": "thughes@gmail.com",
+        "lead_phone": "(508) 555-6789",
+        "source": "Zillow",
+        "property_interest": "47 Wattaquadock Hill Rd, Bolton, MA",
+        "message": "Nice house but $625K seems high for the area. Would the sellers accept $575K?"
+      },
+      "expected": {
+        "lead_type": "property_question",
+        "quality": "warm",
+        "must_include_signals": ["price_sensitive"],
+        "response_must_mention": ["Tom", "call", "discuss"],
+        "response_must_not_mention": ["accept", "$575"]
+      }
+    },
+    {
+      "id": 17,
+      "category": "pre_approved",
+      "input": {
+        "lead_name": "Jessica Wong",
+        "lead_email": "jwong.ma@gmail.com",
+        "lead_phone": "(617) 555-9876",
+        "source": "Website",
+        "property_interest": "Homes in Bolton under $700K",
+        "message": "I'm pre-approved for $680K through Wells Fargo and ready to buy. Looking for a 3-4 bedroom in Bolton or nearby. Ideally something that's move-in ready. Can we set up a buyer consultation?"
+      },
+      "expected": {
+        "lead_type": "buyer_inquiry",
+        "quality": "hot",
+        "must_include_signals": [],
+        "response_must_mention": ["Jessica", "consultation", "showing"]
+      }
+    },
+    {
+      "id": 18,
+      "category": "showing_request_weekend_only",
+      "input": {
+        "lead_name": "Kevin O'Brien",
+        "lead_email": "kob@gmail.com",
+        "lead_phone": "(508) 555-0011",
+        "source": "Zillow",
+        "property_interest": "88 Lancaster Rd, Harvard, MA",
+        "message": "Interested in seeing this property but we both work full time. Can only do weekends. Is Saturday or Sunday possible this week?"
+      },
+      "expected": {
+        "lead_type": "showing_request",
+        "quality": "hot",
+        "must_include_signals": [],
+        "response_must_mention": ["Kevin", "Saturday", "Sunday"]
+      }
+    },
+    {
+      "id": 19,
+      "category": "referral_mentioned",
+      "input": {
+        "lead_name": "Steve Baker",
+        "lead_email": "sbaker@gmail.com",
+        "lead_phone": "(978) 555-2233",
+        "source": "Referral",
+        "property_interest": "Homes in Lancaster/Sterling",
+        "message": "My neighbor Jim recommended you. Said you helped him buy his house in Bolton last year. Looking for a similar situation - 3BR, yard for kids, good schools."
+      },
+      "expected": {
+        "lead_type": "buyer_inquiry",
+        "quality": "warm",
+        "must_include_signals": ["schools_priority"],
+        "response_must_mention": ["Steve", "Jim", "call"]
+      }
+    },
+    {
+      "id": 20,
+      "category": "rental_confusion",
+      "input": {
+        "lead_name": "Maria Lopez",
+        "lead_email": "mlopez@gmail.com",
+        "lead_phone": "(508) 555-8765",
+        "source": "Website",
+        "property_interest": "47 Wattaquadock Hill Rd, Bolton, MA",
+        "message": "Is this house for rent? How much per month?"
+      },
+      "expected": {
+        "lead_type": "general",
+        "quality": "cool",
+        "must_include_signals": [],
+        "response_must_mention": ["Maria", "for sale"]
+      }
+    },
+    {
+      "id": 21,
+      "category": "contingent_sale",
+      "input": {
+        "lead_name": "Paul & Nancy Green",
+        "lead_email": "pgreen@gmail.com",
+        "lead_phone": "(978) 555-3456",
+        "source": "Zillow",
+        "property_interest": "47 Wattaquadock Hill Rd, Bolton, MA",
+        "message": "We're interested but we need to sell our current home first. Would the sellers accept a contingent offer? Our house is in Acton and should sell quickly."
+      },
+      "expected": {
+        "lead_type": "buyer_inquiry",
+        "quality": "warm",
+        "must_include_signals": [],
+        "response_must_mention": ["Paul", "contingent", "Acton", "call"]
+      }
+    },
+    {
+      "id": 22,
+      "category": "multiple_properties_interest",
+      "input": {
+        "lead_name": "Alex Johnson",
+        "lead_email": "ajohnson@gmail.com",
+        "lead_phone": "(617) 555-7777",
+        "source": "Website",
+        "property_interest": "47 Wattaquadock Hill Rd + 88 Lancaster Rd",
+        "message": "I'm interested in both 47 Wattaquadock Hill Rd in Bolton and 88 Lancaster Rd in Harvard. Can we see both on the same day?"
+      },
+      "expected": {
+        "lead_type": "showing_request",
+        "quality": "hot",
+        "must_include_signals": [],
+        "response_must_mention": ["Alex", "both", "47 Wattaquadock", "88 Lancaster"]
+      }
+    },
+    {
+      "id": 23,
+      "category": "timeline_far_future",
+      "input": {
+        "lead_name": "Emma Wilson",
+        "lead_email": "ewilson@gmail.com",
+        "lead_phone": "",
+        "source": "Website",
+        "property_interest": "Homes in Bolton",
+        "message": "We're planning to buy in about 12-18 months. Just starting to research the area. Can you add me to a market update email list?"
+      },
+      "expected": {
+        "lead_type": "buyer_inquiry",
+        "quality": "cool",
+        "must_include_signals": [],
+        "response_must_mention": ["Emma", "newsletter", "updates"]
+      }
+    },
+    {
+      "id": 24,
+      "category": "elderly_downsizing",
+      "input": {
+        "lead_name": "Dorothy Matthews",
+        "lead_email": "dmatthews1938@aol.com",
+        "lead_phone": "(978) 555-1212",
+        "source": "Referral",
+        "property_interest": "55+ community homes",
+        "message": "My husband passed last year and the house is too big. Looking for a 55+ community, small home, one level, close to my daughter in Clinton. I'm not in a rush but want to start looking."
+      },
+      "expected": {
+        "lead_type": "buyer_inquiry",
+        "quality": "warm",
+        "must_include_signals": ["downsizing"],
+        "response_must_mention": ["Dorothy", "55+", "one level"]
+      }
+    },
+    {
+      "id": 25,
+      "category": "tech_worker",
+      "input": {
+        "lead_name": "Priya Patel",
+        "lead_email": "ppatel.eng@gmail.com",
+        "lead_phone": "(617) 555-9090",
+        "source": "Zillow",
+        "property_interest": "47 Wattaquadock Hill Rd, Bolton, MA",
+        "message": "I work remote for a tech company in SF. Moving to MA to be closer to family. Need good internet (fiber ideally). Is this property wired for fiber?"
+      },
+      "expected": {
+        "lead_type": "property_question",
+        "quality": "hot",
+        "must_include_signals": ["relocating", "out_of_state"],
+        "response_must_mention": ["Priya", "fiber", "check"]
+      }
+    },
+    {
+      "id": 26,
+      "category": "school_specific",
+      "input": {
+        "lead_name": "Jennifer Moreno",
+        "lead_email": "jmoreno@gmail.com",
+        "lead_phone": "(508) 555-4321",
+        "source": "Website",
+        "property_interest": "Homes in Nashoba Regional district",
+        "message": "Hi, looking specifically for homes in the Nashoba Regional School District. We want to be in the Bolton or Stow part of the district. Budget up to $750K."
+      },
+      "expected": {
+        "lead_type": "buyer_inquiry",
+        "quality": "warm",
+        "must_include_signals": ["schools_priority"],
+        "response_must_mention": ["Jennifer", "Nashoba", "Bolton", "Stow"]
+      }
+    },
+    {
+      "id": 27,
+      "category": "open_house_question",
+      "input": {
+        "lead_name": "Chris Taylor",
+        "lead_email": "ctaylor@gmail.com",
+        "lead_phone": "",
+        "source": "Realtor.com",
+        "property_interest": "47 Wattaquadock Hill Rd, Bolton, MA",
+        "message": "Do you have any open houses scheduled for this property? I'd rather just drop by than schedule an appointment."
+      },
+      "expected": {
+        "lead_type": "showing_request",
+        "quality": "warm",
+        "must_include_signals": [],
+        "response_must_mention": ["Chris", "open house"]
+      }
+    },
+    {
+      "id": 28,
+      "category": "seller_timeline_unclear",
+      "input": {
+        "lead_name": "Mark Williams",
+        "lead_email": "mwilliams@gmail.com",
+        "lead_phone": "(978) 555-5566",
+        "source": "Website",
+        "property_interest": "Sell home",
+        "message": "We might want to sell our house in Lancaster. Not sure yet. Just curious what it would go for."
+      },
+      "expected": {
+        "lead_type": "seller_inquiry",
+        "quality": "cool",
+        "must_include_signals": [],
+        "response_must_mention": ["Mark", "free", "Lancaster"]
+      }
+    },
+    {
+      "id": 29,
+      "category": "email_only_no_phone",
+      "input": {
+        "lead_name": "Nicole Harris",
+        "lead_email": "nharris@protonmail.com",
+        "lead_phone": "",
+        "source": "Website",
+        "property_interest": "47 Wattaquadock Hill Rd, Bolton, MA",
+        "message": "Please do not call me. Email only. Interested in the Wattaquadock property, would like to schedule a showing next week."
+      },
+      "expected": {
+        "lead_type": "showing_request",
+        "quality": "hot",
+        "must_include_signals": [],
+        "response_must_mention": ["Nicole", "email", "next week"],
+        "internal_notes_must_mention": ["email only"]
+      }
+    },
+    {
+      "id": 30,
+      "category": "rude_but_interested",
+      "input": {
+        "lead_name": "Greg S.",
+        "lead_email": "gs@gmail.com",
+        "lead_phone": "(508) 555-7654",
+        "source": "Zillow",
+        "property_interest": "47 Wattaquadock Hill Rd, Bolton, MA",
+        "message": "This better still be available because the last three agents I contacted ghosted me. If you're actually going to respond, set up a showing for this weekend."
+      },
+      "expected": {
+        "lead_type": "showing_request",
+        "quality": "hot",
+        "must_include_signals": ["urgent_timeline"],
+        "response_must_mention": ["Greg", "weekend", "available"]
+      }
+    },
+    {
+      "id": 31,
+      "category": "very_specific_criteria",
+      "input": {
+        "lead_name": "Helen Chang",
+        "lead_email": "hchang@gmail.com",
+        "lead_phone": "(617) 555-8877",
+        "source": "Website",
+        "property_interest": "Homes in Bolton/Harvard",
+        "message": "Looking for: 4BR, 2.5+BA, at least 2500 sqft, 1+ acre lot, 2-car garage, finished basement, updated kitchen, NO oil heat, NOT on a main road. Budget $650-800K. Know of anything?"
+      },
+      "expected": {
+        "lead_type": "buyer_inquiry",
+        "quality": "hot",
+        "must_include_signals": [],
+        "response_must_mention": ["Helen", "criteria", "setup"]
+      }
+    },
+    {
+      "id": 32,
+      "category": "horse_property",
+      "input": {
+        "lead_name": "Catherine Wilson",
+        "lead_email": "cwilson.equine@gmail.com",
+        "lead_phone": "(978) 555-9988",
+        "source": "Website",
+        "property_interest": "Horse properties Worcester county",
+        "message": "Looking for a horse property in Worcester or Middlesex County. Need at least 3 acres, barn, pasture, zoning for livestock. Have 2 horses."
+      },
+      "expected": {
+        "lead_type": "buyer_inquiry",
+        "quality": "warm",
+        "must_include_signals": [],
+        "response_must_mention": ["Catherine", "horse", "acres"]
+      }
+    },
+    {
+      "id": 33,
+      "category": "duplicate_lead",
+      "input": {
+        "lead_name": "John Davis",
+        "lead_email": "jdavis@gmail.com",
+        "lead_phone": "(508) 555-3030",
+        "source": "Zillow",
+        "property_interest": "47 Wattaquadock Hill Rd, Bolton, MA",
+        "message": "Second request - I submitted an inquiry 2 days ago and haven't heard back. Is this property still available?"
+      },
+      "expected": {
+        "lead_type": "showing_request",
+        "quality": "hot",
+        "must_include_signals": [],
+        "response_must_mention": ["John", "apologies", "Wattaquadock"],
+        "internal_notes_must_mention": ["duplicate"]
+      }
+    },
+    {
+      "id": 34,
+      "category": "new_construction",
+      "input": {
+        "lead_name": "Raj Kumar",
+        "lead_email": "rkumar@gmail.com",
+        "lead_phone": "(617) 555-1010",
+        "source": "Website",
+        "property_interest": "New construction Bolton area",
+        "message": "Only interested in new construction or homes built after 2020. Don't want to deal with an old house. What do you have in Bolton or nearby towns?"
+      },
+      "expected": {
+        "lead_type": "buyer_inquiry",
+        "quality": "warm",
+        "must_include_signals": [],
+        "response_must_mention": ["Raj", "new construction"]
+      }
+    },
+    {
+      "id": 35,
+      "category": "military_relocation",
+      "input": {
+        "lead_name": "Sgt. Michael Thompson",
+        "lead_email": "mthompson.army@gmail.com",
+        "lead_phone": "(254) 555-2020",
+        "source": "Website",
+        "property_interest": "Homes near Hanscom AFB",
+        "message": "Active duty military, getting stationed at Hanscom AFB in 60 days. Need to find a home for my family - wife and 3 kids. VA loan. Budget around $550K. School quality is top priority."
+      },
+      "expected": {
+        "lead_type": "buyer_inquiry",
+        "quality": "hot",
+        "must_include_signals": ["relocating", "out_of_state", "schools_priority", "urgent_timeline"],
+        "response_must_mention": ["Michael", "Hanscom", "schools", "VA loan"]
+      }
+    },
+    {
+      "id": 36,
+      "category": "lowball_offer",
+      "input": {
+        "lead_name": "Warren B.",
+        "lead_email": "wbuffett@gmail.com",
+        "lead_phone": "(508) 555-4040",
+        "source": "Zillow",
+        "property_interest": "47 Wattaquadock Hill Rd, Bolton, MA",
+        "message": "I'll offer $450K cash, close in 10 days, as-is. Take it or leave it."
+      },
+      "expected": {
+        "lead_type": "buyer_inquiry",
+        "quality": "warm",
+        "must_include_signals": ["cash_buyer", "price_sensitive"],
+        "response_must_mention": ["Warren", "call", "discuss"]
+      }
+    },
+    {
+      "id": 37,
+      "category": "renter_to_buyer",
+      "input": {
+        "lead_name": "Samantha Lee",
+        "lead_email": "slee@gmail.com",
+        "lead_phone": "(617) 555-5050",
+        "source": "Website",
+        "property_interest": "Starter homes Bolton/Stow",
+        "message": "We've been renting in Cambridge for 5 years and finally saved up. First time buying. Pre-approved for $425K. Nervous about the whole process honestly."
+      },
+      "expected": {
+        "lead_type": "buyer_inquiry",
+        "quality": "warm",
+        "must_include_signals": ["first_time_buyer"],
+        "response_must_mention": ["Samantha", "first-time", "process", "call"]
+      }
+    },
+    {
+      "id": 38,
+      "category": "international_buyer",
+      "input": {
+        "lead_name": "Wei Zhang",
+        "lead_email": "wzhang@gmail.com",
+        "lead_phone": "+86 138 5555 6789",
+        "source": "Website",
+        "property_interest": "Investment property Bolton area",
+        "message": "I am from Beijing China. My son will study at Harvard and I want to buy home for him. Cash buyer. Budget 1 million USD."
+      },
+      "expected": {
+        "lead_type": "buyer_inquiry",
+        "quality": "hot",
+        "must_include_signals": ["cash_buyer", "out_of_state", "investor"],
+        "response_must_mention": ["Wei", "cash", "call"]
+      }
+    },
+    {
+      "id": 39,
+      "category": "listing_just_sold",
+      "input": {
+        "lead_name": "Paula Henderson",
+        "lead_email": "phenderson@gmail.com",
+        "lead_phone": "(978) 555-6060",
+        "source": "Zillow",
+        "property_interest": "88 Lancaster Rd, Harvard, MA",
+        "message": "Is 88 Lancaster Rd still available? I saw it online and the status is confusing me."
+      },
+      "expected": {
+        "lead_type": "property_question",
+        "quality": "warm",
+        "must_include_signals": [],
+        "response_must_mention": ["Paula", "88 Lancaster", "check"]
+      }
+    },
+    {
+      "id": 40,
+      "category": "divorce_motivated",
+      "input": {
+        "lead_name": "David Thompson",
+        "lead_email": "dthompson2026@gmail.com",
+        "lead_phone": "(508) 555-7070",
+        "source": "Website",
+        "property_interest": "Sell home Bolton",
+        "message": "Going through a divorce. Need to sell our marital home quickly. Can you come do a valuation this week? Time is critical."
+      },
+      "expected": {
+        "lead_type": "seller_inquiry",
+        "quality": "hot",
+        "must_include_signals": ["urgent_timeline"],
+        "response_must_mention": ["David", "this week", "valuation"]
+      }
+    },
+    {
+      "id": 41,
+      "category": "just_looking",
+      "input": {
+        "lead_name": "Rebecca Kim",
+        "lead_email": "rkim@gmail.com",
+        "lead_phone": "",
+        "source": "Website",
+        "property_interest": "",
+        "message": "Just browsing. Curious what's on the market in the area."
+      },
+      "expected": {
+        "lead_type": "general",
+        "quality": "cool",
+        "must_include_signals": [],
+        "response_must_mention": ["Rebecca", "newsletter", "updates"]
+      }
+    },
+    {
+      "id": 42,
+      "category": "pet_related",
+      "input": {
+        "lead_name": "Sophia Martinez",
+        "lead_email": "smartinez@gmail.com",
+        "lead_phone": "(617) 555-8080",
+        "source": "Zillow",
+        "property_interest": "47 Wattaquadock Hill Rd, Bolton, MA",
+        "message": "Is the yard fenced? We have 2 large dogs who need a secure area. Also is there a pet-friendly vet nearby?"
+      },
+      "expected": {
+        "lead_type": "property_question",
+        "quality": "warm",
+        "must_include_signals": [],
+        "response_must_mention": ["Sophia", "yard", "dogs"]
+      }
+    },
+    {
+      "id": 43,
+      "category": "inheritance_sale",
+      "input": {
+        "lead_name": "Karen O'Connell",
+        "lead_email": "koconnell@gmail.com",
+        "lead_phone": "(978) 555-9090",
+        "source": "Website",
+        "property_interest": "Sell inherited home",
+        "message": "My mother passed and I inherited her home in Harvard. I live in California. Need to sell it, preferably as-is, no repairs. Can you help me from across the country?"
+      },
+      "expected": {
+        "lead_type": "seller_inquiry",
+        "quality": "hot",
+        "must_include_signals": ["out_of_state"],
+        "response_must_mention": ["Karen", "remotely", "as-is", "Harvard"]
+      }
+    },
+    {
+      "id": 44,
+      "category": "agent_from_another_brokerage",
+      "input": {
+        "lead_name": "Tom Richardson",
+        "lead_email": "trichardson@kwrealty.com",
+        "lead_phone": "(617) 555-1234",
+        "source": "Website",
+        "property_interest": "47 Wattaquadock Hill Rd, Bolton, MA",
+        "message": "Hi, I'm a Keller Williams agent and my buyer is interested in this property. Can we set up a showing for Thursday afternoon?"
+      },
+      "expected": {
+        "lead_type": "showing_request",
+        "quality": "hot",
+        "must_include_signals": [],
+        "response_must_mention": ["Tom", "Thursday"]
+      }
+    },
+    {
+      "id": 45,
+      "category": "financing_question",
+      "input": {
+        "lead_name": "Amanda Phillips",
+        "lead_email": "aphillips@gmail.com",
+        "lead_phone": "(508) 555-2345",
+        "source": "Website",
+        "property_interest": "First home in Bolton",
+        "message": "I don't know how mortgages work. Can you explain what I need to do? I have $50K saved and make $85K/year."
+      },
+      "expected": {
+        "lead_type": "buyer_inquiry",
+        "quality": "warm",
+        "must_include_signals": ["first_time_buyer"],
+        "response_must_mention": ["Amanda", "call", "process", "lender"]
+      }
+    },
+    {
+      "id": 46,
+      "category": "very_short_message",
+      "input": {
+        "lead_name": "J",
+        "lead_email": "j@g.com",
+        "lead_phone": "",
+        "source": "Zillow",
+        "property_interest": "47 Wattaquadock Hill Rd",
+        "message": "interested"
+      },
+      "expected": {
+        "lead_type": "general",
+        "quality": "cool",
+        "must_include_signals": [],
+        "response_must_mention": ["47 Wattaquadock"]
+      }
+    },
+    {
+      "id": 47,
+      "category": "showing_request_with_kids",
+      "input": {
+        "lead_name": "Laura Brennan",
+        "lead_email": "lbrennan.mom@gmail.com",
+        "lead_phone": "(978) 555-3456",
+        "source": "Zillow",
+        "property_interest": "47 Wattaquadock Hill Rd, Bolton, MA",
+        "message": "We'd love to see this house. We have 3 small kids so we'd need to bring them along - is that okay? Can we do Saturday morning?"
+      },
+      "expected": {
+        "lead_type": "showing_request",
+        "quality": "hot",
+        "must_include_signals": [],
+        "response_must_mention": ["Laura", "Saturday", "welcome"]
+      }
+    },
+    {
+      "id": 48,
+      "category": "flipper_investor",
+      "input": {
+        "lead_name": "Tony Rivera",
+        "lead_email": "trivera.flips@gmail.com",
+        "lead_phone": "(617) 555-4567",
+        "source": "Website",
+        "property_interest": "Distressed properties",
+        "message": "Looking for fixer-uppers, foreclosures, estate sales in Worcester/Middlesex county. Cash buyer, can close in 14 days. Send me anything that needs work."
+      },
+      "expected": {
+        "lead_type": "buyer_inquiry",
+        "quality": "hot",
+        "must_include_signals": ["investor", "cash_buyer", "urgent_timeline"],
+        "response_must_mention": ["Tony", "call", "distressed"]
+      }
+    },
+    {
+      "id": 49,
+      "category": "tire_kicker",
+      "input": {
+        "lead_name": "Frank Morris",
+        "lead_email": "fmorris@gmail.com",
+        "lead_phone": "(508) 555-5678",
+        "source": "Website",
+        "property_interest": "Homes under $200K",
+        "message": "Looking for a single family home under $200K in the Bolton area. Does that exist?"
+      },
+      "expected": {
+        "lead_type": "buyer_inquiry",
+        "quality": "cool",
+        "must_include_signals": ["price_sensitive"],
+        "response_must_mention": ["Frank", "budget", "options"]
+      }
+    },
+    {
+      "id": 50,
+      "category": "builder_developer",
+      "input": {
+        "lead_name": "Stephen Clark",
+        "lead_email": "sclark.homes@gmail.com",
+        "lead_phone": "(978) 555-6789",
+        "source": "Referral",
+        "property_interest": "Land for development",
+        "message": "I'm a residential builder looking for 5+ acre parcels I can subdivide. Worcester county preferred. Have financing lined up. Let me know what's available off-market."
+      },
+      "expected": {
+        "lead_type": "buyer_inquiry",
+        "quality": "warm",
+        "must_include_signals": ["investor"],
+        "response_must_mention": ["Stephen", "land", "call"]
+      }
+    }
+  ]
+}

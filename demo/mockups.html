@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockups</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#1a1a1a;color:#e0e0e0}
+.mockup{width:900px;margin:40px auto;border-radius:12px;overflow:hidden;box-shadow:0 8px 32px #0008}
+
+/* Gmail-style inbox */
+.gmail{background:#1a1a2e}
+.gmail-header{background:#1e1e2e;padding:12px 20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid #333}
+.gmail-logo{font-size:18px;font-weight:700;color:#fff}
+.gmail-search{flex:1;background:#2a2a3a;border:none;border-radius:8px;padding:10px 16px;color:#ccc;font-size:14px}
+.gmail-tabs{display:flex;border-bottom:1px solid #333}
+.gmail-tab{padding:12px 24px;font-size:13px;color:#888;border-bottom:2px solid transparent}
+.gmail-tab.active{color:#fff;border-bottom-color:#4285f4}
+.gmail-row{display:flex;padding:12px 20px;border-bottom:1px solid #222;cursor:pointer;align-items:center;gap:12px}
+.gmail-row:hover{background:#222233}
+.gmail-row.unread{background:#1e2233}
+.gmail-row.unread .gmail-from,.gmail-row.unread .gmail-subject{font-weight:700;color:#fff}
+.gmail-check{width:18px;height:18px;border:2px solid #555;border-radius:3px}
+.gmail-star{color:#555;font-size:16px}
+.gmail-from{width:180px;font-size:13px;color:#aaa;flex-shrink:0}
+.gmail-subject{font-size:13px;color:#aaa;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gmail-subject b{color:#ccc}
+.gmail-date{font-size:12px;color:#888;flex-shrink:0}
+.gmail-badge{background:#4285f4;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;margin-left:8px}
+.gmail-dot{width:8px;height:8px;border-radius:50%;background:#4285f4;flex-shrink:0}
+
+/* Email detail view */
+.email-detail{background:#1a1a2e;padding:24px}
+.email-detail-header{display:flex;align-items:start;gap:12px;margin-bottom:20px}
+.email-avatar{width:40px;height:40px;border-radius:50%;background:#4285f4;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px;flex-shrink:0}
+.email-meta{flex:1}
+.email-from-name{font-size:14px;font-weight:700;color:#fff}
+.email-from-addr{font-size:12px;color:#888}
+.email-to{font-size:12px;color:#888;margin-top:2px}
+.email-body{font-size:14px;line-height:1.7;color:#ccc;padding-left:52px}
+.email-body p{margin-bottom:12px}
+.email-body .sig{color:#888;font-size:13px;border-top:1px solid #333;padding-top:12px;margin-top:16px}
+
+/* CRM view */
+.crm{background:#0f1117}
+.crm-header{background:#161822;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #222}
+.crm-logo{font-size:16px;font-weight:700;color:#fff}
+.crm-nav{display:flex;gap:20px}
+.crm-nav span{font-size:13px;color:#888;cursor:pointer}
+.crm-nav span.active{color:#fff}
+.crm-card{margin:16px 20px;background:#1a1c2e;border-radius:10px;padding:20px;border:1px solid #2a2a3a}
+.crm-card h3{font-size:14px;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.crm-row{display:flex;padding:8px 0;border-bottom:1px solid #1e1e2e}
+.crm-label{width:140px;font-size:13px;color:#666;flex-shrink:0}
+.crm-value{font-size:13px;color:#ddd}
+.crm-tag{display:inline-block;padding:2px 10px;border-radius:10px;font-size:11px;font-weight:600}
+.crm-tag.hot{background:#ef444430;color:#ef4444}
+.crm-tag.showing{background:#3b82f630;color:#3b82f6}
+.crm-tag.relocating{background:#f59e0b30;color:#f59e0b}
+.crm-tag.schools{background:#10b98130;color:#10b981}
+.crm-timeline{margin:16px 20px}
+.crm-timeline h3{font-size:14px;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.timeline-item{display:flex;gap:12px;padding:8px 0;border-left:2px solid #333;padding-left:16px;margin-left:8px}
+.timeline-item.done{border-left-color:#10b981}
+.timeline-dot{width:10px;height:10px;border-radius:50%;background:#333;margin-top:4px;flex-shrink:0;margin-left:-22px}
+.timeline-item.done .timeline-dot{background:#10b981}
+.timeline-text{font-size:13px;color:#ccc}
+.timeline-time{font-size:11px;color:#666}
+
+/* Agent processing */
+.agent-proc{background:#0a0a0a;padding:24px}
+.proc-header{font-size:18px;font-weight:700;color:#fff;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.proc-header .dot{width:8px;height:8px;border-radius:50%;background:#10b981;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.proc-step{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#141414;border-radius:8px;margin-bottom:8px;border-left:3px solid #333}
+.proc-step.done{border-left-color:#10b981}
+.proc-step .check{color:#10b981;font-size:16px;font-weight:700;width:20px}
+.proc-step .label{font-size:13px;color:#888;width:160px}
+.proc-step .value{font-size:13px;color:#fff;font-weight:600}
+.proc-step .conf{font-size:11px;color:#10b981;margin-left:auto}
+
+/* Listing output */
+.listing-out{background:#0a0a0a;padding:24px}
+.listing-tabs{display:flex;gap:8px;margin-bottom:16px}
+.listing-tab{padding:8px 16px;background:#1a1a2e;border-radius:8px;font-size:12px;color:#888;border:1px solid #2a2a3a}
+.listing-tab.active{color:#fff;border-color:#fff}
+.listing-content{background:#141414;border:1px solid #222;border-radius:10px;padding:20px;font-size:14px;line-height:1.7;color:#ccc}
+.listing-content h4{color:#fff;margin-bottom:8px;font-size:16px}
+.listing-content .meta{color:#888;font-size:13px;margin-bottom:12px}
+</style>
+</head>
+<body>
+
+<!-- MOCKUP 1: Zillow lead email in inbox -->
+<div id="mockup-inbox" class="mockup gmail">
+  <div class="gmail-header">
+    <div class="gmail-logo">✉ Mail</div>
+    <input class="gmail-search" placeholder="Search mail" disabled>
+  </div>
+  <div class="gmail-tabs">
+    <div class="gmail-tab active">Primary</div>
+    <div class="gmail-tab">Social</div>
+    <div class="gmail-tab">Promotions</div>
+  </div>
+  <div class="gmail-row unread">
+    <div class="gmail-dot"></div>
+    <div class="gmail-check"></div>
+    <div class="gmail-star">☆</div>
+    <div class="gmail-from">Zillow Leads <span class="gmail-badge">NEW</span></div>
+    <div class="gmail-subject"><b>New Lead — 47 Wattaquadock Hill Rd, Bolton</b> — Sarah Chen is interested in scheduling a showing. "My husband and I are relocating..."</div>
+    <div class="gmail-date">9:02 AM</div>
+  </div>
+  <div class="gmail-row">
+    <div style="width:8px"></div>
+    <div class="gmail-check"></div>
+    <div class="gmail-star">☆</div>
+    <div class="gmail-from">Realtor.com</div>
+    <div class="gmail-subject">Monthly Market Report — Central MA — March 2026 housing data and trends</div>
+    <div class="gmail-date">8:30 AM</div>
+  </div>
+  <div class="gmail-row">
+    <div style="width:8px"></div>
+    <div class="gmail-check"></div>
+    <div class="gmail-star">☆</div>
+    <div class="gmail-from">MLS PIN</div>
+    <div class="gmail-subject">Status Change Alert — 12 Main St, Stow — Price reduced to $549,000</div>
+    <div class="gmail-date">Yesterday</div>
+  </div>
+  <div class="gmail-row">
+    <div style="width:8px"></div>
+    <div class="gmail-check"></div>
+    <div class="gmail-star">★</div>
+    <div class="gmail-from">Jennifer Walsh</div>
+    <div class="gmail-subject">Re: Closing documents — Can you send the updated inspection report?</div>
+    <div class="gmail-date">Yesterday</div>
+  </div>
+  <div class="gmail-row">
+    <div style="width:8px"></div>
+    <div class="gmail-check"></div>
+    <div class="gmail-star">☆</div>
+    <div class="gmail-from">DocuSign</div>
+    <div class="gmail-subject">Completed: Purchase & Sale Agreement — 88 Lancaster Rd</div>
+    <div class="gmail-date">Apr 3</div>
+  </div>
+</div>
+
+<!-- MOCKUP 2: Agent processing screen -->
+<div id="mockup-processing" class="mockup" style="background:#0a0a0a;padding:24px">
+  <div class="proc-header"><div class="dot"></div> AI Agent Processing — Lead #4,847</div>
+  <div class="proc-step done">
+    <div class="check">✓</div>
+    <div class="label">SOURCE</div>
+    <div class="value">Zillow — 47 Wattaquadock Hill Rd</div>
+    <div class="conf">DETECTED</div>
+  </div>
+  <div class="proc-step done">
+    <div class="check">✓</div>
+    <div class="label">LEAD NAME</div>
+    <div class="value">Sarah Chen</div>
+    <div class="conf">EXTRACTED</div>
+  </div>
+  <div class="proc-step done">
+    <div class="check">✓</div>
+    <div class="label">LEAD TYPE</div>
+    <div class="value">Showing Request</div>
+    <div class="conf">HIGH CONFIDENCE</div>
+  </div>
+  <div class="proc-step done">
+    <div class="check">✓</div>
+    <div class="label">QUALITY SCORE</div>
+    <div class="value" style="color:#ef4444">🔥 HOT — Wants to schedule now</div>
+    <div class="conf">CLASSIFIED</div>
+  </div>
+  <div class="proc-step done">
+    <div class="check">✓</div>
+    <div class="label">SIGNAL: RELOCATING</div>
+    <div class="value">"relocating from Worcester"</div>
+    <div class="conf">DETECTED</div>
+  </div>
+  <div class="proc-step done">
+    <div class="check">✓</div>
+    <div class="label">SIGNAL: SCHOOLS</div>
+    <div class="value">"for the school district"</div>
+    <div class="conf">DETECTED</div>
+  </div>
+  <div class="proc-step done">
+    <div class="check">✓</div>
+    <div class="label">ACTION</div>
+    <div class="value">Draft response with showing times + school info</div>
+    <div class="conf">EXECUTING</div>
+  </div>
+  <div style="text-align:right;margin-top:12px;font-size:12px;color:#666">Processed in 1.2 seconds</div>
+</div>
+
+<!-- MOCKUP 3: Generated email response -->
+<div id="mockup-response" class="mockup gmail">
+  <div class="gmail-header">
+    <div class="gmail-logo">✉ Mail</div>
+    <div style="margin-left:auto;font-size:12px;color:#10b981;font-weight:600">✓ SENT — Auto-generated by AI Agent</div>
+  </div>
+  <div class="email-detail">
+    <div class="email-detail-header">
+      <div class="email-avatar">EF</div>
+      <div class="email-meta">
+        <div class="email-from-name">Eileen Fitzpatrick <span style="font-weight:400;color:#888;font-size:12px">via AI Agent</span></div>
+        <div class="email-from-addr">eileen@remaxbolton.com</div>
+        <div class="email-to">To: sarah.chen@gmail.com</div>
+      </div>
+      <div style="font-size:12px;color:#888">9:02 AM (instant)</div>
+    </div>
+    <div class="email-body">
+      <p>Hi Sarah,</p>
+      <p>Thank you for reaching out about 47 Wattaquadock Hill Rd! Great news — it's still available and generating a lot of interest.</p>
+      <p>I'd love to set up a private showing for you and your husband. I have availability this week:</p>
+      <p style="padding-left:16px">
+        • <strong>Tomorrow</strong> at 10:00 AM or 4:00 PM<br>
+        • <strong>Thursday</strong> at 11:00 AM or 5:30 PM<br>
+        • <strong>Saturday</strong> at 12:00 PM or 2:00 PM
+      </p>
+      <p>Which works best for you? If none of those times work, just let me know your schedule and I'll make it happen.</p>
+      <p>By the way — you mentioned relocating for the schools. The <strong>Nashoba Regional School District</strong> is excellent and was recently ranked in the top 15% statewide. I can share more details about the schools when we meet, and I know the area really well if you have questions about the community.</p>
+      <div class="sig">
+        Best,<br>
+        <strong>Eileen Fitzpatrick</strong><br>
+        RE/MAX Traditions | Bolton, MA<br>
+        (978) 779-5234
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MOCKUP 4: CRM updated -->
+<div id="mockup-crm" class="mockup crm">
+  <div class="crm-header">
+    <div class="crm-logo">CRM — Lead Details</div>
+    <div class="crm-nav">
+      <span>Dashboard</span>
+      <span class="active">Contacts</span>
+      <span>Pipeline</span>
+      <span>Tasks</span>
+    </div>
+  </div>
+  <div class="crm-card">
+    <h3>Contact Information</h3>
+    <div class="crm-row"><div class="crm-label">Name</div><div class="crm-value"><strong>Sarah Chen</strong></div></div>
+    <div class="crm-row"><div class="crm-label">Email</div><div class="crm-value">sarah.chen@gmail.com</div></div>
+    <div class="crm-row"><div class="crm-label">Phone</div><div class="crm-value">(508) 555-0147</div></div>
+    <div class="crm-row"><div class="crm-label">Source</div><div class="crm-value">Zillow</div></div>
+    <div class="crm-row"><div class="crm-label">Property</div><div class="crm-value">47 Wattaquadock Hill Rd, Bolton, MA</div></div>
+    <div class="crm-row"><div class="crm-label">Lead Quality</div><div class="crm-value"><span class="crm-tag hot">🔥 HOT</span></div></div>
+    <div class="crm-row"><div class="crm-label">Lead Type</div><div class="crm-value"><span class="crm-tag showing">Showing Request</span></div></div>
+    <div class="crm-row"><div class="crm-label">Signals</div><div class="crm-value"><span class="crm-tag relocating">Relocating</span> <span class="crm-tag schools">Schools Priority</span></div></div>
+    <div class="crm-row"><div class="crm-label">First Response</div><div class="crm-value" style="color:#10b981">✓ Sent — 10 seconds after inquiry</div></div>
+  </div>
+  <div class="crm-timeline">
+    <h3>Follow-Up Schedule</h3>
+    <div class="timeline-item done">
+      <div class="timeline-dot"></div>
+      <div>
+        <div class="timeline-text"><strong>Day 0 — Email response sent</strong></div>
+        <div class="timeline-time">Today, 9:02 AM — Personalized showing times + school info ✓</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div>
+        <div class="timeline-text"><strong>Day 1 — Phone call</strong></div>
+        <div class="timeline-time">Tomorrow — Call (508) 555-0147, reference showing request</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div>
+        <div class="timeline-text"><strong>Day 3 — Follow-up email</strong></div>
+        <div class="timeline-time">If no response, send follow-up with updated availability</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div>
+        <div class="timeline-text"><strong>Day 7 — New listings email</strong></div>
+        <div class="timeline-time">Send similar Bolton/Stow properties matching their criteria</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MOCKUP 5: Listing generator output -->
+<div id="mockup-listing" class="mockup" style="background:#0a0a0a;padding:24px">
+  <div style="font-size:18px;font-weight:700;color:#fff;margin-bottom:4px">Listing Description Generator</div>
+  <div style="font-size:12px;color:#666;margin-bottom:16px">Input: property details → Output: 4 ready-to-use formats</div>
+  <div class="listing-tabs">
+    <div class="listing-tab active">MLS Description</div>
+    <div class="listing-tab">Social Media</div>
+    <div class="listing-tab">Email Blast</div>
+    <div class="listing-tab">Open House</div>
+  </div>
+  <div class="listing-content">
+    <h4>47 Wattaquadock Hill Rd, Bolton, MA 01740</h4>
+    <div class="meta">$625,000 | 4 BD / 2.5 BA | 2,400 SF | 1.8 Acres</div>
+    <p>Welcome to this stunning Colonial nestled in a quiet cul-de-sac in Bolton's sought-after Wattaquadock Hill neighborhood. This 4-bedroom, 2.5-bath home offers 2,400 square feet of beautifully maintained living space on a 1.8-acre lot.</p>
+    <p>The updated kitchen features granite countertops and stainless steel appliances, complemented by hardwood floors throughout the main level. The primary suite includes a walk-in closet and ensuite bath. A finished basement provides flexible space for a home office or recreation, while the screened-in porch overlooks a private, wooded backyard.</p>
+    <p>Additional highlights include a 2-car attached garage, new roof (2024), central AC, and town water and sewer. Located in the highly-rated Nashoba Regional School District with easy access to Route 495 and commuter routes to Boston.</p>
+    <p style="color:#fff;font-weight:600">Schedule your private showing today!</p>
+    <div style="margin-top:12px;padding-top:12px;border-top:1px solid #333;font-size:12px;color:#666">
+      Listed by Eileen Fitzpatrick | RE/MAX Traditions | (978) 779-5234
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conduit AI — ROI Calculator & Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#090909;--card:#141414;--white:#ffffff;--gray:#777;--lightGray:#bbb;--offWhite:#f2f2f2;--green:#22c55e;--yellow:#e5a63b;--red:#dc3545;--purple:#9f8fef;--border:#222;--accent:#fff}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:#d0d0d0;min-height:100vh}
+a{color:var(--white);text-decoration:none}
+
+/* Header */
+.header{background:var(--bg);padding:16px 24px 8px;display:flex;align-items:center}
+
+/* Nav */
+.nav{display:flex;background:var(--bg);border-bottom:1px solid var(--border);padding:0 24px;overflow-x:auto}
+.nav-btn{padding:12px 20px;cursor:pointer;font-size:13px;font-weight:600;color:#555;border:none;background:none;border-bottom:2px solid transparent;transition:.2s;white-space:nowrap}
+.nav-btn:hover{color:#ccc}.nav-btn.active{color:var(--white);border-bottom-color:var(--white)}
+
+/* Views */
+.view{display:none;max-width:1100px;margin:0 auto;padding:24px}.view.active{display:block}
+
+/* Cards */
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px}
+.card h3{font-size:16px;color:var(--white);margin-bottom:12px;font-weight:700}
+
+/* Form elements */
+.form-row{display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap;align-items:end}
+.form-group{display:flex;flex-direction:column;flex:1;min-width:120px}
+.form-group label{font-size:11px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+input,select,textarea{background:#0d0d0d;border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:#e0e0e0;font-size:14px;font-family:inherit;width:100%}
+input:focus,select:focus{outline:none;border-color:#555}
+
+/* Buttons */
+.btn{padding:10px 20px;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:.15s}
+.btn-teal{background:var(--white);color:var(--bg)}
+.btn-teal:hover{transform:translateY(-1px);box-shadow:0 4px 16px #ffffff30}
+.btn-outline{background:transparent;border:1px solid #333;color:#999}
+.btn-outline:hover{border-color:#888;color:var(--white)}
+.btn-red{background:#ef444420;color:var(--red);border:1px solid #ef444440}
+.btn-sm{padding:6px 14px;font-size:12px}
+
+/* Stat cards */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.stat-value{font-size:32px;font-weight:800;color:var(--white);margin-bottom:4px}
+.stat-label{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.5px}
+.stat-card.teal .stat-value{color:var(--white)}
+.stat-card.green .stat-value{color:var(--green)}
+.stat-card.yellow .stat-value{color:var(--yellow)}
+.stat-card.purple .stat-value{color:var(--purple)}
+
+/* Table */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:10px 12px;color:var(--gray);font-size:11px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border)}
+td{padding:10px 12px;border-bottom:1px solid #1a1a2a}
+tr:hover td{background:#ffffff06}
+
+/* Tags */
+.tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600}
+.tag-green{background:#22c55e20;color:var(--green)}
+.tag-yellow{background:#f0b06020;color:var(--yellow)}
+.tag-red{background:#ef444420;color:var(--red)}
+.tag-teal{background:#ffffff15;color:var(--white)}
+.tag-purple{background:#a78bfa20;color:var(--purple)}
+.tag-gray{background:#88888820;color:var(--gray)}
+
+/* ROI specific */
+.workflow-item{background:#0d0d0d;border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:10px;position:relative}
+.workflow-item .remove-btn{position:absolute;top:8px;right:8px;background:none;border:none;color:#555;cursor:pointer;font-size:18px;padding:4px 8px}
+.workflow-item .remove-btn:hover{color:var(--red)}
+.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+.result-box{background:var(--card);border-radius:10px;padding:20px;border:1px solid var(--border)}
+.result-box h4{font-size:13px;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.result-box .big-num{font-size:36px;font-weight:800;margin-bottom:4px}
+.result-box .sub{font-size:12px;color:var(--gray)}
+.before{border-left:3px solid var(--red)}.before .big-num{color:var(--red)}
+.after{border-left:3px solid var(--green)}.after .big-num{color:var(--green)}
+.savings{border-left:3px solid var(--white)}.savings .big-num{color:var(--white)}
+.breakeven{border-left:3px solid var(--yellow)}.breakeven .big-num{color:var(--yellow)}
+
+/* Bar chart */
+.bar-chart{display:flex;align-items:end;gap:24px;justify-content:center;padding:20px 0;height:200px}
+.bar-group{display:flex;flex-direction:column;align-items:center;gap:6px}
+.bar{width:60px;border-radius:6px 6px 0 0;transition:height .5s ease;min-height:4px}
+.bar-before{background:linear-gradient(to top,#555,#777)}
+.bar-after{background:linear-gradient(to top,#fff,#ddd)}
+.bar-label{font-size:11px;color:var(--gray)}
+.bar-value{font-size:13px;font-weight:700;color:var(--white)}
+
+/* Pipeline */
+.pipeline-stages{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.pipeline-stage{flex:1;min-width:100px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center}
+.pipeline-stage .count{font-size:28px;font-weight:800;color:var(--white)}
+.pipeline-stage .label{font-size:10px;color:var(--gray);text-transform:uppercase;margin-top:4px}
+.pipeline-stage.active{border-color:var(--white)}
+
+/* Priority list */
+.priority-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #1a1a2a}
+.priority-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.priority-dot.high{background:var(--red)}.priority-dot.medium{background:var(--yellow)}.priority-dot.low{background:var(--gray)}
+.priority-text{flex:1;font-size:13px}.priority-action{font-size:12px;color:var(--gray)}
+
+/* Presets */
+.presets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.preset-btn{padding:6px 14px;border-radius:20px;border:1px solid #333;background:none;color:#999;font-size:12px;cursor:pointer;transition:.2s}
+.preset-btn:hover{border-color:var(--white);color:var(--white)}
+
+/* Print */
+@media print{
+  .nav,.no-print{display:none!important}
+  .header{background:#fff!important;border-bottom:2px solid #222!important}
+  .header img{filter:none!important}
+  .header-right{color:#666!important}
+  body{background:#fff;color:#333}
+  .view{display:block!important;padding:10px}
+  .card,.stat-card,.result-box,.workflow-item{border-color:#ddd;background:#fff}
+  .stat-value,.big-num{color:#333!important}
+  .stat-label,.sub,label{color:#666!important}
+  input,select{border-color:#ccc;background:#f9f9f9;color:#333}
+}
+
+/* Mobile */
+@media(max-width:768px){
+  .form-row{flex-direction:column}
+  .results-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .pipeline-stages{flex-direction:column}
+  .bar-chart{height:160px}
+  .bar{width:40px}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div><img src="logo.png" alt="Conduit AI" style="height:36px;filter:invert(1)"></div>
+</div>
+
+<div class="nav">
+  <button class="nav-btn active" onclick="switchView('calc')">ROI Calculator</button>
+  <button class="nav-btn" onclick="switchView('dash')">Dashboard</button>
+  <button class="nav-btn" onclick="switchView('pipeline')">Pipeline</button>
+</div>
+
+<!-- ==================== ROI CALCULATOR ==================== -->
+<div id="calc-view" class="view active">
+  <div class="card">
+    <h3>Workflow ROI Calculator</h3>
+    <p style="font-size:13px;color:var(--gray);margin-bottom:16px">Add the workflows you want to automate. We'll calculate exactly how much time and money you'll save.</p>
+
+    <div style="margin-bottom:16px">
+      <label style="font-size:11px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:8px">Quick Add — Common Real Estate Workflows</label>
+      <div class="presets">
+        <button class="preset-btn" onclick="addPreset('lead')">Lead Response</button>
+        <button class="preset-btn" onclick="addPreset('listing')">Listing Descriptions</button>
+        <button class="preset-btn" onclick="addPreset('transaction')">Transaction Coordination</button>
+        <button class="preset-btn" onclick="addPreset('email')">Email Triage</button>
+        <button class="preset-btn" onclick="addPreset('reports')">Market Reports</button>
+        <button class="preset-btn" onclick="addPreset('social')">Social Media Posts</button>
+      </div>
+    </div>
+
+    <div id="workflows-container"></div>
+
+    <button class="btn btn-outline" onclick="addWorkflow()" style="margin-top:8px">+ Add Custom Workflow</button>
+  </div>
+
+  <!-- Pricing Section -->
+  <div class="card">
+    <h3>Your Investment</h3>
+    <div class="form-row">
+      <div class="form-group">
+        <label>One-Time Build Fee</label>
+        <input type="number" id="build-fee" value="1500" oninput="calculate()">
+      </div>
+      <div class="form-group">
+        <label>Monthly Retainer</label>
+        <input type="number" id="retainer" value="750" oninput="calculate()">
+      </div>
+      <div class="form-group">
+        <label>Avg Hourly Cost of Staff</label>
+        <input type="number" id="hourly-rate" value="25" oninput="calculate()">
+      </div>
+      <div class="form-group">
+        <label>Automation Efficiency</label>
+        <select id="efficiency" onchange="calculate()">
+          <option value="0.7">70% time saved</option>
+          <option value="0.8" selected>80% time saved</option>
+          <option value="0.9">90% time saved</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="results-section" style="display:none">
+    <div class="stats-grid">
+      <div class="stat-card" style="border-left:3px solid var(--red)">
+        <div class="stat-value" id="r-hours-before" style="color:var(--red)">0</div>
+        <div class="stat-label">Hours/Week (Before)</div>
+      </div>
+      <div class="stat-card" style="border-left:3px solid var(--green)">
+        <div class="stat-value" id="r-hours-after" style="color:var(--green)">0</div>
+        <div class="stat-label">Hours/Week (After)</div>
+      </div>
+      <div class="stat-card teal" style="border-left:3px solid var(--white)">
+        <div class="stat-value" id="r-annual-savings">$0</div>
+        <div class="stat-label">Annual Savings</div>
+      </div>
+      <div class="stat-card yellow" style="border-left:3px solid var(--yellow)">
+        <div class="stat-value" id="r-breakeven">0</div>
+        <div class="stat-label">Months to Break Even</div>
+      </div>
+    </div>
+
+    <!-- Bar chart -->
+    <div class="card">
+      <h3>Time Saved Per Workflow</h3>
+      <div class="bar-chart" id="bar-chart"></div>
+      <div style="display:flex;justify-content:center;gap:24px;margin-top:8px">
+        <span style="font-size:11px;color:var(--gray)"><span style="display:inline-block;width:10px;height:10px;background:#666;border-radius:2px;margin-right:4px"></span>Before</span>
+        <span style="font-size:11px;color:var(--gray)"><span style="display:inline-block;width:10px;height:10px;background:#fff;border-radius:2px;margin-right:4px"></span>After</span>
+      </div>
+    </div>
+
+    <!-- Detailed results -->
+    <div class="results-grid">
+      <div class="result-box before">
+        <h4>Current Cost</h4>
+        <div class="big-num" id="r-cost-before">$0</div>
+        <div class="sub">Per year in staff time</div>
+      </div>
+      <div class="result-box after">
+        <h4>After Automation</h4>
+        <div class="big-num" id="r-cost-after">$0</div>
+        <div class="sub">Per year (staff + retainer)</div>
+      </div>
+      <div class="result-box savings">
+        <h4>Net Annual Savings</h4>
+        <div class="big-num" id="r-net-savings">$0</div>
+        <div class="sub">After paying for everything</div>
+      </div>
+      <div class="result-box breakeven">
+        <h4>ROI</h4>
+        <div class="big-num" id="r-roi">0%</div>
+        <div class="sub">Return on investment (Year 1)</div>
+      </div>
+    </div>
+
+    <div class="card no-print" style="margin-top:16px;text-align:center">
+      <button class="btn btn-teal" onclick="window.print()" style="margin-right:8px">Print / Save as PDF</button>
+      <button class="btn btn-outline" onclick="copyResults()">Copy Summary</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== DASHBOARD ==================== -->
+<div id="dash-view" class="view">
+  <div class="stats-grid">
+    <div class="stat-card teal">
+      <div class="stat-value" id="d-prospects">33</div>
+      <div class="stat-label">Total Prospects</div>
+    </div>
+    <div class="stat-card purple">
+      <div class="stat-value" id="d-contacted">0</div>
+      <div class="stat-label">Contacted</div>
+    </div>
+    <div class="stat-card yellow">
+      <div class="stat-value" id="d-calls">0</div>
+      <div class="stat-label">Discovery Calls</div>
+    </div>
+    <div class="stat-card green">
+      <div class="stat-value" id="d-revenue">$0</div>
+      <div class="stat-label">Revenue (Closed)</div>
+    </div>
+  </div>
+
+  <!-- This Week's Priorities -->
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <h3>This Week's Priorities</h3>
+      <button class="btn btn-sm btn-outline no-print" onclick="addPriority()">+ Add</button>
+    </div>
+    <div id="priorities-list">
+      <div class="priority-item"><div class="priority-dot high"></div><div class="priority-text">Send first 3 outreach emails (Eileen, Nancy, Clayton)</div><div class="priority-action">HIGH</div></div>
+      <div class="priority-item"><div class="priority-dot high"></div><div class="priority-text">Study tool stack — memorize slide 7 cheat sheet</div><div class="priority-action">HIGH</div></div>
+      <div class="priority-item"><div class="priority-dot medium"></div><div class="priority-text">Build n8n demo workflow for meetings</div><div class="priority-action">MEDIUM</div></div>
+      <div class="priority-item"><div class="priority-dot medium"></div><div class="priority-text">Set up CustomGPT chatbot demo</div><div class="priority-action">MEDIUM</div></div>
+      <div class="priority-item"><div class="priority-dot low"></div><div class="priority-text">Draft first LinkedIn post</div><div class="priority-action">LOW</div></div>
+    </div>
+  </div>
+
+  <!-- Outreach Tracker -->
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <h3>Outreach Log</h3>
+      <button class="btn btn-sm btn-outline no-print" onclick="addOutreach()">+ Log Outreach</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Date</th><th>Agency</th><th>Contact</th><th>Channel</th><th>Status</th><th>Notes</th></tr></thead>
+        <tbody id="outreach-table"></tbody>
+      </table>
+    </div>
+    <p id="outreach-empty" style="text-align:center;color:var(--gray);padding:20px;font-size:13px">No outreach logged yet. Start sending those emails!</p>
+  </div>
+
+  <!-- Revenue Tracker -->
+  <div class="card">
+    <h3>Revenue Tracker</h3>
+    <div class="stats-grid" style="margin-bottom:0">
+      <div class="stat-card" style="border-left:3px solid var(--green)">
+        <div class="stat-value" id="d-one-time" style="color:var(--green)">$0</div>
+        <div class="stat-label">One-Time Revenue</div>
+      </div>
+      <div class="stat-card" style="border-left:3px solid var(--white)">
+        <div class="stat-value" id="d-mrr" style="color:var(--white)">$0</div>
+        <div class="stat-label">Monthly Recurring</div>
+      </div>
+      <div class="stat-card" style="border-left:3px solid var(--purple)">
+        <div class="stat-value" id="d-arr" style="color:var(--purple)">$0</div>
+        <div class="stat-label">Projected Annual</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PIPELINE ==================== -->
+<div id="pipeline-view" class="view">
+  <div class="pipeline-stages">
+    <div class="pipeline-stage"><div class="count" id="p-lead">33</div><div class="label">Leads</div></div>
+    <div class="pipeline-stage"><div class="count" id="p-contacted">0</div><div class="label">Contacted</div></div>
+    <div class="pipeline-stage"><div class="count" id="p-discovery">0</div><div class="label">Discovery</div></div>
+    <div class="pipeline-stage"><div class="count" id="p-proposal">0</div><div class="label">Proposal</div></div>
+    <div class="pipeline-stage active"><div class="count" id="p-closed">0</div><div class="label">Closed Won</div></div>
+  </div>
+
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <h3>All Prospects</h3>
+      <div class="no-print" style="display:flex;gap:8px">
+        <select id="filter-priority" onchange="renderPipeline()" style="padding:6px 10px;font-size:12px">
+          <option value="">All Priorities</option>
+          <option value="HIGH">HIGH</option>
+          <option value="MEDIUM">MEDIUM</option>
+          <option value="LOW">LOW</option>
+        </select>
+        <select id="filter-stage" onchange="renderPipeline()" style="padding:6px 10px;font-size:12px">
+          <option value="">All Stages</option>
+          <option value="Lead">Lead</option>
+          <option value="Contacted">Contacted</option>
+          <option value="Discovery">Discovery</option>
+          <option value="Proposal">Proposal</option>
+          <option value="Closed Won">Closed Won</option>
+          <option value="Closed Lost">Closed Lost</option>
+        </select>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Priority</th><th>Agency</th><th>Town</th><th>Contact</th><th>Stage</th><th>Last Action</th><th class="no-print">Actions</th></tr></thead>
+        <tbody id="pipeline-table"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MODALS ==================== -->
+<div id="modal-overlay" style="display:none;position:fixed;inset:0;background:#000a;z-index:100;display:none;align-items:center;justify-content:center">
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;max-width:500px;width:90%">
+    <h3 id="modal-title" style="margin-bottom:16px">Add</h3>
+    <div id="modal-body"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px">
+      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-teal" id="modal-save" onclick="">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ==================== SUPABASE CLIENT ====================
+const SB_URL = "https://ecbquabpmmhjycsymnhf.supabase.co";
+const SB_KEY = "sb_publishable_1elH_OxN88Y3hPSdUWJXXw_M24CaTeW";
+const SB_HEADERS = { "apikey": SB_KEY, "Authorization": "Bearer " + SB_KEY, "Content-Type": "application/json", "Prefer": "return=representation" };
+
+async function sbFetch(table, opts = {}) {
+  const params = opts.params || "";
+  const url = SB_URL + "/rest/v1/" + table + (params ? "?" + params : "");
+  const res = await fetch(url, { method: opts.method || "GET", headers: { ...SB_HEADERS, ...(opts.headers||{}) }, body: opts.body ? JSON.stringify(opts.body) : undefined });
+  if (!res.ok) { console.error("Supabase error:", await res.text()); return null; }
+  const text = await res.text();
+  return text ? JSON.parse(text) : null;
+}
+
+// ==================== DATA LAYER ====================
+let prospects = [];
+let outreach = [];
+let revenue = { oneTime: 0, mrr: 0 };
+
+async function loadAllData() {
+  const [p, o, r] = await Promise.all([
+    sbFetch("prospects", { params: "select=*&order=id" }),
+    sbFetch("outreach", { params: "select=*&order=id" }),
+    sbFetch("revenue", { params: "select=*&limit=1" })
+  ]);
+  prospects = (p || []).map(row => ({ id: row.id, priority: row.priority, name: row.name, town: row.town, contact: row.contact || "", stage: row.stage, lastAction: row.last_action || "", notes: row.notes || "" }));
+  outreach = (o || []).map(row => ({ id: row.id, date: row.date, agency: row.agency, contact: row.contact || "", channel: row.channel, status: row.status, notes: row.notes || "" }));
+  if (r && r.length) { revenue = { oneTime: +r[0].one_time, mrr: +r[0].mrr }; }
+  renderPipeline();
+  updateDashboard();
+}
+
+// ==================== NAV ====================
+function switchView(view) {
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById(view + '-view').classList.add('active');
+  if (view === 'dash') updateDashboard();
+  if (view === 'pipeline') renderPipeline();
+}
+
+// ==================== ROI CALCULATOR ====================
+const PRESETS = {
+  lead: { name: "Lead Response", who: "Admin / Agent", minPerTask: 15, timesPerWeek: 20 },
+  listing: { name: "Listing Descriptions", who: "Agent", minPerTask: 45, timesPerWeek: 4 },
+  transaction: { name: "Transaction Coordination", who: "TC / Admin", minPerTask: 30, timesPerWeek: 10 },
+  email: { name: "Email Triage & Response", who: "Agent / Admin", minPerTask: 60, timesPerWeek: 5 },
+  reports: { name: "Market Reports", who: "Agent", minPerTask: 45, timesPerWeek: 2 },
+  social: { name: "Social Media Posts", who: "Marketing / Agent", minPerTask: 30, timesPerWeek: 3 }
+};
+
+let workflows = [];
+let wfId = 0;
+
+function addWorkflow(preset) {
+  const p = preset || { name: "", who: "", minPerTask: 0, timesPerWeek: 0 };
+  const id = ++wfId;
+  workflows.push({ id, ...p });
+  renderWorkflows();
+  calculate();
+}
+
+function addPreset(key) { addWorkflow(PRESETS[key]); }
+
+function removeWorkflow(id) {
+  workflows = workflows.filter(w => w.id !== id);
+  renderWorkflows();
+  calculate();
+}
+
+function renderWorkflows() {
+  const container = document.getElementById('workflows-container');
+  container.innerHTML = workflows.map(w => `
+    <div class="workflow-item">
+      <button class="remove-btn" onclick="removeWorkflow(${w.id})">&times;</button>
+      <div class="form-row">
+        <div class="form-group" style="flex:2"><label>Workflow Name</label><input value="${w.name}" onchange="updateWf(${w.id},'name',this.value)" placeholder="e.g. Lead Response"></div>
+        <div class="form-group"><label>Who Does It</label><input value="${w.who}" onchange="updateWf(${w.id},'who',this.value)" placeholder="e.g. Admin"></div>
+        <div class="form-group"><label>Minutes Per Task</label><input type="number" value="${w.minPerTask}" onchange="updateWf(${w.id},'minPerTask',+this.value)"></div>
+        <div class="form-group"><label>Times / Week</label><input type="number" value="${w.timesPerWeek}" onchange="updateWf(${w.id},'timesPerWeek',+this.value)"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function updateWf(id, field, val) {
+  const wf = workflows.find(w => w.id === id);
+  if (wf) { wf[field] = val; calculate(); }
+}
+
+function calculate() {
+  if (workflows.length === 0) { document.getElementById('results-section').style.display = 'none'; return; }
+  document.getElementById('results-section').style.display = 'block';
+
+  const hourlyRate = +document.getElementById('hourly-rate').value || 25;
+  const buildFee = +document.getElementById('build-fee').value || 0;
+  const retainer = +document.getElementById('retainer').value || 0;
+  const efficiency = +document.getElementById('efficiency').value || 0.8;
+
+  let totalMinBefore = 0;
+  workflows.forEach(w => { totalMinBefore += (w.minPerTask || 0) * (w.timesPerWeek || 0); });
+
+  const hrsBefore = totalMinBefore / 60;
+  const hrsAfter = hrsBefore * (1 - efficiency);
+  const weeklySavingsHrs = hrsBefore - hrsAfter;
+  const annualCostBefore = hrsBefore * hourlyRate * 52;
+  const annualCostAfter = hrsAfter * hourlyRate * 52 + retainer * 12;
+  const annualSavings = annualCostBefore - annualCostAfter;
+  const totalInvestmentY1 = buildFee + retainer * 12;
+  const netSavingsY1 = annualSavings - buildFee;
+  const monthlySavings = (annualCostBefore - (hrsAfter * hourlyRate * 52)) / 12;
+  const breakeven = monthlySavings > retainer ? (buildFee / (monthlySavings - retainer)) : 99;
+  const roi = totalInvestmentY1 > 0 ? ((annualSavings - totalInvestmentY1) / totalInvestmentY1 * 100) : 0;
+
+  document.getElementById('r-hours-before').textContent = hrsBefore.toFixed(1);
+  document.getElementById('r-hours-after').textContent = hrsAfter.toFixed(1);
+  document.getElementById('r-annual-savings').textContent = '$' + Math.round(annualSavings).toLocaleString();
+  document.getElementById('r-breakeven').textContent = breakeven < 99 ? breakeven.toFixed(1) : 'N/A';
+  document.getElementById('r-cost-before').textContent = '$' + Math.round(annualCostBefore).toLocaleString();
+  document.getElementById('r-cost-after').textContent = '$' + Math.round(annualCostAfter).toLocaleString();
+  document.getElementById('r-net-savings').textContent = '$' + Math.round(netSavingsY1).toLocaleString();
+  document.getElementById('r-roi').textContent = Math.round(roi) + '%';
+
+  // Bar chart
+  const chart = document.getElementById('bar-chart');
+  const maxMin = Math.max(...workflows.map(w => (w.minPerTask||0) * (w.timesPerWeek||0)));
+  const maxH = 140;
+  chart.innerHTML = workflows.map(w => {
+    const totalBefore = (w.minPerTask||0) * (w.timesPerWeek||0);
+    const totalAfter = totalBefore * (1 - efficiency);
+    const hBefore = maxMin > 0 ? (totalBefore / maxMin) * maxH : 0;
+    const hAfter = maxMin > 0 ? (totalAfter / maxMin) * maxH : 0;
+    const shortName = (w.name || 'Task').length > 12 ? (w.name||'Task').slice(0,12)+'...' : (w.name||'Task');
+    return `<div class="bar-group">
+      <div style="display:flex;gap:6px;align-items:end">
+        <div><div class="bar-value">${(totalBefore/60).toFixed(1)}h</div><div class="bar bar-before" style="height:${hBefore}px"></div></div>
+        <div><div class="bar-value">${(totalAfter/60).toFixed(1)}h</div><div class="bar bar-after" style="height:${Math.max(hAfter,4)}px"></div></div>
+      </div>
+      <div class="bar-label">${shortName}</div>
+    </div>`;
+  }).join('');
+}
+
+function copyResults() {
+  const hrs = document.getElementById('r-hours-before').textContent;
+  const savings = document.getElementById('r-annual-savings').textContent;
+  const be = document.getElementById('r-breakeven').textContent;
+  const roi = document.getElementById('r-roi').textContent;
+  const text = `ROI Summary — Conduit AI\n\nCurrent time spent: ${hrs} hrs/week\nAnnual savings: ${savings}\nBreak-even: ${be} months\nYear 1 ROI: ${roi}\n\nPowered by Conduit AI | Daniel Weadock & Evan Rolfe`;
+  navigator.clipboard.writeText(text).then(() => alert('Copied to clipboard!'));
+}
+
+// ==================== DASHBOARD ====================
+function updateDashboard() {
+  const stages = { Lead: 0, Contacted: 0, Discovery: 0, Proposal: 0, 'Closed Won': 0 };
+  prospects.forEach(p => { if (stages[p.stage] !== undefined) stages[p.stage]++; });
+  document.getElementById('d-prospects').textContent = prospects.length;
+  document.getElementById('d-contacted').textContent = prospects.filter(p => p.stage !== 'Lead').length;
+  document.getElementById('d-calls').textContent = stages['Discovery'] + stages['Proposal'] + stages['Closed Won'];
+  document.getElementById('d-revenue').textContent = '$' + revenue.oneTime.toLocaleString();
+  document.getElementById('d-one-time').textContent = '$' + revenue.oneTime.toLocaleString();
+  document.getElementById('d-mrr').textContent = '$' + revenue.mrr.toLocaleString();
+  document.getElementById('d-arr').textContent = '$' + (revenue.oneTime + revenue.mrr * 12).toLocaleString();
+
+  // Outreach table
+  const tbody = document.getElementById('outreach-table');
+  const empty = document.getElementById('outreach-empty');
+  if (outreach.length === 0) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  tbody.innerHTML = outreach.slice().reverse().map(o => `<tr>
+    <td>${o.date}</td><td>${o.agency}</td><td>${o.contact}</td>
+    <td>${o.channel}</td><td><span class="tag tag-${o.status==='Replied'?'green':o.status==='Sent'?'yellow':'gray'}">${o.status}</span></td>
+    <td>${o.notes}</td>
+  </tr>`).join('');
+}
+
+function addOutreach() {
+  document.getElementById('modal-title').textContent = 'Log Outreach';
+  document.getElementById('modal-body').innerHTML = `
+    <div class="form-group" style="margin-bottom:12px"><label>Agency</label><select id="m-agency">${prospects.map(p=>`<option>${p.name}</option>`).join('')}</select></div>
+    <div class="form-row"><div class="form-group"><label>Channel</label><select id="m-channel"><option>Email</option><option>LinkedIn</option><option>Phone</option><option>In Person</option></select></div>
+    <div class="form-group"><label>Status</label><select id="m-status"><option>Sent</option><option>Replied</option><option>No Response</option></select></div></div>
+    <div class="form-group"><label>Notes</label><input id="m-notes" placeholder="Quick note..."></div>`;
+  document.getElementById('modal-save').onclick = () => {
+    const agency = document.getElementById('m-agency').value;
+    const prospect = prospects.find(p => p.name === agency);
+    outreach.push({
+      date: new Date().toLocaleDateString(),
+      agency, contact: prospect ? prospect.contact : '',
+      channel: document.getElementById('m-channel').value,
+      status: document.getElementById('m-status').value,
+      notes: document.getElementById('m-notes').value
+    });
+    if (prospect && prospect.stage === 'Lead') {
+      prospect.stage = 'Contacted';
+      prospect.lastAction = new Date().toLocaleDateString();
+      sbFetch("prospects", { method: "PATCH", params: "id=eq." + prospect.id, body: { stage: "Contacted", last_action: prospect.lastAction } });
+    }
+    sbFetch("outreach", { method: "POST", body: outreach[outreach.length - 1] });
+    closeModal();
+    updateDashboard();
+  };
+  openModal();
+}
+
+function addPriority() {
+  const text = prompt('What needs to get done?');
+  if (!text) return;
+  const list = document.getElementById('priorities-list');
+  list.innerHTML += `<div class="priority-item"><div class="priority-dot high"></div><div class="priority-text">${text}</div><div class="priority-action">NEW</div></div>`;
+}
+
+// ==================== PIPELINE ====================
+function renderPipeline() {
+  const filterP = document.getElementById('filter-priority').value;
+  const filterS = document.getElementById('filter-stage').value;
+  let filtered = prospects;
+  if (filterP) filtered = filtered.filter(p => p.priority === filterP);
+  if (filterS) filtered = filtered.filter(p => p.stage === filterS);
+
+  const stages = { Lead: 0, Contacted: 0, Discovery: 0, Proposal: 0, 'Closed Won': 0 };
+  prospects.forEach(p => { if (stages[p.stage] !== undefined) stages[p.stage]++; });
+  document.getElementById('p-lead').textContent = stages.Lead;
+  document.getElementById('p-contacted').textContent = stages.Contacted;
+  document.getElementById('p-discovery').textContent = stages.Discovery;
+  document.getElementById('p-proposal').textContent = stages.Proposal;
+  document.getElementById('p-closed').textContent = stages['Closed Won'];
+
+  const tagClass = { HIGH: 'tag-red', MEDIUM: 'tag-yellow', LOW: 'tag-gray' };
+  const stageClass = { Lead: 'tag-gray', Contacted: 'tag-purple', Discovery: 'tag-yellow', Proposal: 'tag-teal', 'Closed Won': 'tag-green', 'Closed Lost': 'tag-red' };
+
+  document.getElementById('pipeline-table').innerHTML = filtered.map(p => `<tr>
+    <td><span class="tag ${tagClass[p.priority]||'tag-gray'}">${p.priority}</span></td>
+    <td>${p.name}</td><td>${p.town}</td><td>${p.contact||'—'}</td>
+    <td><span class="tag ${stageClass[p.stage]||'tag-gray'}">${p.stage}</span></td>
+    <td>${p.lastAction||'—'}</td>
+    <td class="no-print"><select onchange="updateStage(${p.id},this.value)" style="padding:4px 8px;font-size:11px">
+      ${['Lead','Contacted','Discovery','Proposal','Closed Won','Closed Lost'].map(s=>`<option ${s===p.stage?'selected':''}>${s}</option>`).join('')}
+    </select></td>
+  </tr>`).join('');
+}
+
+function updateStage(id, stage) {
+  const p = prospects.find(x => x.id === id);
+  if (p) {
+    p.stage = stage;
+    p.lastAction = new Date().toLocaleDateString();
+    sbFetch("prospects", { method: "PATCH", params: "id=eq." + id, body: { stage: stage, last_action: p.lastAction } });
+  }
+  renderPipeline();
+}
+
+// ==================== MODALS ====================
+function openModal() { document.getElementById('modal-overlay').style.display = 'flex'; }
+function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; }
+
+// ==================== INIT ====================
+loadAllData();
+</script>
+</body>
+</html>
