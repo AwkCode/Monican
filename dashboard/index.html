@@ -382,8 +382,8 @@ tr:hover td{background:#ffffff06}
 
 <script>
 // ==================== SUPABASE CLIENT ====================
-const SB_URL = "https://ecbquabpmmhjycsymnhf.supabase.co";
-const SB_KEY = "sb_publishable_1elH_OxN88Y3hPSdUWJXXw_M24CaTeW";
+const SB_URL = window.SB_URL || "";  // Set via environment config
+const SB_KEY = window.SB_KEY || "";  // Set via environment config
 const SB_HEADERS = { "apikey": SB_KEY, "Authorization": "Bearer " + SB_KEY, "Content-Type": "application/json", "Prefer": "return=representation" };
 
 async function sbFetch(table, opts = {}) {

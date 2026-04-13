@@ -77,12 +77,12 @@ For the platform era, this evolves: *"AI agent suites for any industry. Sign up,
 - `agents/templates/` — n8n setup guides, system prompts, test cases
 
 ### Live Infrastructure
-- **n8n Cloud:** `conduitaii.app.n8n.cloud`
-  - `Lead Responder v1` — Published, webhook: `/webhook/lead-responder`
+- **n8n Cloud:** (configured via environment)
+  - `Lead Responder v1` — Published
   - `Past Client Reactivator v1` — Published, runs Mondays 8am
-- **Vercel:** `conduit-ai-dashboard.vercel.app` (static HTML, Phase 1 will replace with Next.js app at new URL)
-- **Supabase:** project `ecbquabpmmhjycsymnhf` (us-east-1)
-- **Google Sheets:** "Conduit AI - Leads Log", "Conduit AI - Past Clients" (linked to n8n)
+- **Vercel:** Deployed (static HTML, Phase 1 will replace with Next.js app)
+- **Supabase:** Configured via environment variables
+- **Google Sheets:** Connected to n8n for lead logging
 
 ---
 
