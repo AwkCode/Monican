@@ -4,7 +4,7 @@
 
 ## PROPOSAL FOR {COMPANY_NAME}
 
-**Prepared by:** Daniel Weadock | Conduit AI
+**Prepared by:** Daniel Weadock | Monican
 **Date:** {DATE}
 
 ---
@@ -82,5 +82,5 @@ This includes:
 I'm excited about this one, {FIRST_NAME}. The numbers make a lot of sense for {COMPANY_NAME}.
 
 **Daniel Weadock**
-Conduit AI
+Monican
 {PHONE} | {EMAIL}

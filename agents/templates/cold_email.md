@@ -16,7 +16,7 @@ Would you be open to a quick call this week or next?
 
 Best,
 Daniel Weadock
-Conduit AI
+Monican
 {phone}
 
 ---
@@ -34,7 +34,7 @@ I build AI systems that handle that automatically. One agency I'm working with c
 I'd love to show you what this looks like for {agency_name}. Would a 20-minute call work sometime this week?
 
 Daniel Weadock
-Conduit AI
+Monican
 
 ---
 

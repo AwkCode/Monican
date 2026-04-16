@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Conduit AI — Listing Description Generator
+Monican — Listing Description Generator
 Takes property details and generates 4 output formats:
 1. MLS listing description
 2. Social media post
@@ -266,7 +266,7 @@ def generate_all(prop):
 def interactive_mode():
     """Collect property details from user input."""
     print("\n" + "="*60)
-    print("  CONDUIT AI — Listing Description Generator")
+    print("  MONICAN — Listing Description Generator")
     print("="*60 + "\n")
 
     prop = {}

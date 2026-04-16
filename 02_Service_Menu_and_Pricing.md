@@ -1,5 +1,5 @@
 # Service Menu & Pricing
-### Conduit AI | Daniel Weadock
+### Monican | Daniel Weadock
 ### Last Updated: April 5, 2026
 
 ---
@@ -130,7 +130,7 @@ When you send a proposal after a discovery call, use this structure:
 
 ```
 PROPOSAL FOR [COMPANY NAME]
-Prepared by Daniel Weadock | Conduit AI
+Prepared by Daniel Weadock | Monican
 [Date]
 
 THE PROBLEM

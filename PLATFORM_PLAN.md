@@ -1,4 +1,4 @@
-# Conduit AI Platform — Master Plan
+# Monican Platform — Master Plan
 
 **Last updated:** 2026-04-09
 **Status:** Planning → Phase 1 (Foundation) next session
@@ -8,7 +8,7 @@
 
 ## 0. Vision
 
-**Conduit AI is an agency that builds AI agent suites for every industry.** Real estate is the first vertical. Legal, dental, insurance, and others follow.
+**Monican is an agency that builds AI agent suites for every industry.** Real estate is the first vertical. Legal, dental, insurance, and others follow.
 
 **Tagline:** *"AI agent suites for any industry. Sign up, set your profile, your agents are running in 10 minutes."*
 
@@ -50,7 +50,7 @@ When a client signs up via Vercel:
 1. They authorize Gmail access via Supabase Auth's Google provider
 2. Vercel stores the OAuth refresh token in Supabase (row-level secured)
 3. When n8n needs to create a Gmail draft for client X, n8n does NOT call Gmail directly
-4. Instead, n8n fires an HTTP POST to `conduit-ai-dashboard.vercel.app/api/gmail/draft/{client_id}` with the draft content
+4. Instead, n8n fires an HTTP POST to `monican-dashboard.vercel.app/api/gmail/draft/{client_id}` with the draft content
 5. Vercel's API route fetches the client's OAuth token from Supabase, refreshes if needed, calls the Gmail API, and creates the draft in the client's actual Gmail account
 6. Returns success to n8n
 
@@ -244,7 +244,7 @@ CREATE POLICY "clients_own_row" ON clients
 **Goal:** Replace the static HTML dashboard with a proper Next.js app that has real auth.
 
 **Deliverables:**
-1. New Next.js 14 project in a fresh GitHub repo: `conduit-ai-platform`
+1. New Next.js 14 project in a fresh GitHub repo: `monican-platform`
 2. Supabase `clients`, `client_modules`, `client_credentials`, `activity_log`, `leads`, `past_clients` tables created with RLS
 3. Supabase Auth enabled (email/password)
 4. Pages built:
@@ -257,7 +257,7 @@ CREATE POLICY "clients_own_row" ON clients
 5. Port existing static pages into Next.js:
    - ROI Calculator → `/tools/roi-calculator`
    - Prospect Pipeline → `/internal/pipeline` (admin only, for Daniel and Evan)
-6. Deploy to Vercel at `conduit-ai-platform.vercel.app` (new URL — the old static one stays up as a reference)
+6. Deploy to Vercel at `monican-platform.vercel.app` (new URL — the old static one stays up as a reference)
 7. Landing page links to signup, dashboard shows profile completion status
 
 **Out of scope for Phase 1:**
@@ -296,7 +296,7 @@ CREATE POLICY "clients_own_row" ON clients
 **Goal:** Make Gmail draft creation actually happen in each client's Gmail account, and migrate Past Client Reactivator to the new platform.
 
 **Deliverables:**
-1. Set up Google Cloud Console OAuth credentials for Conduit AI Platform
+1. Set up Google Cloud Console OAuth credentials for Monican Platform
 2. Implement Supabase Auth Google provider (so clients can "Connect Gmail" with one click)
 3. Build Vercel API route `/api/gmail/draft` that accepts `{client_id, subject, body, to}` and creates a draft in the named client's Gmail
 4. Modify `template_lead_responder` workflow to replace the Gmail node with an HTTP Request node pointing to the new Vercel endpoint
@@ -408,14 +408,14 @@ Nothing gets thrown away. The existing artifacts still have value:
 **Read this first:** `PLATFORM_PLAN.md` (this file)
 
 **First actions:**
-1. Create new GitHub repo: `conduit-ai-platform`
+1. Create new GitHub repo: `monican-platform`
 2. Initialize a Next.js 14 project locally with TypeScript, Tailwind, App Router
 3. Install Supabase client libraries: `@supabase/supabase-js`, `@supabase/auth-helpers-nextjs`
 4. Copy environment variables from current dashboard (Supabase URL + anon key)
 5. Run the SQL in Section 2.1 against the existing Supabase project to create the platform tables
 6. Enable Supabase Auth (email/password) in the Supabase dashboard
 7. Build the Next.js pages listed in Phase 1
-8. Deploy to Vercel as `conduit-ai-platform.vercel.app`
+8. Deploy to Vercel as `monican-platform.vercel.app`
 
 **End state of Phase 1:**
 Daniel can sign up, log in, see his dashboard, fill out his profile, toggle modules on/off in the UI (even though toggling doesn't DO anything yet in Phase 1). The foundation is in place for Phase 2 to plug in the actual n8n cloning logic.
@@ -438,7 +438,7 @@ Daniel can sign up, log in, see his dashboard, fill out his profile, toggle modu
 ## 9. Open Questions (answer before or during each phase)
 
 **Phase 1:**
-- What domain do we want? `conduit-ai-platform.vercel.app` is fine for now; later buy `conduit.ai` or `conduitai.com`?
+- What domain do we want? `monican-platform.vercel.app` is fine for now; later buy `monican.ai` or `monican.com`?
 - Landing page copy: is "AI agent suites for any industry" the final tagline?
 
 **Phase 2:**

@@ -1,6 +1,6 @@
 # How Agentic AI Works — A Plain-English Guide
 ### For Daniel to reference before calls, demos, and conversations
-### Conduit AI | April 2026
+### Monican | April 2026
 
 ---
 

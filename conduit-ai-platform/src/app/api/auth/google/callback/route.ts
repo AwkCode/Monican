@@ -4,7 +4,7 @@ import { exchangeCodeForTokens } from "@/lib/google";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??
-  "https://conduit-ai-platform.vercel.app";
+  "https://monican-platform.vercel.app";
 
 /**
  * GET /api/auth/google/callback — Google redirects here after user consents.

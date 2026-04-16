@@ -11,8 +11,9 @@ export default async function Nav() {
   return (
     <header className="border-b border-cb-border bg-cb-bg/80 backdrop-blur sticky top-0 z-10">
       <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="font-semibold text-lg tracking-tight">
-          Conduit<span className="text-cb-blue">.AI</span>
+        <Link href="/" className="flex items-center gap-2 font-semibold text-lg tracking-tight">
+          <img src="/monican-logo.png" alt="Monican" className="h-8 w-8" />
+          Monican
         </Link>
         <div className="flex items-center gap-6 text-sm">
           <Link href="/tools/roi-calculator" className="text-cb-gray hover:text-white">

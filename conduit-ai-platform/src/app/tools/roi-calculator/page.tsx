@@ -2,7 +2,7 @@ import Nav from "@/components/Nav";
 import Calculator from "./Calculator";
 
 export const metadata = {
-  title: "ROI Calculator — Conduit AI",
+  title: "ROI Calculator — Monican",
 };
 
 export default function RoiCalculatorPage() {

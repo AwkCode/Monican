@@ -1,8 +1,8 @@
-# Conduit AI — Project Context
+# Monican — Project Context
 
 ## CURRENT DIRECTION (read this first)
 
-**Conduit AI is pivoting from consulting to a multi-tenant AI platform.**
+**Monican is pivoting from consulting to a multi-tenant AI platform.**
 
 The vision: an agency that builds AI agent suites for every industry, starting with real estate. Clients sign up on a web app, set their profile, and their agents run within minutes. No n8n manual setup per client. See `PLATFORM_PLAN.md` for the complete architecture, phases, and decisions.
 
@@ -13,7 +13,7 @@ The vision: an agency that builds AI agent suites for every industry, starting w
 **What's already built:**
 - Lead Responder n8n workflow (Published — will become `template_lead_responder`)
 - Past Client Reactivator n8n workflow (Published — will become `template_past_client_reactivator`)
-- Static HTML dashboard at `conduit-ai-dashboard.vercel.app` (will be rebuilt as Next.js, old URL stays up)
+- Static HTML dashboard at `monican-dashboard.vercel.app` (will be rebuilt as Next.js, old URL stays up)
 - Supabase project with `prospects`, `outreach`, `revenue` tables (will add platform tables from PLATFORM_PLAN.md Section 2.1)
 
 **Eileen Fitzpatrick (RE/MAX Traditions, Bolton) is NOT urgent.** Platform first, Eileen becomes the first migrated client once Phase 3 is done.
@@ -22,7 +22,7 @@ The vision: an agency that builds AI agent suites for every industry, starting w
 
 ## What This Is (Business Model)
 
-Conduit AI is Daniel Weadock's AI platform company. Based in Bolton, MA. Real estate is the first vertical. Revenue comes from three streams:
+Monican is Daniel Weadock's AI platform company. Based in Bolton, MA. Real estate is the first vertical. Revenue comes from three streams:
 1. **Short-term (now):** Consulting engagements — $500 Quick Wins and $1,500 Pilots — to fund the platform build
 2. **Medium-term:** SaaS subscription tiers once the platform handles self-service signup (see PLATFORM_PLAN.md Section 4.2)
 3. **Long-term:** Enterprise + white-label deals for agencies and brokerages
@@ -65,7 +65,7 @@ For the platform era, this evolves: *"AI agent suites for any industry. Sign up,
 
 ### Platform (new)
 - `PLATFORM_PLAN.md` — **Master plan.** Read first every session. Architecture, phases, decisions.
-- `Conduit_AI_Platform_Vision.pptx` — Slideshow walkthrough of the platform vision
+- `Monican_Platform_Vision.pptx` — Slideshow walkthrough of the platform vision
 
 ### Consulting Era (still relevant, becomes internal tools)
 - `prospects.xlsx` — 33 real estate agencies near Bolton (future beta users)
@@ -101,7 +101,7 @@ For the platform era, this evolves: *"AI agent suites for any industry. Sign up,
 ### "Continue from where we left off"
 - Read the TodoWrite list
 - Read the most recently modified files in the project
-- Check git log of `conduit-ai-dashboard` and any new `conduit-ai-platform` repo
+- Check git log of `monican-dashboard` and any new `monican-platform` repo
 
 ### "Add a new industry" (Phase 5 and beyond)
 - Create a new industry pack folder: `industries/{industry_name}/`

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Conduit AI — Lead Response Auto-Drafter
+Monican — Lead Response Auto-Drafter
 Takes an incoming lead inquiry and generates a personalized response.
 
 This is the SECOND demo agent — same pattern as the listing generator:
@@ -231,7 +231,7 @@ The easiest next step would be a quick 10-minute call — I can learn more about
 
 def interactive_mode():
     print("\n" + "="*60)
-    print("  CONDUIT AI — Lead Response Auto-Drafter")
+    print("  MONICAN — Lead Response Auto-Drafter")
     print("="*60 + "\n")
 
     lead = {}

@@ -4,7 +4,7 @@ const path = require("path");
 const pres = new pptxgen();
 pres.layout = "LAYOUT_16x9";
 pres.author = "Daniel Weadock";
-pres.title = "Conduit AI — How It Works";
+pres.title = "Monican — How It Works";
 
 const BG = "090909";
 const CARD = "141414";
@@ -29,7 +29,7 @@ s1.background = { color: BG };
 s1.addShape(pres.shapes.RECTANGLE, { x: 0, y: 0, w: 10, h: 0.04, fill: { color: WHITE } });
 s1.addText("How AI Agents\nWork For You", { x: 0.8, y: 1.0, w: 8, h: 2.2, fontSize: 48, fontFace: "Arial Black", color: WHITE, margin: 0 });
 s1.addText("A visual walkthrough of how we automate your most\ntime-consuming workflows — in real time.", { x: 0.8, y: 3.2, w: 7, h: 0.8, fontSize: 15, fontFace: "Calibri", color: GRAY, margin: 0 });
-s1.addText("Conduit AI", { x: 0.8, y: 4.8, w: 3, h: 0.4, fontSize: 13, fontFace: "Calibri", color: GRAY, margin: 0 });
+s1.addText("Monican", { x: 0.8, y: 4.8, w: 3, h: 0.4, fontSize: 13, fontFace: "Calibri", color: GRAY, margin: 0 });
 
 // ============ SLIDE 2 — THE PROBLEM ============
 let s2 = pres.addSlide();
@@ -213,9 +213,9 @@ s10.background = { color: BG };
 s10.addShape(pres.shapes.RECTANGLE, { x: 0, y: 5.525, w: 10, h: 0.1, fill: { color: WHITE } });
 s10.addText("Want to see this\nwith your leads?", { x: 0.8, y: 1.0, w: 8, h: 2.0, fontSize: 44, fontFace: "Arial Black", color: WHITE, margin: 0 });
 s10.addText("We'll run a free audit on your actual workflows and show you\nexactly how much time and money you'll save.", { x: 0.8, y: 3.0, w: 7, h: 0.8, fontSize: 16, fontFace: "Calibri", color: LGRAY, margin: 0 });
-s10.addText("Conduit AI  |  Daniel Weadock  |  Bolton, MA", { x: 0.8, y: 4.8, w: 8, h: 0.4, fontSize: 13, fontFace: "Calibri", color: GRAY, margin: 0 });
+s10.addText("Monican  |  Daniel Weadock  |  Bolton, MA", { x: 0.8, y: 4.8, w: 8, h: 0.4, fontSize: 13, fontFace: "Calibri", color: GRAY, margin: 0 });
 
 // SAVE
-pres.writeFile({ fileName: "/Users/danielweadock/Conduit AI/Conduit_AI_Demo_Walkthrough.pptx" })
+pres.writeFile({ fileName: "/Users/danielweadock/Conduit AI/Monican_Demo_Walkthrough.pptx" })
   .then(() => console.log("Demo deck with screenshots saved!"))
   .catch(err => console.error(err));

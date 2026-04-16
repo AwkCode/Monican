@@ -30,9 +30,9 @@ const MODULE_CATALOG = [
     tagline: "Know before your competition",
     description:
       "Monitors public records for ownership milestones, life events, and seller signals in your farm towns. Daily digest of opportunities.",
-    phase: "Coming in Phase 4",
+    phase: "Available",
     href: "/modules/signal-engine",
-    ready: false,
+    ready: true,
   },
 ];
 

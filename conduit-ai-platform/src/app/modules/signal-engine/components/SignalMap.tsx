@@ -17,11 +17,8 @@ const MARKER_COLORS = {
 };
 
 // Dynamic import wrapper — Leaflet requires window
-let MapContainer: any,
-  TileLayer: any,
-  CircleMarker: any,
-  Popup: any,
-  useMap: any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let MapContainer: any, TileLayer: any, CircleMarker: any, Popup: any;
 
 export default function SignalMap({
   signals,
@@ -33,16 +30,20 @@ export default function SignalMap({
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    // Load Leaflet CSS
+    if (!document.querySelector('link[href*="leaflet"]')) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "https://unpkg.com/leaflet@1/dist/leaflet.css";
+      document.head.appendChild(link);
+    }
+
     // Dynamic import of react-leaflet (requires browser)
-    Promise.all([
-      import("react-leaflet"),
-      import("leaflet/dist/leaflet.css"),
-    ]).then(([rl]) => {
+    import("react-leaflet").then((rl) => {
       MapContainer = rl.MapContainer;
       TileLayer = rl.TileLayer;
       CircleMarker = rl.CircleMarker;
       Popup = rl.Popup;
-      useMap = rl.useMap;
       setReady(true);
     });
   }, []);

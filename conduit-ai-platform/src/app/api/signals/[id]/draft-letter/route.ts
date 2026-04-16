@@ -97,7 +97,7 @@ export async function POST(
   if (saveToDraft && signal.owner_name) {
     try {
       const draftRes = await fetch(
-        `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://conduit-ai-platform.vercel.app"}/api/gmail/draft`,
+        `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://monican-platform.vercel.app"}/api/gmail/draft`,
         {
           method: "POST",
           headers: {

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Conduit AI — Outreach Drafter
+Monican — Outreach Drafter
 Reads prospects.xlsx and generates personalized cold emails + LinkedIn messages.
 Usage: python3 agents/outreach_drafter.py [--priority HIGH|MEDIUM|LOW] [--limit N]
 """
@@ -81,7 +81,7 @@ def draft_email(prospect):
         output += f"I noticed {agency} has about {agents} agents — which means your team is probably spending a huge chunk of time on lead responses, listing writeups, and chasing documents for transactions.\n\n"
         output += f"I build AI systems that handle that automatically. One team I've worked with cut their lead response time from hours to minutes and stopped writing listing descriptions entirely — the AI drafts them from property details in seconds.\n\n"
         output += f"I'd love to show you what this looks like for {agency}. Would a 20-minute call work sometime this week?\n\n"
-        output += f"Daniel Weadock\nConduit AI\n"
+        output += f"Daniel Weadock\nMonican\n"
 
     else:
         output += f"**Subject:** Quick question about {agency}'s admin workflow\n\n"
@@ -91,7 +91,7 @@ def draft_email(prospect):
         output += f"It's a 30-minute conversation where I map out where your team is spending the most time on repetitive tasks and show you exactly what could be automated.\n\n"
         output += f"No pitch, no commitment — just a clear picture of where AI could save your agents real hours every week.\n\n"
         output += f"Would you be open to a quick call this week or next?\n\n"
-        output += f"Best,\nDaniel Weadock\nConduit AI\n"
+        output += f"Best,\nDaniel Weadock\nMonican\n"
 
     # Add personalization notes
     if details:

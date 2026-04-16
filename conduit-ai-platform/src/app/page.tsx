@@ -9,7 +9,7 @@ export default function Home() {
         <section className="py-24 md:py-32">
           <div className="max-w-3xl">
             <p className="text-cb-blue font-medium tracking-wide uppercase text-xs mb-4">
-              Conduit AI Platform
+              Monican
             </p>
             <h1 className="text-5xl md:text-6xl font-semibold tracking-tight leading-tight">
               AI agent suites for any industry.
@@ -64,7 +64,7 @@ export default function Home() {
           </h2>
           <div className="grid md:grid-cols-2 gap-6 text-cb-gray">
             <p>
-              Conduit isn&apos;t a chatbot you drop on your website. It&apos;s a suite
+              Monican isn&apos;t a chatbot you drop on your website. It&apos;s a suite
               of agents that live inside your existing Gmail, Google Sheets, and
               CRM — responding, drafting, and surfacing opportunities 24/7.
             </p>
@@ -76,7 +76,7 @@ export default function Home() {
         </section>
 
         <footer className="py-10 border-t border-cb-border text-sm text-neutral-500">
-          © {new Date().getFullYear()} Conduit AI · Bolton, MA
+          © {new Date().getFullYear()} Monican · Bolton, MA
         </footer>
       </main>
     </>

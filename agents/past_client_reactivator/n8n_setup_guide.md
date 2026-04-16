@@ -1,5 +1,5 @@
 # Past Client Reactivator — n8n Setup Guide
-### For Conduit AI | Built for Eileen Fitzpatrick / RE/MAX Traditions
+### For Monican | Built for Eileen Fitzpatrick / RE/MAX Traditions
 
 This walks through building the Past Client Reactivator workflow in n8n Cloud. The workflow runs every Monday at 8am ET, reads Eileen's past client sheet, finds people with upcoming birthdays / home-aversaries / dormant contacts, drafts a personalized email for each, creates Gmail drafts in her account, and sends her a summary email.
 
@@ -37,14 +37,14 @@ Gmail: Send Monday Summary (tells Eileen how many drafts are ready)
 
 - [ ] Anthropic API key already added as n8n credential (same as Lead Responder)
 - [ ] Google account connected to n8n (same as Lead Responder — has Google Sheets + Gmail scopes)
-- [ ] New Google Sheet created: "Conduit AI - Past Clients"
+- [ ] New Google Sheet created: "Monican - Past Clients"
 
 ---
 
 ## Step 1: Create the Google Sheet
 
 1. Go to sheets.google.com → Blank spreadsheet
-2. Name it: **Conduit AI - Past Clients**
+2. Name it: **Monican - Past Clients**
 3. In cell A1, paste this row of headers (TAB-separated so Sheets auto-splits into columns):
    ```
    First Name	Last Name	Email	Phone	Property Address	Transaction Type	Closing Date	Birthday	Tags	Last Contacted	Notes
@@ -78,7 +78,7 @@ Gmail: Send Monday Summary (tells Eileen how many drafts are ready)
 - Add node → search "Google Sheets"
 - Select **Get rows in sheet**
 - Credential: use your existing Google Sheets OAuth credential
-- Document: paste the "Conduit AI - Past Clients" sheet URL
+- Document: paste the "Monican - Past Clients" sheet URL
 - Sheet: **Sheet1**
 - Options → **Return All Rows** (toggle ON)
 
@@ -125,7 +125,7 @@ Gmail: Send Monday Summary (tells Eileen how many drafts are ready)
 ### Node 8 — Google Sheets: Update Row
 - Add node → Google Sheets → **Update row in sheet**
 - Credential: same Google Sheets credential
-- Document: same "Conduit AI - Past Clients" sheet
+- Document: same "Monican - Past Clients" sheet
 - Sheet: Sheet1
 - Mapping Column Mode: **Map Each Column Manually**
 - Column to Match On: **Email**

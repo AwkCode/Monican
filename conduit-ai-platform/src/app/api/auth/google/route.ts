@@ -14,7 +14,7 @@ export async function GET() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.redirect(new URL("/login", process.env.NEXT_PUBLIC_SITE_URL ?? "https://conduit-ai-platform.vercel.app"));
+    return NextResponse.redirect(new URL("/login", process.env.NEXT_PUBLIC_SITE_URL ?? "https://monican-platform.vercel.app"));
   }
 
   const authUrl = buildGoogleAuthUrl(user.id);

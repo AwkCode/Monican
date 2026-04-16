@@ -28,7 +28,7 @@ function getClientSecret() {
 function getRedirectUri() {
   return (
     process.env.GOOGLE_REDIRECT_URI ??
-    "https://conduit-ai-platform.vercel.app/api/auth/google/callback"
+    "https://monican-platform.vercel.app/api/auth/google/callback"
   ).trim();
 }
 

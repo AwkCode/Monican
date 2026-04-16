@@ -3,7 +3,7 @@ const pptxgen = require("pptxgenjs");
 const pres = new pptxgen();
 pres.layout = "LAYOUT_16x9";
 pres.author = "Daniel Weadock";
-pres.title = "Conduit AI — Agentic AI Training";
+pres.title = "Monican — Agentic AI Training";
 
 // ============================================================
 // DESIGN SYSTEM
@@ -34,7 +34,7 @@ s1.background = { color: C.dark };
 // Top accent bar
 s1.addShape(pres.shapes.RECTANGLE, { x: 0, y: 0, w: 10, h: 0.06, fill: { color: C.teal } });
 // Title
-s1.addText("CONDUIT AI", { x: 0.8, y: 1.2, w: 8.4, h: 1.0, fontSize: 52, fontFace: "Arial Black", color: C.white, bold: true, margin: 0 });
+s1.addText("MONICAN", { x: 0.8, y: 1.2, w: 8.4, h: 1.0, fontSize: 52, fontFace: "Arial Black", color: C.white, bold: true, margin: 0 });
 s1.addText("AGENTIC AI TRAINING", { x: 0.8, y: 2.1, w: 8.4, h: 0.6, fontSize: 20, fontFace: "Calibri", color: C.teal, charSpacing: 6, margin: 0 });
 s1.addText("Everything you need to know to sell, build, and deliver\nAI workflow automation for small businesses.", { x: 0.8, y: 3.0, w: 7, h: 0.9, fontSize: 15, fontFace: "Calibri", color: C.gray, margin: 0 });
 s1.addText("Daniel Weadock  |  April 2026", { x: 0.8, y: 4.8, w: 8, h: 0.4, fontSize: 12, fontFace: "Calibri", color: C.gray, margin: 0 });
@@ -465,6 +465,6 @@ s15.addText("The plan is done. The system is built. The only thing left is you."
 // ============================================================
 // SAVE
 // ============================================================
-pres.writeFile({ fileName: "/Users/danielweadock/Conduit AI/Conduit_AI_Training.pptx" })
+pres.writeFile({ fileName: "/Users/danielweadock/Conduit AI/Monican_Training.pptx" })
   .then(() => console.log("Presentation saved!"))
   .catch(err => console.error(err));

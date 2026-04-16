@@ -1,5 +1,5 @@
 # Discovery Call Framework
-### Conduit AI | Daniel Weadock
+### Monican | Daniel Weadock
 ### Last Updated: April 5, 2026
 
 ---

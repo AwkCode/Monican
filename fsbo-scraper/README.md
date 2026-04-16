@@ -2,7 +2,7 @@
 
 Vercel serverless function that scrapes For-Sale-By-Owner listings from forsalebyowner.com and fsbo.com, filters to Worcester County MA, and POSTs new listings to an n8n webhook.
 
-Part of the Conduit AI FSBO Finder agent. Built for Daniel Weadock's real estate consulting business.
+Part of the Monican FSBO Finder agent. Built for Daniel Weadock's real estate consulting business.
 
 ## Architecture
 

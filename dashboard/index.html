@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Conduit AI — ROI Calculator & Dashboard</title>
+<title>Monican — ROI Calculator & Dashboard</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#090909;--card:#141414;--white:#ffffff;--gray:#777;--lightGray:#bbb;--offWhite:#f2f2f2;--green:#22c55e;--yellow:#e5a63b;--red:#dc3545;--purple:#9f8fef;--border:#222;--accent:#fff}
@@ -136,7 +136,7 @@ tr:hover td{background:#ffffff06}
 <body>
 
 <div class="header">
-  <div><img src="logo.png" alt="Conduit AI" style="height:36px;filter:invert(1)"></div>
+  <div><img src="monican-logo.png" alt="Monican" style="height:36px"></div>
 </div>
 
 <div class="nav">
@@ -530,7 +530,7 @@ function copyResults() {
   const savings = document.getElementById('r-annual-savings').textContent;
   const be = document.getElementById('r-breakeven').textContent;
   const roi = document.getElementById('r-roi').textContent;
-  const text = `ROI Summary — Conduit AI\n\nCurrent time spent: ${hrs} hrs/week\nAnnual savings: ${savings}\nBreak-even: ${be} months\nYear 1 ROI: ${roi}\n\nPowered by Conduit AI | Daniel Weadock & Evan Rolfe`;
+  const text = `ROI Summary — Monican\n\nCurrent time spent: ${hrs} hrs/week\nAnnual savings: ${savings}\nBreak-even: ${be} months\nYear 1 ROI: ${roi}\n\nPowered by Monican | Daniel Weadock & Evan Rolfe`;
   navigator.clipboard.writeText(text).then(() => alert('Copied to clipboard!'));
 }
 

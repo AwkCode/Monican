@@ -14,9 +14,13 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Conduit AI — AI agent suites for any industry",
+  title: "Monican — AI agent suites for any industry",
   description:
     "Sign up, set your profile, your agents are running in 10 minutes. Real estate, legal, dental, and more.",
+  icons: {
+    icon: "/monican-logo.png",
+    apple: "/monican-logo.png",
+  },
 };
 
 export default function RootLayout({

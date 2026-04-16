@@ -1,6 +1,6 @@
 "use client";
 
-import { SIGNAL_TYPE_LABELS, type SignalType } from "@/lib/signals/types";
+import { SIGNAL_TYPE_LABELS } from "@/lib/signals/types";
 
 type Filters = {
   type: string;

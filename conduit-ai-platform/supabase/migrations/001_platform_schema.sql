@@ -1,4 +1,4 @@
--- Conduit AI Platform — Phase 1 schema
+-- Monican Platform — Phase 1 schema
 -- Run this against the existing Supabase project (ecbquabpmmhjycsymnhf).
 -- Safe to re-run: everything is IF NOT EXISTS.
 
