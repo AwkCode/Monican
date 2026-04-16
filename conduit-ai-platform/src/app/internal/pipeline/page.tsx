@@ -31,7 +31,7 @@ export default async function PipelinePage() {
         <main className="max-w-2xl mx-auto px-6 py-16">
           <h1 className="text-2xl font-semibold mb-2">Not authorized</h1>
           <p className="text-cb-gray">
-            This page is internal to the Conduit team.
+            This page is internal to the Monican team.
           </p>
         </main>
       </>

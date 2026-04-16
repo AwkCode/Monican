@@ -38,7 +38,7 @@ export default async function DashboardPage() {
           Welcome{client?.full_name ? `, ${client.full_name.split(" ")[0]}` : ""}
         </h1>
         <p className="text-cb-gray mb-10">
-          Here&apos;s the state of your Conduit workspace.
+          Here&apos;s the state of your Monican workspace.
         </p>
 
         <div className="grid md:grid-cols-2 gap-6 mb-10">

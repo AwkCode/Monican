@@ -10,7 +10,7 @@ export default function LoginPage() {
           Welcome back
         </h1>
         <p className="text-cb-gray mb-8">
-          Log in to your Conduit dashboard.
+          Log in to your Monican dashboard.
         </p>
         <LoginForm />
       </main>
