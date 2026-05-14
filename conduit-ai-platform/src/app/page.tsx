@@ -174,7 +174,7 @@ export default function Home() {
                   <span className="font-semibold text-lg">Monican</span>
                 </div>
                 <p className="text-mn-muted text-sm max-w-xs leading-relaxed">
-                  AI agent suites for every industry. Built in Bolton, MA.
+                  AI agent suites for every industry. Built in Boston, MA.
                 </p>
               </div>
               <div>
@@ -202,7 +202,7 @@ export default function Home() {
               </div>
             </div>
             <div className="pt-8 border-t border-mn-border flex flex-col md:flex-row justify-between gap-4 text-sm text-mn-muted">
-              <p>&copy; {new Date().getFullYear()} Monican &middot; Bolton, MA</p>
+              <p>&copy; {new Date().getFullYear()} Monican &middot; Boston, MA</p>
               <p>Built with Claude, Next.js, and Supabase.</p>
             </div>
           </div>
