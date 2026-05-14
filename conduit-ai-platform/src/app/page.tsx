@@ -81,90 +81,112 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Three agents */}
-        <section className="max-w-6xl mx-auto px-6 py-24 md:py-32">
-          <div className="max-w-2xl mb-16">
-            <p className="text-mn-primary font-semibold tracking-wide uppercase text-xs mb-4">
-              The platform
-            </p>
-            <h2 className="text-4xl font-semibold tracking-tight mb-4">
-              Three agents. One platform.
-            </h2>
-            <p className="text-mn-muted text-lg">
-              Each agent handles a different part of your business — so you can
-              focus on closing deals.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            <ModuleCard
-              name="Lead Responder"
-              tagline="Never miss a lead"
-              description="Replies to website leads, Zillow inquiries, and form fills in under 2 minutes — in your voice."
-            />
-            <ModuleCard
-              name="Past Client Reactivator"
-              tagline="Your book of business, working"
-              description="Weekly personalized check-ins with past clients. Birthdays, home anniversaries, market updates."
-            />
-            <ModuleCard
-              name="Signal Engine"
-              tagline="Know before your competition"
-              description="Monitors public records for ownership milestones, life events, and seller signals in your farm."
-            />
-          </div>
+        {/* Section header — The platform */}
+        <section className="max-w-6xl mx-auto px-6 pt-32 pb-12">
+          <p className="text-mn-primary font-semibold tracking-wide uppercase text-xs mb-4">
+            The platform
+          </p>
+          <h2 className="text-5xl md:text-6xl font-semibold tracking-tight leading-tight max-w-3xl">
+            Three agents. One platform.
+          </h2>
         </section>
 
+        {/* Module 01 — Lead Responder */}
+        <ModuleSpotlight
+          number="01"
+          tagline="Never miss a lead"
+          name="Lead Responder"
+          description="Replies to website leads, Zillow inquiries, and form fills in under 2 minutes — in your voice. Drafts every message, you approve before send."
+          gradient="from-orange-100 via-amber-50 to-rose-100"
+          accentColor="bg-mn-primary"
+          stats={[
+            { label: "Avg response time", value: "<2 min" },
+            { label: "Lead conversion lift", value: "+34%" },
+            { label: "Hours saved / week", value: "12" },
+          ]}
+        />
+
+        {/* Module 02 — Past Client Reactivator */}
+        <ModuleSpotlight
+          number="02"
+          tagline="Your book of business, working"
+          name="Past Client Reactivator"
+          description="Weekly personalized check-ins with past clients. Birthdays, home anniversaries, market updates — every reason to stay top of mind, automated."
+          gradient="from-rose-100 via-orange-50 to-amber-100"
+          accentColor="bg-rose-400"
+          reverse
+          stats={[
+            { label: "Clients reactivated", value: "120+" },
+            { label: "Referrals generated", value: "8/mo" },
+            { label: "Touch points / yr", value: "52x" },
+          ]}
+        />
+
+        {/* Module 03 — Signal Engine */}
+        <ModuleSpotlight
+          number="03"
+          tagline="Know before your competition"
+          name="Signal Engine"
+          description="Monitors public records for ownership milestones, life events, and seller signals in your farm. Be first to the door with a real reason to reach out."
+          gradient="from-amber-100 via-rose-50 to-orange-100"
+          accentColor="bg-amber-500"
+          stats={[
+            { label: "Signals / week", value: "30+" },
+            { label: "Lead time advantage", value: "60 days" },
+            { label: "Conversion to listing", value: "1 in 8" },
+          ]}
+        />
+
         {/* Industries */}
-        <section id="industries" className="bg-mn-bg-subtle border-y border-mn-border">
-          <div className="max-w-6xl mx-auto px-6 py-24 md:py-32">
-            <div className="max-w-2xl mb-16">
+        <section id="industries" className="relative overflow-hidden bg-mn-text text-white">
+          <div className="absolute inset-0">
+            <div className="absolute top-[-20%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-mn-primary/10 blur-3xl" />
+            <div className="absolute bottom-[-20%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-amber-500/10 blur-3xl" />
+          </div>
+          <div className="relative max-w-6xl mx-auto px-6 py-32">
+            <div className="max-w-3xl mb-20">
               <p className="text-mn-primary font-semibold tracking-wide uppercase text-xs mb-4">
                 Industries
               </p>
-              <h2 className="text-4xl font-semibold tracking-tight mb-4">
-                Built for one industry. Designed for every industry.
+              <h2 className="text-5xl md:text-6xl font-semibold tracking-tight leading-tight">
+                Built for real estate. <span className="text-white/50">Coming for everyone else.</span>
               </h2>
-              <p className="text-mn-muted text-lg">
-                We start with real estate. The same engine powers every vertical we expand into next.
-              </p>
             </div>
-            <div className="grid md:grid-cols-4 gap-4">
-              <IndustryCard name="Real Estate" status="Live" active />
-              <IndustryCard name="Legal" status="Coming soon" />
-              <IndustryCard name="Dental" status="Coming soon" />
-              <IndustryCard name="Your industry?" status="Tell us" />
+            <div className="grid md:grid-cols-4 gap-px bg-white/10 border border-white/10 rounded-2xl overflow-hidden">
+              <IndustryTile name="Real Estate" status="Live" active />
+              <IndustryTile name="Legal" status="Coming soon" />
+              <IndustryTile name="Dental" status="Coming soon" />
+              <IndustryTile name="Your industry?" status="Tell us" />
             </div>
           </div>
         </section>
 
-        {/* Built differently */}
-        <section className="max-w-6xl mx-auto px-6 py-24 md:py-32">
-          <div className="max-w-2xl mb-12">
+        {/* How it works — feature grid */}
+        <section className="max-w-6xl mx-auto px-6 py-32">
+          <div className="max-w-3xl mb-20">
             <p className="text-mn-primary font-semibold tracking-wide uppercase text-xs mb-4">
               How it works
             </p>
-            <h2 className="text-4xl font-semibold tracking-tight mb-4">
+            <h2 className="text-5xl md:text-6xl font-semibold tracking-tight leading-tight">
               Built differently.
             </h2>
           </div>
-          <div className="grid md:grid-cols-2 gap-12">
-            <div>
-              <h3 className="text-xl font-semibold mb-3">Lives in your tools</h3>
-              <p className="text-mn-muted leading-relaxed">
-                Monican isn&apos;t a chatbot you drop on your website. It&apos;s a
-                suite of agents that live inside your existing Gmail, Google
-                Sheets, and CRM — responding, drafting, and surfacing
-                opportunities 24/7.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold mb-3">You stay in control</h3>
-              <p className="text-mn-muted leading-relaxed">
-                Every draft is reviewed by you before it sends. Every tool stays
-                in your name. We just build the brains, and you keep all the
-                relationships.
-              </p>
-            </div>
+          <div className="grid md:grid-cols-3 gap-px bg-mn-border border border-mn-border rounded-2xl overflow-hidden">
+            <FeatureTile
+              icon="💌"
+              title="Lives in your tools"
+              description="Your agents work inside your existing Gmail, Sheets, and CRM. No new logins. No migration."
+            />
+            <FeatureTile
+              icon="✋"
+              title="You stay in control"
+              description="Every draft is reviewed before it sends. You approve, edit, or reject. The voice stays yours."
+            />
+            <FeatureTile
+              icon="⚡"
+              title="Live in 10 minutes"
+              description="Sign up, connect Gmail, fill your profile. Your agents are running before lunch."
+            />
           </div>
         </section>
 
@@ -242,27 +264,87 @@ export default function Home() {
   );
 }
 
-function ModuleCard({
-  name,
+function ModuleSpotlight({
+  number,
   tagline,
+  name,
   description,
+  gradient,
+  accentColor,
+  stats,
+  reverse = false,
 }: {
-  name: string;
+  number: string;
   tagline: string;
+  name: string;
   description: string;
+  gradient: string;
+  accentColor: string;
+  stats: { label: string; value: string }[];
+  reverse?: boolean;
 }) {
   return (
-    <div className="border border-mn-border rounded-xl p-8 bg-white hover:shadow-md hover:border-mn-muted/30 transition-all">
-      <p className="text-xs uppercase tracking-wide text-mn-primary font-semibold mb-3">
-        {tagline}
-      </p>
-      <h3 className="text-xl font-semibold mb-3">{name}</h3>
-      <p className="text-mn-muted text-sm leading-relaxed">{description}</p>
-    </div>
+    <section className="max-w-6xl mx-auto px-6 py-16">
+      <div
+        className={`relative overflow-hidden rounded-3xl bg-gradient-to-br ${gradient} p-10 md:p-16`}
+      >
+        {/* Decorative blobs */}
+        <div className="absolute top-[-20%] right-[-10%] w-96 h-96 rounded-full bg-white/30 blur-3xl" />
+        <div className="absolute bottom-[-20%] left-[-10%] w-96 h-96 rounded-full bg-white/20 blur-3xl" />
+
+        <div
+          className={`relative grid md:grid-cols-2 gap-12 items-center ${
+            reverse ? "md:[&>*:first-child]:order-2" : ""
+          }`}
+        >
+          {/* Text */}
+          <div>
+            <p className="text-mn-text/60 font-mono text-sm mb-6">{number}</p>
+            <p className="text-mn-primary font-semibold tracking-wide uppercase text-xs mb-3">
+              {tagline}
+            </p>
+            <h3 className="text-4xl md:text-5xl font-semibold tracking-tight leading-tight mb-5">
+              {name}
+            </h3>
+            <p className="text-mn-text/70 text-lg leading-relaxed max-w-md">
+              {description}
+            </p>
+          </div>
+
+          {/* Stats card */}
+          <div className="bg-white rounded-2xl shadow-xl p-8 border border-white/50">
+            <div className="flex items-center gap-2 mb-6">
+              <div className={`w-2.5 h-2.5 ${accentColor} rounded-full`} />
+              <span className="text-sm font-medium text-mn-text">
+                {name} — live
+              </span>
+            </div>
+            <div className="space-y-5">
+              {stats.map((s, i) => (
+                <div key={i}>
+                  <div className="flex justify-between items-baseline mb-2">
+                    <span className="text-mn-muted text-sm">{s.label}</span>
+                    <span className="text-2xl font-semibold text-mn-text">
+                      {s.value}
+                    </span>
+                  </div>
+                  <div className="w-full bg-mn-bg-subtle rounded-full h-1.5">
+                    <div
+                      className={`${accentColor} h-1.5 rounded-full`}
+                      style={{ width: `${30 + i * 25}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
-function IndustryCard({
+function IndustryTile({
   name,
   status,
   active = false,
@@ -272,22 +354,36 @@ function IndustryCard({
   active?: boolean;
 }) {
   return (
-    <div
-      className={`border rounded-xl p-6 bg-white ${
-        active ? "border-mn-primary/40" : "border-mn-border"
-      }`}
-    >
-      <div className="flex items-center gap-2 mb-2">
+    <div className="bg-mn-text p-8 hover:bg-white/5 transition group">
+      <div className="flex items-center gap-2 mb-6">
         <div
           className={`w-2 h-2 rounded-full ${
-            active ? "bg-green-500" : "bg-mn-muted/40"
+            active ? "bg-green-400" : "bg-white/30"
           }`}
         />
-        <p className="text-xs uppercase tracking-wide text-mn-muted font-medium">
+        <p className="text-xs uppercase tracking-wide text-white/50 font-medium">
           {status}
         </p>
       </div>
-      <h3 className="text-lg font-semibold">{name}</h3>
+      <h3 className="text-2xl font-semibold text-white">{name}</h3>
+    </div>
+  );
+}
+
+function FeatureTile({
+  icon,
+  title,
+  description,
+}: {
+  icon: string;
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className="bg-white p-10 hover:bg-mn-bg-subtle/40 transition">
+      <div className="text-3xl mb-5">{icon}</div>
+      <h3 className="text-xl font-semibold mb-3">{title}</h3>
+      <p className="text-mn-muted leading-relaxed">{description}</p>
     </div>
   );
 }
