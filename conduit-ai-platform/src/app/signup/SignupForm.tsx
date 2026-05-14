@@ -50,7 +50,7 @@ export default function SignupForm() {
 
   if (needsConfirm) {
     return (
-      <div className="border border-cb-border rounded-lg p-6 bg-cb-card">
+      <div className="border border-mn-border rounded-lg p-6 bg-mn-bg-subtle">
         <p className="text-neutral-200">
           Check your email for a confirmation link to activate your account.
         </p>
@@ -63,17 +63,17 @@ export default function SignupForm() {
       <Field label="Full name" type="text" value={fullName} onChange={setFullName} required />
       <Field label="Email" type="email" value={email} onChange={setEmail} required />
       <Field label="Password" type="password" value={password} onChange={setPassword} required hint="At least 6 characters" />
-      {error && <p className="text-red-400 text-sm">{error}</p>}
+      {error && <p className="text-red-600 text-sm">{error}</p>}
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-cb-blue hover:bg-cb-blue-hover disabled:opacity-50 text-white font-medium py-3 rounded-md"
+        className="w-full bg-mn-primary hover:bg-mn-primary-hover disabled:opacity-50 text-white font-medium py-3 rounded-md"
       >
         {loading ? "Creating account..." : "Create account"}
       </button>
-      <p className="text-sm text-cb-gray text-center">
+      <p className="text-sm text-mn-muted text-center">
         Already have an account?{" "}
-        <Link href="/login" className="text-cb-blue hover:text-cb-blue-hover">
+        <Link href="/login" className="text-mn-primary hover:text-mn-primary-hover">
           Log in
         </Link>
       </p>
@@ -98,13 +98,13 @@ function Field({
 }) {
   return (
     <div>
-      <label className="block text-sm text-cb-gray mb-1.5">{label}</label>
+      <label className="block text-sm text-mn-muted mb-1.5">{label}</label>
       <input
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         required={required}
-        className="w-full bg-cb-card border border-cb-border rounded-md px-3 py-2 text-white focus:outline-none focus:border-cb-blue"
+        className="w-full bg-mn-bg-subtle border border-mn-border rounded-md px-3 py-2 text-mn-text focus:outline-none focus:border-mn-primary"
       />
       {hint && <p className="text-xs text-neutral-500 mt-1">{hint}</p>}
     </div>

@@ -12,18 +12,18 @@ export default function GmailConnection({
   flashReason: string | null;
 }) {
   return (
-    <div className="border border-cb-border rounded-lg p-6 bg-cb-card">
+    <div className="border border-mn-border rounded-lg p-6 bg-mn-bg-subtle">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold">Gmail</h2>
         {connected && (
-          <span className="text-xs px-2.5 py-1 rounded-full bg-green-500/20 text-green-300 font-medium">
+          <span className="text-xs px-2.5 py-1 rounded-full bg-green-50 text-green-700 font-medium">
             Connected
           </span>
         )}
       </div>
 
       {flashStatus === "connected" && (
-        <div className="bg-green-500/10 border border-green-500/20 rounded-md p-3 text-sm text-green-300 mb-4">
+        <div className="bg-green-50 border border-green-200 rounded-md p-3 text-sm text-green-600 mb-4">
           Gmail connected successfully. Your agents can now create drafts in your inbox.
         </div>
       )}
@@ -36,7 +36,7 @@ export default function GmailConnection({
 
       {connected ? (
         <div className="space-y-3">
-          <p className="text-cb-gray text-sm">
+          <p className="text-mn-muted text-sm">
             Your Gmail is connected. Agents will create drafts directly in your inbox
             for you to review before sending.
           </p>
@@ -47,20 +47,20 @@ export default function GmailConnection({
           )}
           <a
             href="/api/auth/google"
-            className="inline-block border border-cb-border hover:border-cb-gray px-4 py-2 rounded-md text-sm"
+            className="inline-block border border-mn-border hover:border-mn-muted px-4 py-2 rounded-md text-sm"
           >
             Reconnect Gmail
           </a>
         </div>
       ) : (
         <div className="space-y-4">
-          <p className="text-cb-gray text-sm">
+          <p className="text-mn-muted text-sm">
             Connect your Gmail so your agents can create email drafts in your
             inbox. You always review before anything sends.
           </p>
           <a
             href="/api/auth/google"
-            className="inline-block bg-cb-blue hover:bg-cb-blue-hover text-white font-medium px-5 py-2.5 rounded-md text-sm"
+            className="inline-block bg-mn-primary hover:bg-mn-primary-hover text-white font-medium px-5 py-2.5 rounded-md text-sm"
           >
             Connect Gmail
           </a>

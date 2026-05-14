@@ -117,13 +117,13 @@ export default function ProfileForm({ initial }: { initial: Initial }) {
         />
       </Section>
 
-      {error && <p className="text-red-400 text-sm">{error}</p>}
+      {error && <p className="text-red-600 text-sm">{error}</p>}
       {saved && <p className="text-green-400 text-sm">Saved.</p>}
 
       <button
         type="submit"
         disabled={saving}
-        className="bg-cb-blue hover:bg-cb-blue-hover disabled:opacity-50 text-white font-medium px-6 py-3 rounded-md"
+        className="bg-mn-primary hover:bg-mn-primary-hover disabled:opacity-50 text-white font-medium px-6 py-3 rounded-md"
       >
         {saving ? "Saving..." : "Save profile"}
       </button>
@@ -133,7 +133,7 @@ export default function ProfileForm({ initial }: { initial: Initial }) {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="border border-cb-border rounded-lg p-6 bg-cb-card space-y-4">
+    <div className="border border-mn-border rounded-lg p-6 bg-mn-bg-subtle space-y-4">
       <h2 className="text-lg font-semibold">{title}</h2>
       {children}
     </div>
@@ -153,12 +153,12 @@ function Input({
 }) {
   return (
     <div>
-      <label className="block text-sm text-cb-gray mb-1.5">{label}</label>
+      <label className="block text-sm text-mn-muted mb-1.5">{label}</label>
       <input
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full bg-cb-bg border border-cb-border rounded-md px-3 py-2 text-white focus:outline-none focus:border-cb-blue"
+        className="w-full bg-mn-bg border border-mn-border rounded-md px-3 py-2 text-mn-text focus:outline-none focus:border-mn-primary"
       />
     </div>
   );
@@ -179,12 +179,12 @@ function Textarea({
 }) {
   return (
     <div>
-      <label className="block text-sm text-cb-gray mb-1.5">{label}</label>
+      <label className="block text-sm text-mn-muted mb-1.5">{label}</label>
       <textarea
         value={value}
         onChange={(e) => onChange(e.target.value)}
         rows={rows}
-        className="w-full bg-cb-bg border border-cb-border rounded-md px-3 py-2 text-white focus:outline-none focus:border-cb-blue font-mono text-sm"
+        className="w-full bg-mn-bg border border-mn-border rounded-md px-3 py-2 text-mn-text focus:outline-none focus:border-mn-primary font-mono text-sm"
       />
       {hint && <p className="text-xs text-neutral-500 mt-1">{hint}</p>}
     </div>

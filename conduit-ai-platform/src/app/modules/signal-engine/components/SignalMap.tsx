@@ -50,7 +50,7 @@ export default function SignalMap({
 
   if (!ready) {
     return (
-      <div className="border border-cb-border rounded-lg bg-cb-card h-[400px] flex items-center justify-center text-cb-gray text-sm">
+      <div className="border border-mn-border rounded-lg bg-mn-bg-subtle h-[400px] flex items-center justify-center text-mn-muted text-sm">
         Loading map...
       </div>
     );
@@ -68,7 +68,7 @@ export default function SignalMap({
       : { lat: 42.43, lng: -71.61 }; // Bolton MA
 
   return (
-    <div className="border border-cb-border rounded-lg overflow-hidden h-[400px]">
+    <div className="border border-mn-border rounded-lg overflow-hidden h-[400px]">
       <MapContainer
         center={[center.lat, center.lng]}
         zoom={11}

@@ -37,7 +37,7 @@ export default async function DashboardPage() {
         <h1 className="text-3xl font-semibold tracking-tight mb-2">
           Welcome{client?.full_name ? `, ${client.full_name.split(" ")[0]}` : ""}
         </h1>
-        <p className="text-cb-gray mb-10">
+        <p className="text-mn-muted mb-10">
           Here&apos;s the state of your Monican workspace.
         </p>
 
@@ -70,7 +70,7 @@ export default async function DashboardPage() {
 
         <section>
           <h2 className="text-xl font-semibold mb-4">Recent activity</h2>
-          <div className="border border-cb-border rounded-lg p-6 bg-cb-card text-cb-gray text-sm">
+          <div className="border border-mn-border rounded-lg p-6 bg-mn-bg-subtle text-mn-muted text-sm">
             Activity will appear here once your agents start running.
           </div>
         </section>
@@ -95,23 +95,23 @@ function Card({
   ctaHref: string;
 }) {
   const colorClass = {
-    green: "bg-green-500/20 text-green-300",
-    blue: "bg-cb-blue/20 text-blue-300",
-    neutral: "bg-cb-card text-cb-gray",
+    green: "bg-green-50 text-green-700",
+    blue: "bg-mn-primary/20 text-mn-primary",
+    neutral: "bg-mn-bg-subtle text-mn-muted",
   }[statusColor];
 
   return (
-    <div className="border border-cb-border rounded-lg p-6 bg-cb-card">
+    <div className="border border-mn-border rounded-lg p-6 bg-mn-bg-subtle">
       <div className="flex items-center justify-between mb-3">
         <h3 className="text-lg font-semibold">{title}</h3>
         <span className={`text-xs px-2 py-1 rounded-full ${colorClass}`}>
           {status}
         </span>
       </div>
-      <p className="text-cb-gray text-sm mb-5">{description}</p>
+      <p className="text-mn-muted text-sm mb-5">{description}</p>
       <Link
         href={ctaHref}
-        className="inline-block border border-cb-border hover:border-cb-gray px-4 py-2 rounded-md text-sm"
+        className="inline-block border border-mn-border hover:border-mn-muted px-4 py-2 rounded-md text-sm"
       >
         {ctaLabel}
       </Link>

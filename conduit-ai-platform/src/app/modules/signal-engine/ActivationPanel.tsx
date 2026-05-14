@@ -45,14 +45,14 @@ export default function ActivationPanel({
 
   if (!profileReady) {
     return (
-      <div className="border border-cb-border rounded-lg p-6 bg-cb-card">
+      <div className="border border-mn-border rounded-lg p-6 bg-mn-bg-subtle">
         <h2 className="text-lg font-semibold mb-2">Activation</h2>
-        <p className="text-cb-gray text-sm mb-4">
+        <p className="text-mn-muted text-sm mb-4">
           Complete your profile to activate the Signal Engine.
         </p>
         <Link
           href="/profile"
-          className="inline-block bg-cb-blue hover:bg-cb-blue-hover text-white font-medium px-5 py-2.5 rounded-md text-sm"
+          className="inline-block bg-mn-primary hover:bg-mn-primary-hover text-white font-medium px-5 py-2.5 rounded-md text-sm"
         >
           Complete profile
         </Link>
@@ -63,17 +63,17 @@ export default function ActivationPanel({
   if (state?.enabled) return null; // Dashboard is showing instead
 
   return (
-    <div className="border border-cb-border rounded-lg p-6 bg-cb-card">
+    <div className="border border-mn-border rounded-lg p-6 bg-mn-bg-subtle">
       <h2 className="text-lg font-semibold mb-2">Activate Signal Engine</h2>
-      <p className="text-cb-gray text-sm mb-5">
+      <p className="text-mn-muted text-sm mb-5">
         Start scanning public records for opportunities in your farm towns.
         You&apos;ll get a daily digest of ranked leads with one-click outreach.
       </p>
-      {error && <p className="text-red-400 text-sm mb-3">{error}</p>}
+      {error && <p className="text-red-600 text-sm mb-3">{error}</p>}
       <button
         onClick={activate}
         disabled={loading}
-        className="bg-cb-blue hover:bg-cb-blue-hover text-white font-medium px-6 py-3 rounded-md disabled:opacity-50"
+        className="bg-mn-primary hover:bg-mn-primary-hover text-white font-medium px-6 py-3 rounded-md disabled:opacity-50"
       >
         {loading ? "Activating..." : "Activate Signal Engine"}
       </button>

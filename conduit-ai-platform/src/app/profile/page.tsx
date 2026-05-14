@@ -24,7 +24,7 @@ export default async function ProfilePage() {
         <h1 className="text-3xl font-semibold tracking-tight mb-2">
           Your profile
         </h1>
-        <p className="text-cb-gray mb-8">
+        <p className="text-mn-muted mb-8">
           This is the context your agents use. The more you fill in, the more
           they sound like you.
         </p>

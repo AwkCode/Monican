@@ -30,7 +30,7 @@ export default async function PipelinePage() {
         <Nav />
         <main className="max-w-2xl mx-auto px-6 py-16">
           <h1 className="text-2xl font-semibold mb-2">Not authorized</h1>
-          <p className="text-cb-gray">
+          <p className="text-mn-muted">
             This page is internal to the Monican team.
           </p>
         </main>
@@ -61,16 +61,16 @@ export default async function PipelinePage() {
           <h1 className="text-3xl font-semibold tracking-tight">
             Prospect Pipeline
           </h1>
-          <span className="text-xs uppercase tracking-wide text-cb-blue">
+          <span className="text-xs uppercase tracking-wide text-mn-primary">
             Internal — admin only
           </span>
         </div>
-        <p className="text-cb-gray mb-8">
+        <p className="text-mn-muted mb-8">
           Legacy consulting pipeline. Not visible to platform clients.
         </p>
 
         {error && (
-          <p className="text-red-400 text-sm mb-4">
+          <p className="text-red-600 text-sm mb-4">
             Error loading prospects: {error.message}
           </p>
         )}
@@ -79,10 +79,10 @@ export default async function PipelinePage() {
           {stages.map((s) => (
             <div
               key={s}
-              className="border border-cb-border rounded-lg p-4 bg-cb-card text-center"
+              className="border border-mn-border rounded-lg p-4 bg-mn-bg-subtle text-center"
             >
               <div className="text-3xl font-bold">{stageCounts[s] ?? 0}</div>
-              <div className="text-xs text-cb-gray uppercase tracking-wide mt-1">
+              <div className="text-xs text-mn-muted uppercase tracking-wide mt-1">
                 {s}
               </div>
             </div>

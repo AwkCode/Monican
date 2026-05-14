@@ -11,7 +11,7 @@ import SignalTable from "./components/SignalTable";
 const SignalMap = dynamic(() => import("./components/SignalMap"), {
   ssr: false,
   loading: () => (
-    <div className="border border-cb-border rounded-lg bg-cb-card h-[400px] flex items-center justify-center text-cb-gray text-sm">
+    <div className="border border-mn-border rounded-lg bg-mn-bg-subtle h-[400px] flex items-center justify-center text-mn-muted text-sm">
       Loading map...
     </div>
   ),
@@ -70,7 +70,7 @@ export default function SignalDashboard({
         <h2 className="text-xl font-semibold">
           Opportunities
           {loading && (
-            <span className="text-cb-gray text-sm font-normal ml-2">
+            <span className="text-mn-muted text-sm font-normal ml-2">
               Loading...
             </span>
           )}

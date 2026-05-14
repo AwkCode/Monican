@@ -81,7 +81,7 @@ export default function Calculator() {
   return (
     <div className="space-y-6">
       <Card>
-        <label className="text-xs font-semibold text-cb-gray uppercase tracking-wide mb-3 block">
+        <label className="text-xs font-semibold text-mn-muted uppercase tracking-wide mb-3 block">
           Quick Add — Common Real Estate Workflows
         </label>
         <div className="flex flex-wrap gap-2">
@@ -89,7 +89,7 @@ export default function Calculator() {
             <button
               key={key}
               onClick={() => addWorkflow(p)}
-              className="bg-cb-border hover:bg-cb-border border border-cb-border px-3 py-1.5 rounded-md text-sm"
+              className="bg-mn-border hover:bg-mn-border border border-mn-border px-3 py-1.5 rounded-md text-sm"
             >
               {p.name}
             </button>
@@ -100,11 +100,11 @@ export default function Calculator() {
           {workflows.map((w) => (
             <div
               key={w.id}
-              className="border border-cb-border rounded-md p-4 bg-cb-bg relative"
+              className="border border-mn-border rounded-md p-4 bg-mn-bg relative"
             >
               <button
                 onClick={() => removeWf(w.id)}
-                className="absolute top-2 right-2 text-neutral-500 hover:text-red-400 text-xl leading-none"
+                className="absolute top-2 right-2 text-neutral-500 hover:text-red-600 text-xl leading-none"
               >
                 ×
               </button>
@@ -114,7 +114,7 @@ export default function Calculator() {
                     value={w.name}
                     onChange={(e) => updateWf(w.id, "name", e.target.value)}
                     placeholder="e.g. Lead Response"
-                    className="w-full bg-cb-card border border-cb-border rounded px-2 py-1.5 text-sm"
+                    className="w-full bg-mn-bg-subtle border border-mn-border rounded px-2 py-1.5 text-sm"
                   />
                 </FieldSmall>
                 <FieldSmall label="Who does it">
@@ -122,7 +122,7 @@ export default function Calculator() {
                     value={w.who}
                     onChange={(e) => updateWf(w.id, "who", e.target.value)}
                     placeholder="Admin"
-                    className="w-full bg-cb-card border border-cb-border rounded px-2 py-1.5 text-sm"
+                    className="w-full bg-mn-bg-subtle border border-mn-border rounded px-2 py-1.5 text-sm"
                   />
                 </FieldSmall>
                 <FieldSmall label="Minutes per task">
@@ -130,7 +130,7 @@ export default function Calculator() {
                     type="number"
                     value={w.minPerTask}
                     onChange={(e) => updateWf(w.id, "minPerTask", +e.target.value)}
-                    className="w-full bg-cb-card border border-cb-border rounded px-2 py-1.5 text-sm"
+                    className="w-full bg-mn-bg-subtle border border-mn-border rounded px-2 py-1.5 text-sm"
                   />
                 </FieldSmall>
                 <FieldSmall label="Times / week">
@@ -138,7 +138,7 @@ export default function Calculator() {
                     type="number"
                     value={w.timesPerWeek}
                     onChange={(e) => updateWf(w.id, "timesPerWeek", +e.target.value)}
-                    className="w-full bg-cb-card border border-cb-border rounded px-2 py-1.5 text-sm"
+                    className="w-full bg-mn-bg-subtle border border-mn-border rounded px-2 py-1.5 text-sm"
                   />
                 </FieldSmall>
               </div>
@@ -148,7 +148,7 @@ export default function Calculator() {
 
         <button
           onClick={() => addWorkflow()}
-          className="mt-4 border border-cb-border hover:border-cb-gray px-4 py-2 rounded-md text-sm"
+          className="mt-4 border border-mn-border hover:border-mn-muted px-4 py-2 rounded-md text-sm"
         >
           + Add custom workflow
         </button>
@@ -161,7 +161,7 @@ export default function Calculator() {
               type="number"
               value={buildFee}
               onChange={(e) => setBuildFee(+e.target.value)}
-              className="w-full bg-cb-bg border border-cb-border rounded px-2 py-2"
+              className="w-full bg-mn-bg border border-mn-border rounded px-2 py-2"
             />
           </FieldSmall>
           <FieldSmall label="Monthly retainer">
@@ -169,7 +169,7 @@ export default function Calculator() {
               type="number"
               value={retainer}
               onChange={(e) => setRetainer(+e.target.value)}
-              className="w-full bg-cb-bg border border-cb-border rounded px-2 py-2"
+              className="w-full bg-mn-bg border border-mn-border rounded px-2 py-2"
             />
           </FieldSmall>
           <FieldSmall label="Avg staff hourly cost">
@@ -177,14 +177,14 @@ export default function Calculator() {
               type="number"
               value={hourlyRate}
               onChange={(e) => setHourlyRate(+e.target.value)}
-              className="w-full bg-cb-bg border border-cb-border rounded px-2 py-2"
+              className="w-full bg-mn-bg border border-mn-border rounded px-2 py-2"
             />
           </FieldSmall>
           <FieldSmall label="Automation efficiency">
             <select
               value={efficiency}
               onChange={(e) => setEfficiency(+e.target.value)}
-              className="w-full bg-cb-bg border border-cb-border rounded px-2 py-2"
+              className="w-full bg-mn-bg border border-mn-border rounded px-2 py-2"
             >
               <option value="0.7">70% time saved</option>
               <option value="0.8">80% time saved</option>
@@ -220,7 +220,7 @@ export default function Calculator() {
 
 function Card({ title, children }: { title?: string; children: React.ReactNode }) {
   return (
-    <div className="border border-cb-border rounded-lg p-6 bg-cb-card">
+    <div className="border border-mn-border rounded-lg p-6 bg-mn-bg-subtle">
       {title && <h2 className="text-lg font-semibold mb-4">{title}</h2>}
       {children}
     </div>
@@ -230,7 +230,7 @@ function Card({ title, children }: { title?: string; children: React.ReactNode }
 function FieldSmall({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-xs text-cb-gray mb-1">{label}</label>
+      <label className="block text-xs text-mn-muted mb-1">{label}</label>
       {children}
     </div>
   );
@@ -246,23 +246,23 @@ function Stat({
   color: "red" | "green" | "white" | "yellow";
 }) {
   const colorClass = {
-    red: "text-red-400",
+    red: "text-red-600",
     green: "text-green-400",
-    white: "text-white",
+    white: "text-mn-text",
     yellow: "text-yellow-400",
   }[color];
   return (
-    <div className="border border-cb-border rounded-lg p-5 bg-cb-card">
+    <div className="border border-mn-border rounded-lg p-5 bg-mn-bg-subtle">
       <div className={`text-3xl font-bold ${colorClass}`}>{value}</div>
-      <div className="text-xs text-cb-gray mt-1 uppercase tracking-wide">{label}</div>
+      <div className="text-xs text-mn-muted mt-1 uppercase tracking-wide">{label}</div>
     </div>
   );
 }
 
 function ResultBox({ label, sub, value }: { label: string; sub: string; value: string }) {
   return (
-    <div className="border border-cb-border rounded-lg p-5 bg-cb-card">
-      <div className="text-xs text-cb-gray uppercase tracking-wide mb-1">{label}</div>
+    <div className="border border-mn-border rounded-lg p-5 bg-mn-bg-subtle">
+      <div className="text-xs text-mn-muted uppercase tracking-wide mb-1">{label}</div>
       <div className="text-2xl font-semibold">{value}</div>
       <div className="text-xs text-neutral-500 mt-1">{sub}</div>
     </div>

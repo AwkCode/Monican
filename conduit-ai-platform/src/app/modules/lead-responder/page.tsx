@@ -29,40 +29,40 @@ export default async function LeadResponderPage() {
     <>
       <Nav />
       <main className="max-w-3xl mx-auto px-6 py-12">
-        <p className="text-cb-blue text-xs uppercase tracking-wide font-medium mb-2">
+        <p className="text-mn-primary text-xs uppercase tracking-wide font-medium mb-2">
           Module
         </p>
         <h1 className="text-3xl font-semibold tracking-tight mb-2">
           Lead Responder
         </h1>
-        <p className="text-cb-gray mb-10">
+        <p className="text-mn-muted mb-10">
           Replies to website leads, Zillow inquiries, and form fills in under 2
           minutes — in your voice. Drafts land in your Gmail for review before
           sending.
         </p>
 
         <div className="space-y-6">
-          <div className="border border-cb-border rounded-lg p-6 bg-cb-card">
+          <div className="border border-mn-border rounded-lg p-6 bg-mn-bg-subtle">
             <h2 className="text-lg font-semibold mb-4">How it works</h2>
-            <ol className="space-y-3 text-sm text-cb-gray">
+            <ol className="space-y-3 text-sm text-mn-muted">
               <li className="flex gap-3">
-                <span className="text-cb-blue font-semibold">1.</span>
+                <span className="text-mn-primary font-semibold">1.</span>
                 A lead fills out your website form, Zillow inquiry, or sends an email.
               </li>
               <li className="flex gap-3">
-                <span className="text-cb-blue font-semibold">2.</span>
+                <span className="text-mn-primary font-semibold">2.</span>
                 The lead data hits your unique webhook URL (set up once).
               </li>
               <li className="flex gap-3">
-                <span className="text-cb-blue font-semibold">3.</span>
+                <span className="text-mn-primary font-semibold">3.</span>
                 Claude classifies the lead (hot/warm/cool) and drafts a personalized reply in your voice.
               </li>
               <li className="flex gap-3">
-                <span className="text-cb-blue font-semibold">4.</span>
+                <span className="text-mn-primary font-semibold">4.</span>
                 The draft appears in your Gmail. You review, tweak if needed, and hit send.
               </li>
               <li className="flex gap-3">
-                <span className="text-cb-blue font-semibold">5.</span>
+                <span className="text-mn-primary font-semibold">5.</span>
                 Everything is logged to your leads dashboard for tracking.
               </li>
             </ol>
@@ -82,7 +82,7 @@ export default async function LeadResponderPage() {
             }
           />
 
-          <div className="border border-cb-border rounded-lg p-6 bg-cb-card">
+          <div className="border border-mn-border rounded-lg p-6 bg-mn-bg-subtle">
             <h2 className="text-lg font-semibold mb-3">What you get</h2>
             <div className="grid grid-cols-2 gap-4 text-sm">
               <Stat label="Avg response time" value="< 2 min" />
@@ -100,8 +100,8 @@ export default async function LeadResponderPage() {
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="text-white font-semibold">{value}</div>
-      <div className="text-cb-gray text-xs">{label}</div>
+      <div className="text-mn-text font-semibold">{value}</div>
+      <div className="text-mn-muted text-xs">{label}</div>
     </div>
   );
 }

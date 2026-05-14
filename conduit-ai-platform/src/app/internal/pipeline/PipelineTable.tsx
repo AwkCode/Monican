@@ -24,13 +24,13 @@ export default function PipelineTable({ prospects }: { prospects: Prospect[] }) 
   });
 
   return (
-    <div className="border border-cb-border rounded-lg bg-cb-card">
-      <div className="p-4 flex gap-3 items-center border-b border-cb-border">
+    <div className="border border-mn-border rounded-lg bg-mn-bg-subtle">
+      <div className="p-4 flex gap-3 items-center border-b border-mn-border">
         <h2 className="text-lg font-semibold mr-auto">All prospects</h2>
         <select
           value={priorityFilter}
           onChange={(e) => setPriorityFilter(e.target.value)}
-          className="bg-cb-bg border border-cb-border rounded px-2 py-1.5 text-sm"
+          className="bg-mn-bg border border-mn-border rounded px-2 py-1.5 text-sm"
         >
           <option value="">All priorities</option>
           <option value="HIGH">HIGH</option>
@@ -40,7 +40,7 @@ export default function PipelineTable({ prospects }: { prospects: Prospect[] }) 
         <select
           value={stageFilter}
           onChange={(e) => setStageFilter(e.target.value)}
-          className="bg-cb-bg border border-cb-border rounded px-2 py-1.5 text-sm"
+          className="bg-mn-bg border border-mn-border rounded px-2 py-1.5 text-sm"
         >
           <option value="">All stages</option>
           <option value="Lead">Lead</option>
@@ -53,7 +53,7 @@ export default function PipelineTable({ prospects }: { prospects: Prospect[] }) 
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
-          <thead className="text-xs uppercase tracking-wide text-cb-gray border-b border-cb-border">
+          <thead className="text-xs uppercase tracking-wide text-mn-muted border-b border-mn-border">
             <tr>
               <th className="text-left px-4 py-3">Priority</th>
               <th className="text-left px-4 py-3">Agency</th>
@@ -65,13 +65,13 @@ export default function PipelineTable({ prospects }: { prospects: Prospect[] }) 
           </thead>
           <tbody>
             {filtered.map((p) => (
-              <tr key={p.id} className="border-b border-cb-border hover:bg-cb-card/50">
+              <tr key={p.id} className="border-b border-mn-border hover:bg-mn-bg-subtle/50">
                 <td className="px-4 py-3">
                   <PriorityPill value={p.priority} />
                 </td>
                 <td className="px-4 py-3 font-medium">{p.name}</td>
-                <td className="px-4 py-3 text-cb-gray">{p.town}</td>
-                <td className="px-4 py-3 text-cb-gray">{p.contact}</td>
+                <td className="px-4 py-3 text-mn-muted">{p.town}</td>
+                <td className="px-4 py-3 text-mn-muted">{p.contact}</td>
                 <td className="px-4 py-3">{p.stage}</td>
                 <td className="px-4 py-3 text-neutral-500">{p.last_action}</td>
               </tr>

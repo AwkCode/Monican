@@ -28,7 +28,7 @@ export default async function SettingsPage({
       <Nav />
       <main className="max-w-2xl mx-auto px-6 py-12">
         <h1 className="text-3xl font-semibold tracking-tight mb-2">Settings</h1>
-        <p className="text-cb-gray mb-10">
+        <p className="text-mn-muted mb-10">
           Manage your integrations and account settings.
         </p>
 

@@ -59,8 +59,8 @@ export default function CsvUpload() {
         onClick={() => fileRef.current?.click()}
         className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition ${
           dragging
-            ? "border-cb-blue bg-cb-blue/5"
-            : "border-cb-border hover:border-cb-gray"
+            ? "border-mn-primary bg-mn-primary/5"
+            : "border-mn-border hover:border-mn-muted"
         }`}
       >
         <input
@@ -70,7 +70,7 @@ export default function CsvUpload() {
           onChange={onFileSelect}
           className="hidden"
         />
-        <p className="text-sm text-cb-gray">
+        <p className="text-sm text-mn-muted">
           {uploading
             ? "Uploading..."
             : "Drag & drop a CSV here, or click to select"}
@@ -84,14 +84,14 @@ export default function CsvUpload() {
       {result && (
         <div className="mt-3">
           {result.rows_imported !== undefined && (
-            <p className="text-sm text-green-300">
+            <p className="text-sm text-green-600">
               Imported {result.rows_imported} past clients.
               {(result.errors?.length ?? 0) > 0 &&
                 ` (${result.errors!.length} rows skipped)`}
             </p>
           )}
           {result.error && (
-            <p className="text-sm text-red-400">{result.error}</p>
+            <p className="text-sm text-red-600">{result.error}</p>
           )}
         </div>
       )}

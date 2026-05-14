@@ -57,7 +57,7 @@ export default async function ModulesPage() {
       <Nav />
       <main className="max-w-5xl mx-auto px-6 py-12">
         <h1 className="text-3xl font-semibold tracking-tight mb-2">Modules</h1>
-        <p className="text-cb-gray mb-10">
+        <p className="text-mn-muted mb-10">
           Your AI agent suite. Activate the modules you need — each one runs
           independently.
         </p>

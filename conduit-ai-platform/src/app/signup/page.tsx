@@ -9,7 +9,7 @@ export default function SignupPage() {
         <h1 className="text-3xl font-semibold tracking-tight mb-2">
           Create your account
         </h1>
-        <p className="text-cb-gray mb-8">
+        <p className="text-mn-muted mb-8">
           Your agents will be running in 10 minutes.
         </p>
         <SignupForm />

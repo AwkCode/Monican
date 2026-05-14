@@ -55,7 +55,7 @@ export default function AddClientForm() {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="text-sm text-cb-blue hover:text-cb-blue-hover"
+        className="text-sm text-mn-primary hover:text-mn-primary-hover"
       >
         + Add a past client manually
       </button>
@@ -63,7 +63,7 @@ export default function AddClientForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="border border-cb-border rounded-lg p-4 bg-cb-bg space-y-3">
+    <form onSubmit={handleSubmit} className="border border-mn-border rounded-lg p-4 bg-mn-bg space-y-3">
       <div className="grid grid-cols-2 gap-3">
         <SmallInput label="First name *" value={form.first_name} onChange={(v) => set("first_name", v)} required />
         <SmallInput label="Last name" value={form.last_name} onChange={(v) => set("last_name", v)} />
@@ -79,14 +79,14 @@ export default function AddClientForm() {
         <button
           type="submit"
           disabled={saving || !form.first_name}
-          className="bg-cb-blue hover:bg-cb-blue-hover text-white font-medium px-4 py-2 rounded-md text-sm disabled:opacity-50"
+          className="bg-mn-primary hover:bg-mn-primary-hover text-white font-medium px-4 py-2 rounded-md text-sm disabled:opacity-50"
         >
           {saving ? "Saving..." : "Add client"}
         </button>
         <button
           type="button"
           onClick={() => setOpen(false)}
-          className="border border-cb-border hover:border-cb-gray px-4 py-2 rounded-md text-sm"
+          className="border border-mn-border hover:border-mn-muted px-4 py-2 rounded-md text-sm"
         >
           Cancel
         </button>
@@ -112,14 +112,14 @@ function SmallInput({
 }) {
   return (
     <div>
-      <label className="block text-xs text-cb-gray mb-1">{label}</label>
+      <label className="block text-xs text-mn-muted mb-1">{label}</label>
       <input
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         required={required}
         placeholder={placeholder}
-        className="w-full bg-cb-card border border-cb-border rounded px-2 py-1.5 text-sm text-white focus:outline-none focus:border-cb-blue"
+        className="w-full bg-mn-bg-subtle border border-mn-border rounded px-2 py-1.5 text-sm text-mn-text focus:outline-none focus:border-mn-primary"
       />
     </div>
   );

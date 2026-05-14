@@ -5,7 +5,7 @@ import { getConfidenceLevel } from "@/lib/signals/types";
 export default function ConfidenceBadge({ score }: { score: number }) {
   const level = getConfidenceLevel(score);
   const config = {
-    hot: { label: "HOT", className: "bg-red-500/20 text-red-400" },
+    hot: { label: "HOT", className: "bg-red-50 text-red-600" },
     warm: { label: "WARM", className: "bg-amber-500/20 text-amber-400" },
     cool: { label: "COOL", className: "bg-neutral-500/20 text-neutral-400" },
   }[level];

@@ -11,13 +11,14 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        cb: {
-          blue: "#0052FF",
-          "blue-hover": "#0045D9",
-          bg: "#050505",
-          card: "#111214",
-          border: "#1E1F25",
-          gray: "#8A919E",
+        mn: {
+          primary: "#E8603C",
+          "primary-hover": "#D14E2B",
+          bg: "#FFFFFF",
+          "bg-subtle": "#F7F7F8",
+          border: "#E5E7EB",
+          text: "#111827",
+          muted: "#6B7280",
         },
       },
     },

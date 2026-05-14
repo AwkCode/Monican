@@ -30,9 +30,9 @@ export default function PastClientsList({ clients }: { clients: PastClient[] }) 
   }
 
   return (
-    <div className="border border-cb-border rounded-lg bg-cb-card overflow-x-auto">
+    <div className="border border-mn-border rounded-lg bg-mn-bg-subtle overflow-x-auto">
       <table className="w-full text-sm">
-        <thead className="text-xs uppercase tracking-wide text-cb-gray border-b border-cb-border">
+        <thead className="text-xs uppercase tracking-wide text-mn-muted border-b border-mn-border">
           <tr>
             <th className="text-left px-4 py-3">Name</th>
             <th className="text-left px-4 py-3">Email</th>
@@ -45,24 +45,24 @@ export default function PastClientsList({ clients }: { clients: PastClient[] }) 
         </thead>
         <tbody>
           {clients.map((c) => (
-            <tr key={c.id} className="border-b border-cb-border hover:bg-cb-bg/50">
+            <tr key={c.id} className="border-b border-mn-border hover:bg-mn-bg/50">
               <td className="px-4 py-3 font-medium">
                 {c.first_name} {c.last_name ?? ""}
               </td>
-              <td className="px-4 py-3 text-cb-gray">{c.email ?? "—"}</td>
-              <td className="px-4 py-3 text-cb-gray text-xs">
+              <td className="px-4 py-3 text-mn-muted">{c.email ?? "—"}</td>
+              <td className="px-4 py-3 text-mn-muted text-xs">
                 {c.property_address ?? "—"}
               </td>
-              <td className="px-4 py-3 text-cb-gray">{c.closing_date ?? "—"}</td>
-              <td className="px-4 py-3 text-cb-gray">{c.birthday ?? "—"}</td>
-              <td className="px-4 py-3 text-cb-gray">
+              <td className="px-4 py-3 text-mn-muted">{c.closing_date ?? "—"}</td>
+              <td className="px-4 py-3 text-mn-muted">{c.birthday ?? "—"}</td>
+              <td className="px-4 py-3 text-mn-muted">
                 {c.last_contacted ?? "—"}
               </td>
               <td className="px-4 py-3">
                 <button
                   onClick={() => handleDelete(c.id)}
                   disabled={deleting === c.id}
-                  className="text-xs text-red-400 hover:text-red-300 disabled:opacity-50"
+                  className="text-xs text-red-600 hover:text-red-500 disabled:opacity-50"
                 >
                   {deleting === c.id ? "..." : "Delete"}
                 </button>

@@ -40,40 +40,40 @@ export default async function PastClientPage() {
     <>
       <Nav />
       <main className="max-w-3xl mx-auto px-6 py-12">
-        <p className="text-cb-blue text-xs uppercase tracking-wide font-medium mb-2">
+        <p className="text-mn-primary text-xs uppercase tracking-wide font-medium mb-2">
           Module
         </p>
         <h1 className="text-3xl font-semibold tracking-tight mb-2">
           Past Client Reactivator
         </h1>
-        <p className="text-cb-gray mb-10">
+        <p className="text-mn-muted mb-10">
           Weekly personalized check-ins with your past clients. Birthdays, home
           anniversaries, market updates — drafted for your review.
         </p>
 
         <div className="space-y-6">
-          <div className="border border-cb-border rounded-lg p-6 bg-cb-card">
+          <div className="border border-mn-border rounded-lg p-6 bg-mn-bg-subtle">
             <h2 className="text-lg font-semibold mb-4">How it works</h2>
-            <ol className="space-y-3 text-sm text-cb-gray">
+            <ol className="space-y-3 text-sm text-mn-muted">
               <li className="flex gap-3">
-                <span className="text-cb-blue font-semibold">1.</span>
+                <span className="text-mn-primary font-semibold">1.</span>
                 Upload your past clients via CSV or add them manually.
               </li>
               <li className="flex gap-3">
-                <span className="text-cb-blue font-semibold">2.</span>
+                <span className="text-mn-primary font-semibold">2.</span>
                 Every Monday at 8am, the agent scans for upcoming birthdays, home
                 anniversaries, and dormant contacts.
               </li>
               <li className="flex gap-3">
-                <span className="text-cb-blue font-semibold">3.</span>
+                <span className="text-mn-primary font-semibold">3.</span>
                 Claude drafts a warm, personal email for each — in your voice.
               </li>
               <li className="flex gap-3">
-                <span className="text-cb-blue font-semibold">4.</span>
+                <span className="text-mn-primary font-semibold">4.</span>
                 Drafts land in your Gmail. You review, tweak, and send.
               </li>
               <li className="flex gap-3">
-                <span className="text-cb-blue font-semibold">5.</span>
+                <span className="text-mn-primary font-semibold">5.</span>
                 You get a weekly summary of who was drafted and why.
               </li>
             </ol>
@@ -93,7 +93,7 @@ export default async function PastClientPage() {
             }
           />
 
-          <div className="border border-cb-border rounded-lg p-6 bg-cb-card">
+          <div className="border border-mn-border rounded-lg p-6 bg-mn-bg-subtle">
             <h2 className="text-lg font-semibold mb-4">
               Your past clients ({(pastClients ?? []).length})
             </h2>

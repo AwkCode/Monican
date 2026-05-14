@@ -16,9 +16,9 @@ export default function SignalTable({
   const [expanded, setExpanded] = useState<string | null>(selectedId ?? null);
 
   return (
-    <div className="border border-cb-border rounded-lg bg-cb-card overflow-hidden">
+    <div className="border border-mn-border rounded-lg bg-mn-bg-subtle overflow-hidden">
       <table className="w-full text-sm">
-        <thead className="text-xs uppercase tracking-wide text-cb-gray border-b border-cb-border">
+        <thead className="text-xs uppercase tracking-wide text-mn-muted border-b border-mn-border">
           <tr>
             <th className="text-left px-4 py-3 w-24">Score</th>
             <th className="text-left px-4 py-3">Address</th>
@@ -43,7 +43,7 @@ export default function SignalTable({
             <tr>
               <td
                 colSpan={6}
-                className="px-4 py-12 text-center text-cb-gray"
+                className="px-4 py-12 text-center text-mn-muted"
               >
                 No signals match your filters.
               </td>
@@ -65,18 +65,18 @@ function SignalRow({
   onToggle: () => void;
 }) {
   const statusColor = {
-    new: "text-cb-blue",
-    viewed: "text-cb-gray",
+    new: "text-mn-primary",
+    viewed: "text-mn-muted",
     contacted: "text-green-400",
-    converted: "text-green-300",
+    converted: "text-green-600",
     dismissed: "text-neutral-600",
-  }[signal.status] ?? "text-cb-gray";
+  }[signal.status] ?? "text-mn-muted";
 
   return (
     <>
       <tr
         onClick={onToggle}
-        className="border-b border-cb-border hover:bg-cb-bg/50 cursor-pointer"
+        className="border-b border-mn-border hover:bg-mn-bg/50 cursor-pointer"
       >
         <td className="px-4 py-3">
           <ConfidenceBadge score={signal.confidence_score} />
@@ -84,7 +84,7 @@ function SignalRow({
         <td className="px-4 py-3 font-medium">
           {signal.address ?? "Unknown address"}
         </td>
-        <td className="px-4 py-3 text-cb-gray hidden md:table-cell">
+        <td className="px-4 py-3 text-mn-muted hidden md:table-cell">
           {signal.city}
         </td>
         <td className="px-4 py-3 hidden md:table-cell">
@@ -93,7 +93,7 @@ function SignalRow({
             {SIGNAL_TYPE_LABELS[signal.signal_type]}
           </span>
         </td>
-        <td className="px-4 py-3 text-cb-gray hidden lg:table-cell">
+        <td className="px-4 py-3 text-mn-muted hidden lg:table-cell">
           {signal.signal_date}
         </td>
         <td className={`px-4 py-3 text-xs uppercase ${statusColor}`}>
@@ -101,8 +101,8 @@ function SignalRow({
         </td>
       </tr>
       {isExpanded && (
-        <tr className="border-b border-cb-border">
-          <td colSpan={6} className="px-4 py-4 bg-cb-bg/30">
+        <tr className="border-b border-mn-border">
+          <td colSpan={6} className="px-4 py-4 bg-mn-bg/30">
             <ExpandedDetails signal={signal} />
           </td>
         </tr>
@@ -145,8 +145,8 @@ function ExpandedDetails({ signal }: { signal: Signal }) {
       </div>
 
       {Object.keys(detail).length > 0 && (
-        <div className="border border-cb-border rounded-md p-3 bg-cb-card text-xs text-cb-gray">
-          <p className="text-xs uppercase tracking-wide text-cb-gray mb-2 font-semibold">
+        <div className="border border-mn-border rounded-md p-3 bg-mn-bg-subtle text-xs text-mn-muted">
+          <p className="text-xs uppercase tracking-wide text-mn-muted mb-2 font-semibold">
             Signal details
           </p>
           {Object.entries(detail).map(([k, v]) => (
@@ -154,7 +154,7 @@ function ExpandedDetails({ signal }: { signal: Signal }) {
               <span className="text-neutral-500 w-32 shrink-0">
                 {k.replace(/_/g, " ")}:
               </span>
-              <span className="text-white">{String(v)}</span>
+              <span className="text-mn-text">{String(v)}</span>
             </div>
           ))}
         </div>
@@ -171,10 +171,10 @@ function ExpandedDetails({ signal }: { signal: Signal }) {
 function Info({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <span className="text-xs text-cb-gray uppercase tracking-wide">
+      <span className="text-xs text-mn-muted uppercase tracking-wide">
         {label}
       </span>
-      <div className="text-white font-medium">{value}</div>
+      <div className="text-mn-text font-medium">{value}</div>
     </div>
   );
 }
@@ -215,7 +215,7 @@ function StatusButtons({
       <button
         onClick={() => setStatus("dismissed")}
         disabled={updating}
-        className="text-xs border border-cb-border text-cb-gray hover:text-red-400 px-3 py-1.5 rounded-md disabled:opacity-50"
+        className="text-xs border border-mn-border text-mn-muted hover:text-red-600 px-3 py-1.5 rounded-md disabled:opacity-50"
       >
         Dismiss
       </button>

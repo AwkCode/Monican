@@ -39,36 +39,36 @@ export default function LoginForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="block text-sm text-cb-gray mb-1.5">Email</label>
+        <label className="block text-sm text-mn-muted mb-1.5">Email</label>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full bg-cb-card border border-cb-border rounded-md px-3 py-2 text-white focus:outline-none focus:border-cb-blue"
+          className="w-full bg-mn-bg-subtle border border-mn-border rounded-md px-3 py-2 text-mn-text focus:outline-none focus:border-mn-primary"
         />
       </div>
       <div>
-        <label className="block text-sm text-cb-gray mb-1.5">Password</label>
+        <label className="block text-sm text-mn-muted mb-1.5">Password</label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="w-full bg-cb-card border border-cb-border rounded-md px-3 py-2 text-white focus:outline-none focus:border-cb-blue"
+          className="w-full bg-mn-bg-subtle border border-mn-border rounded-md px-3 py-2 text-mn-text focus:outline-none focus:border-mn-primary"
         />
       </div>
-      {error && <p className="text-red-400 text-sm">{error}</p>}
+      {error && <p className="text-red-600 text-sm">{error}</p>}
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-cb-blue hover:bg-cb-blue-hover disabled:opacity-50 text-white font-medium py-3 rounded-md"
+        className="w-full bg-mn-primary hover:bg-mn-primary-hover disabled:opacity-50 text-white font-medium py-3 rounded-md"
       >
         {loading ? "Logging in..." : "Log in"}
       </button>
-      <p className="text-sm text-cb-gray text-center">
+      <p className="text-sm text-mn-muted text-center">
         Don&apos;t have an account?{" "}
-        <Link href="/signup" className="text-cb-blue hover:text-cb-blue-hover">
+        <Link href="/signup" className="text-mn-primary hover:text-mn-primary-hover">
           Sign up
         </Link>
       </p>

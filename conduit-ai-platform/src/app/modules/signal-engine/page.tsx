@@ -98,51 +98,51 @@ export default async function SignalEnginePage() {
     <>
       <Nav />
       <main className={`mx-auto px-6 py-12 ${isActive ? "max-w-7xl" : "max-w-3xl"}`}>
-        <p className="text-cb-blue text-xs uppercase tracking-wide font-medium mb-2">
+        <p className="text-mn-primary text-xs uppercase tracking-wide font-medium mb-2">
           Module
         </p>
         <h1 className="text-3xl font-semibold tracking-tight mb-2">
           Signal Engine
         </h1>
-        <p className="text-cb-gray mb-10">
+        <p className="text-mn-muted mb-10">
           AI-powered lead generation. Scans public records to find seller
           signals before your competition.
         </p>
 
         {!isActive ? (
           <div className="space-y-6">
-            <div className="border border-cb-border rounded-lg p-6 bg-cb-card">
+            <div className="border border-mn-border rounded-lg p-6 bg-mn-bg-subtle">
               <h2 className="text-lg font-semibold mb-4">How it works</h2>
-              <ol className="space-y-3 text-sm text-cb-gray">
+              <ol className="space-y-3 text-sm text-mn-muted">
                 <li className="flex gap-3">
-                  <span className="text-cb-blue font-semibold">1.</span>
+                  <span className="text-mn-primary font-semibold">1.</span>
                   Every morning, scrapers scan multiple public data sources for
                   your farm towns.
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-cb-blue font-semibold">2.</span>
+                  <span className="text-mn-primary font-semibold">2.</span>
                   FSBO listings, ownership milestones, expired listings, and
                   building permits are all captured.
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-cb-blue font-semibold">3.</span>
+                  <span className="text-mn-primary font-semibold">3.</span>
                   Each opportunity gets a confidence score (0-100) based on
                   signal strength, recency, and correlation.
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-cb-blue font-semibold">4.</span>
+                  <span className="text-mn-primary font-semibold">4.</span>
                   You see everything on an interactive map + ranked table.
                   One-click to draft a personalized letter.
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-cb-blue font-semibold">5.</span>
+                  <span className="text-mn-primary font-semibold">5.</span>
                   Daily digest email with your top opportunities, delivered by
                   7:30am.
                 </li>
               </ol>
             </div>
 
-            <div className="border border-cb-border rounded-lg p-6 bg-cb-card">
+            <div className="border border-mn-border rounded-lg p-6 bg-mn-bg-subtle">
               <h2 className="text-lg font-semibold mb-3">Signal types</h2>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <TypeCard
@@ -209,13 +209,13 @@ function TypeCard({
   score: number;
 }) {
   return (
-    <div className="border border-cb-border rounded-md p-4 bg-cb-bg">
+    <div className="border border-mn-border rounded-md p-4 bg-mn-bg">
       <div className="flex items-center gap-2 mb-1">
         <span className="text-lg">{icon}</span>
         <span className="font-semibold">{name}</span>
-        <span className="text-xs text-cb-gray ml-auto">Base: {score}</span>
+        <span className="text-xs text-mn-muted ml-auto">Base: {score}</span>
       </div>
-      <p className="text-xs text-cb-gray">{desc}</p>
+      <p className="text-xs text-mn-muted">{desc}</p>
     </div>
   );
 }
