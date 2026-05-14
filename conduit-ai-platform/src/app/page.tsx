@@ -1,41 +1,71 @@
 import Link from "next/link";
-import Nav from "@/components/Nav";
 
 export default function Home() {
   return (
     <>
-      <Nav />
       <main>
-        {/* Hero */}
-        <section className="max-w-6xl mx-auto px-6 py-24 md:py-32 grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <p className="text-mn-primary font-semibold tracking-wide uppercase text-xs mb-5">
-              AI agents for your business
-            </p>
-            <h1 className="text-5xl md:text-6xl font-semibold tracking-tight leading-[1.05]">
-              Your team of AI agents, ready in minutes.
-            </h1>
-            <p className="text-lg text-mn-muted mt-6 leading-relaxed max-w-lg">
-              Sign up, set your profile, and your agents start working —
-              responding to leads, reactivating past clients, and surfacing
-              opportunities. Real estate first, every industry next.
-            </p>
-            <div className="flex gap-4 mt-10">
+        {/* Hero — cinematic full-bleed */}
+        <section className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-orange-200 via-orange-100 to-rose-200">
+          {/* Atmospheric overlays */}
+          <div className="absolute inset-0">
+            {/* Soft sun glow top-right */}
+            <div className="absolute top-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-orange-300/40 blur-3xl" />
+            {/* Warm haze bottom-left */}
+            <div className="absolute bottom-[-15%] left-[-15%] w-[70vw] h-[70vw] rounded-full bg-rose-300/30 blur-3xl" />
+            {/* Subtle center glow */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,237,213,0.5)_0%,_transparent_60%)]" />
+            {/* Bottom fade to white for transition */}
+            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-white" />
+          </div>
+
+          {/* Top nav */}
+          <header className="relative z-10">
+            <div className="max-w-7xl mx-auto px-8 py-6 flex items-start justify-between">
+              <nav className="flex flex-col gap-2 text-sm font-medium text-mn-text/80">
+                <Link href="/modules" className="hover:text-mn-text">Modules</Link>
+                <Link href="/tools/roi-calculator" className="hover:text-mn-text">ROI Calculator</Link>
+                <Link href="#industries" className="hover:text-mn-text">Industries</Link>
+                <Link href="/login" className="hover:text-mn-text">Log in</Link>
+              </nav>
+              <Link href="/" className="flex items-center gap-2 font-semibold text-2xl tracking-tight text-mn-text">
+                <img src="/monican-logo.png" alt="Monican" className="h-8 w-8" />
+                monican.
+              </Link>
               <Link
                 href="/signup"
-                className="bg-mn-primary hover:bg-mn-primary-hover text-white font-medium px-6 py-3 rounded-md transition-colors"
+                className="rounded-full bg-white/40 hover:bg-white/60 backdrop-blur border border-white/50 px-6 py-2.5 text-sm font-medium text-mn-text transition"
               >
-                Start free
-              </Link>
-              <Link
-                href="/tools/roi-calculator"
-                className="border border-mn-border hover:border-mn-muted text-mn-text px-6 py-3 rounded-md transition-colors"
-              >
-                See the ROI
+                Get started
               </Link>
             </div>
+          </header>
+
+          {/* Centered hero content */}
+          <div className="relative z-10 flex items-center justify-center px-6 min-h-[calc(100vh-100px)]">
+            <div className="text-center max-w-5xl">
+              <h1 className="text-6xl md:text-7xl lg:text-8xl font-semibold tracking-tight leading-[0.95] text-mn-text">
+                Your AI team,
+                <br />
+                ready in minutes.
+              </h1>
+              <p className="mt-8 text-lg md:text-xl text-mn-text/70 max-w-2xl mx-auto leading-relaxed">
+                Sign up, set your profile, and your agents start working — responding to leads, reactivating past clients, and surfacing opportunities.
+              </p>
+              <div className="mt-12 flex justify-center">
+                <Link
+                  href="/signup"
+                  className="group bg-black hover:bg-black/85 text-white rounded-full pl-2 pr-8 py-2 inline-flex items-center gap-4 transition"
+                >
+                  <span className="w-11 h-11 rounded-full bg-white flex items-center justify-center text-black">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M3 1.5L11 7L3 12.5V1.5Z" fill="currentColor" />
+                    </svg>
+                  </span>
+                  <span className="text-base font-medium">Get started</span>
+                </Link>
+              </div>
+            </div>
           </div>
-          <HeroVisual />
         </section>
 
         {/* Mission statement */}
@@ -85,7 +115,7 @@ export default function Home() {
         </section>
 
         {/* Industries */}
-        <section className="bg-mn-bg-subtle border-y border-mn-border">
+        <section id="industries" className="bg-mn-bg-subtle border-y border-mn-border">
           <div className="max-w-6xl mx-auto px-6 py-24 md:py-32">
             <div className="max-w-2xl mb-16">
               <p className="text-mn-primary font-semibold tracking-wide uppercase text-xs mb-4">
@@ -209,50 +239,6 @@ export default function Home() {
         </footer>
       </main>
     </>
-  );
-}
-
-function HeroVisual() {
-  return (
-    <div className="relative hidden md:flex items-center justify-center h-80">
-      {/* Background gradient blob */}
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-100 via-orange-50 to-transparent rounded-3xl" />
-
-      {/* Accent circles */}
-      <div className="absolute top-6 right-8 w-16 h-16 bg-mn-primary/20 rounded-full blur-xl" />
-      <div className="absolute bottom-10 left-6 w-24 h-24 bg-orange-200/40 rounded-full blur-2xl" />
-
-      {/* Floating dashboard card */}
-      <div className="relative bg-white border border-mn-border rounded-xl shadow-lg p-6 w-72">
-        <div className="flex items-center gap-2 mb-4">
-          <div className="w-2.5 h-2.5 bg-green-500 rounded-full" />
-          <span className="text-sm font-medium text-mn-text">3 agents active</span>
-        </div>
-        <div className="space-y-3">
-          <div className="flex justify-between text-xs">
-            <span className="text-mn-muted">Leads responded</span>
-            <span className="font-semibold text-mn-text">24</span>
-          </div>
-          <div className="w-full bg-mn-bg-subtle rounded-full h-1.5">
-            <div className="bg-mn-primary h-1.5 rounded-full w-3/4" />
-          </div>
-          <div className="flex justify-between text-xs">
-            <span className="text-mn-muted">Clients reactivated</span>
-            <span className="font-semibold text-mn-text">12</span>
-          </div>
-          <div className="w-full bg-mn-bg-subtle rounded-full h-1.5">
-            <div className="bg-orange-300 h-1.5 rounded-full w-1/2" />
-          </div>
-          <div className="flex justify-between text-xs">
-            <span className="text-mn-muted">Signals detected</span>
-            <span className="font-semibold text-mn-text">8</span>
-          </div>
-          <div className="w-full bg-mn-bg-subtle rounded-full h-1.5">
-            <div className="bg-orange-200 h-1.5 rounded-full w-1/3" />
-          </div>
-        </div>
-      </div>
-    </div>
   );
 }
 
