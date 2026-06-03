@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import WorkflowCard from "@/components/WorkflowCard";
+import WorkflowListItem from "@/components/WorkflowListItem";
+import TrustedBy from "@/components/TrustedBy";
 import {
   getRoleBySlug,
   getWorkflowsForRole,
@@ -138,7 +139,10 @@ export default function RolePage({ params, searchParams }: Props) {
         </div>
       </section>
 
-      {/* Filters + grid */}
+      {/* Trusted-by logo band */}
+      <TrustedBy />
+
+      {/* Filters + list */}
       <section className="max-w-6xl mx-auto px-6 py-12">
         <RoleFilters
           roleSlug={role.slug}
@@ -150,9 +154,9 @@ export default function RolePage({ params, searchParams }: Props) {
         {workflows.length === 0 ? (
           <EmptyState roleSlug={role.slug} />
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+          <div className="flex flex-col gap-3 mt-8">
             {workflows.map((w) => (
-              <WorkflowCard
+              <WorkflowListItem
                 key={w.slug}
                 workflow={w}
                 roleSlug={role.slug}

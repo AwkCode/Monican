@@ -99,7 +99,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "lead-responder",
     roleSlug: "real-estate-agent",
-    name: "2-Minute Lead Responder",
+    name: "Reply to web & Zillow leads in under 2 minutes",
     tagline: "Reply to every Zillow & web lead in under 2 minutes — in your voice.",
     description:
       "Watches Gmail and Zillow inbox 24/7. Drafts personalized first responses in your voice within 90 seconds.",
@@ -127,7 +127,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "past-client-reactivator",
     roleSlug: "real-estate-agent",
-    name: "Past Client Reactivator",
+    name: "Send personalized weekly check-ins to past clients",
     tagline: "Weekly check-ins with past clients. Birthdays, home anniversaries, market updates.",
     description:
       "Keeps your book of business warm without you remembering anything. Auto-drafts personalized check-in emails every Monday.",
@@ -153,7 +153,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "signal-engine",
     roleSlug: "real-estate-agent",
-    name: "Signal Engine",
+    name: "Find listing opportunities from public records",
     tagline: "Spot listing opportunities 60 days before your competition.",
     description:
       "Monitors public records in your farm area for ownership changes, life events, and seller signals.",
@@ -179,7 +179,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "zillow-lead-to-crm",
     roleSlug: "real-estate-agent",
-    name: "Zillow Lead → CRM Auto-Sync",
+    name: "Auto-sync Zillow leads into your CRM",
     tagline: "Every Zillow inquiry flows to your CRM in real time, tagged and assigned.",
     description:
       "Zapier-style automation that captures Zillow leads the moment they arrive and routes them to Follow Up Boss, kvCORE, or Sierra Interactive.",
@@ -204,7 +204,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "listing-description-writer",
     roleSlug: "real-estate-agent",
-    name: "Listing Description Writer",
+    name: "Generate MLS listing copy from photos & notes",
     tagline: "Turn property notes into Realtor.com-ready listing copy in 30 seconds.",
     description:
       "Paste photos and bullet notes. Get back polished MLS description, social captions, and email blast.",
@@ -230,7 +230,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "open-house-followup",
     roleSlug: "real-estate-agent",
-    name: "Open House Auto-Follow-up",
+    name: "Personalized follow-up to every open house attendee",
     tagline: "Every attendee gets a personalized thank-you in 24 hours.",
     description:
       "Upload your sign-in sheet. Each attendee gets a personalized email referencing the property.",
@@ -257,7 +257,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "agent-performance-dashboard",
     roleSlug: "real-estate-broker",
-    name: "Agent Performance Dashboard",
+    name: "Weekly digest of every agent&apos;s pipeline & GCI",
     tagline: "See every agent's pipeline, GCI, and activity in one weekly digest.",
     description:
       "Pulls data from your CRM and accounting and emails you a Sunday-night digest of every agent's week.",
@@ -281,7 +281,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "recruiting-bot",
     roleSlug: "real-estate-broker",
-    name: "Agent Recruiting Bot",
+    name: "Identify top agents at competitor brokerages weekly",
     tagline: "Identifies top agents at competitor brokerages weekly.",
     description:
       "Monitors MLS for high-volume agents at other brokerages and surfaces them with personalized outreach drafts.",
@@ -306,7 +306,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "renewal-outreach",
     roleSlug: "insurance-agent",
-    name: "Auto-Renewal Outreach Engine",
+    name: "Personal outreach to clients 45 days before renewal",
     tagline: "Personal outreach to every renewing client 45 days before policy end.",
     description:
       "Watches your AMS for upcoming renewals and drafts a personalized check-in email for each — review rates, ask about life changes, suggest cross-sells.",
@@ -334,7 +334,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "quote-followup",
     roleSlug: "insurance-agent",
-    name: "Quote Follow-up Sequence",
+    name: "Auto follow-up 6 times on every unconverted quote",
     tagline: "Every quote that doesn't close gets 6 personalized touches over 30 days.",
     description:
       "Most quotes die from silence, not rejection. This workflow drips personalized follow-ups to every unconverted quote.",
@@ -359,7 +359,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "claims-status-updates",
     roleSlug: "insurance-agent",
-    name: "Claims Status Auto-Updates",
+    name: "Email clients plain-English claim status updates",
     tagline: "Clients get a status update on their claim without you typing one.",
     description:
       "Watches carrier portals for claim updates and emails the client an explanation in plain English.",
@@ -384,7 +384,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "x-date-tracker",
     roleSlug: "insurance-agent",
-    name: "X-Date Tracker",
+    name: "Track prospect X-dates and outreach 30 days before",
     tagline: "Never miss a competitor's renewal date for a prospect you've quoted.",
     description:
       "Tracks every prospect's X-date and triggers an outreach 30 days before renewal time.",
@@ -409,7 +409,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "rate-watch-alerts",
     roleSlug: "mortgage-loan-officer",
-    name: "Rate Watch → Refi Outreach",
+    name: "Email past borrowers when rates drop enough to refi",
     tagline: "When rates drop, your past borrowers get a personalized refi pitch.",
     description:
       "Watches the 30-year fixed rate. When it drops 0.5%+ from a past borrower's locked rate, drafts a personalized refi outreach.",
@@ -435,7 +435,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "pre-approval-followup",
     roleSlug: "mortgage-loan-officer",
-    name: "Pre-Approval to Close Sequence",
+    name: "Weekly check-ins with pre-approved buyers",
     tagline: "Every pre-approved buyer gets weekly check-ins until they find a home.",
     description:
       "Pre-approvals go cold fast. This workflow keeps you top of mind weekly with market updates and gentle nudges.",
@@ -460,7 +460,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "realtor-referral-tracker",
     roleSlug: "mortgage-loan-officer",
-    name: "Realtor Partner Referral Tracker",
+    name: "Rank and thank Realtor partners by referral volume",
     tagline: "Know which Realtors send you the most volume and reward them.",
     description:
       "Tracks every deal by referring agent. Weekly digest of top referrers + drafted thank-you / co-marketing offers.",
@@ -485,7 +485,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "weekly-investor-update",
     roleSlug: "saas-founder",
-    name: "Weekly Investor Update Generator",
+    name: "Draft weekly investor update from your live metrics",
     tagline: "Auto-drafted investor update every Friday from your live metrics.",
     description:
       "Pulls MRR, churn, new logos, and pipeline from Stripe / HubSpot. Drafts a polished investor update email every Friday.",
@@ -513,7 +513,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "support-triage",
     roleSlug: "saas-founder",
-    name: "Customer Support Auto-Triage",
+    name: "Categorize, prioritize, and draft every support email",
     tagline: "Every support email gets categorized, prioritized, and drafted in 30 seconds.",
     description:
       "Watches your support inbox. Categorizes (bug / billing / how-to / churn risk). Drafts a response.",
@@ -539,7 +539,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "linkedin-content-engine",
     roleSlug: "saas-founder",
-    name: "LinkedIn Content Engine",
+    name: "Draft 5 LinkedIn posts every Sunday from your week",
     tagline: "Post-worthy LinkedIn content from your week, every Sunday.",
     description:
       "Synthesizes your Slack, GitHub commits, and CRM wins into 5 LinkedIn post drafts every Sunday night.",
@@ -564,7 +564,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "churn-risk-monitor",
     roleSlug: "saas-founder",
-    name: "Churn Risk Monitor",
+    name: "Get alerted the moment a customer shows churn signals",
     tagline: "Get alerted the moment a customer shows churn signals.",
     description:
       "Watches usage drops, support sentiment, and login frequency. Alerts you to at-risk customers before they cancel.",
@@ -588,7 +588,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "inbound-lead-qualifier",
     roleSlug: "saas-founder",
-    name: "Inbound Lead Qualifier",
+    name: "Qualify, score, and route every demo request in 60s",
     tagline: "Demo requests get qualified, scored, and routed in 60 seconds.",
     description:
       "Every demo request gets enriched, scored ICP fit, and either books on your calendar or gets a polite nurture.",
@@ -615,7 +615,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "patient-recall",
     roleSlug: "dental-office-manager",
-    name: "Patient Recall Auto-Outreach",
+    name: "Auto-remind patients due for cleanings via SMS & email",
     tagline: "Every patient due for a cleaning gets a personalized reminder.",
     description:
       "Pulls patients due for 6-month cleanings and sends a personalized recall reminder via email + SMS.",
@@ -640,7 +640,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "no-show-recovery",
     roleSlug: "dental-office-manager",
-    name: "No-Show Recovery Sequence",
+    name: "Same-day reschedule outreach when a patient no-shows",
     tagline: "Recover 40% of no-shows with same-day outreach.",
     description:
       "When a patient no-shows, an empathetic reschedule message goes out within 2 hours.",
@@ -664,7 +664,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "insurance-verification",
     roleSlug: "dental-office-manager",
-    name: "Auto Insurance Verification",
+    name: "Verify insurance 24h before every appointment",
     tagline: "Insurance verified 24 hours before every appointment.",
     description:
       "Pulls tomorrow's schedule and auto-verifies each patient's insurance coverage so you don't get surprised.",
@@ -690,7 +690,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "intake-screener",
     roleSlug: "solo-attorney",
-    name: "Client Intake Screener",
+    name: "Filter intake forms and book only viable cases",
     tagline: "Filter the wrong cases before they hit your calendar.",
     description:
       "New intake form responses get analyzed for case viability. Strong cases get a consult booked. Wrong fit gets a polite referral out.",
@@ -715,7 +715,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "court-date-reminders",
     roleSlug: "solo-attorney",
-    name: "Court Date & Deadline Tracker",
+    name: "Multi-channel reminders for every filing & court date",
     tagline: "Never miss a filing deadline or court date again.",
     description:
       "Watches your case management system and sends multi-channel reminders for upcoming deadlines.",
@@ -739,7 +739,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "contract-review",
     roleSlug: "solo-attorney",
-    name: "Contract First-Pass Review",
+    name: "Spot 10 red flags in any contract in 60 seconds",
     tagline: "Spot the 10 most common red flags in any contract in 60 seconds.",
     description:
       "Drop a PDF contract. Get back a 1-page summary, key risks, missing clauses, and suggested redlines.",
@@ -766,7 +766,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "weekly-client-reports",
     roleSlug: "agency-owner",
-    name: "Auto Weekly Client Reports",
+    name: "Generate personalized client reports every Monday",
     tagline: "Every client gets a polished performance report every Monday — no manual work.",
     description:
       "Pulls data from GA4, Meta Ads, Google Ads, and Search Console. Drafts a personalized weekly report per client.",
@@ -792,7 +792,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "proposal-generator",
     roleSlug: "agency-owner",
-    name: "Proposal Auto-Generator",
+    name: "Turn discovery notes into a branded proposal",
     tagline: "Turn discovery call notes into a branded proposal in 5 minutes.",
     description:
       "Paste your discovery call notes. Get back a fully-formatted proposal with scope, timeline, and pricing.",
@@ -819,7 +819,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "client-session-prep",
     roleSlug: "coach-consultant",
-    name: "Pre-Session Brief Generator",
+    name: "Auto-brief before every coaching session",
     tagline: "10-minute prep for every coaching session, done before you sit down.",
     description:
       "Pulls last session's notes, recent client emails, and progress against goals. Generates a 1-page brief before each call.",
@@ -844,7 +844,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "content-repurposing",
     roleSlug: "coach-consultant",
-    name: "Content Repurposing Engine",
+    name: "Turn one podcast into 12 pieces of content",
     tagline: "Turn one podcast episode into 12 pieces of content.",
     description:
       "Record once. Get back a blog post, LinkedIn carousel, Twitter thread, Instagram captions, and YouTube chapters.",
@@ -872,7 +872,7 @@ export const WORKFLOWS: Workflow[] = [
   {
     slug: "follow-up-treatment-protocol",
     roleSlug: "med-spa-owner",
-    name: "Treatment Follow-up Protocol",
+    name: "Auto check-in 48h and 2 weeks after every treatment",
     tagline: "Every patient gets a personalized check-in 48 hours and 2 weeks post-treatment.",
     description:
       "Automatic check-ins after injectables, lasers, or facials. Builds loyalty and surfaces complications early.",
