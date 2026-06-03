@@ -1,40 +1,27 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import WorkflowListItem from "@/components/WorkflowListItem";
+import UseCaseCard from "@/components/UseCaseCard";
+import CategoryBrowser from "@/components/CategoryBrowser";
+import IntegrationsGrid from "@/components/IntegrationsGrid";
+import WhyTrustGrid from "@/components/WhyTrustGrid";
 import TrustedBy from "@/components/TrustedBy";
 import {
   getRoleBySlug,
   getWorkflowsForRole,
   getIndustryBySlug,
 } from "@/lib/marketplace/seed";
-import RoleFilters from "./RoleFilters";
 
 type Props = {
   params: { role: string };
-  searchParams: { focus?: string; category?: string; sort?: string };
+  searchParams: { focus?: string };
 };
 
-export default function RolePage({ params, searchParams }: Props) {
+export default function RolePage({ params }: Props) {
   const role = getRoleBySlug(params.role);
   if (!role) notFound();
 
   const industry = getIndustryBySlug(role.industrySlug);
-  let workflows = getWorkflowsForRole(role.slug);
-
-  // Apply filter
-  if (searchParams.category) {
-    workflows = workflows.filter(
-      (w) => w.category.toLowerCase() === searchParams.category!.toLowerCase()
-    );
-  }
-
-  // Apply sort
-  const sort = searchParams.sort || "rating";
-  workflows = [...workflows].sort((a, b) => {
-    if (sort === "hours") return b.hoursSavedWeekly - a.hoursSavedWeekly;
-    if (sort === "money") return b.dollarsSavedMonthly - a.dollarsSavedMonthly;
-    return b.rating - a.rating;
-  });
+  const workflows = getWorkflowsForRole(role.slug);
 
   // Stat summary
   const totalHours = workflows.reduce((sum, w) => sum + w.hoursSavedWeekly, 0);
@@ -49,9 +36,14 @@ export default function RolePage({ params, searchParams }: Props) {
         ).toFixed(1)
       : "—";
 
-  // Available categories
-  const categories = Array.from(
-    new Set(getWorkflowsForRole(role.slug).map((w) => w.category))
+  // Top 6 workflows for the featured grid (sorted by rating)
+  const featured = [...workflows]
+    .sort((a, b) => b.rating - a.rating)
+    .slice(0, 6);
+
+  // All integration tools across this role's workflows
+  const integrations = Array.from(
+    new Set(workflows.flatMap((w) => w.requirements))
   );
 
   return (
@@ -63,18 +55,11 @@ export default function RolePage({ params, searchParams }: Props) {
             href="/"
             className="flex items-center gap-2 font-semibold text-lg tracking-tight text-mn-text"
           >
-            <img
-              src="/monican-logo.png"
-              alt="Monican"
-              className="h-7 w-7"
-            />
+            <img src="/monican-logo.png" alt="Monican" className="h-7 w-7" />
             monican.
           </Link>
           <div className="flex items-center gap-6 text-sm">
-            <Link
-              href="/"
-              className="text-mn-muted hover:text-mn-text"
-            >
+            <Link href="/" className="text-mn-muted hover:text-mn-text">
               All roles
             </Link>
             <Link
@@ -90,9 +75,9 @@ export default function RolePage({ params, searchParams }: Props) {
       {/* Hero — coral gradient header */}
       <section className="relative overflow-hidden bg-gradient-to-b from-orange-100 via-orange-50 to-white">
         <div className="absolute top-[-20%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-mn-primary/10 blur-3xl pointer-events-none" />
-        <div className="relative max-w-6xl mx-auto px-6 pt-16 pb-12">
+        <div className="relative max-w-6xl mx-auto px-6 pt-20 pb-16 text-center">
           {/* Breadcrumbs */}
-          <div className="flex items-center gap-2 text-sm text-mn-muted mb-8">
+          <div className="flex items-center justify-center gap-2 text-sm text-mn-muted mb-8">
             <Link href="/" className="hover:text-mn-text">
               Home
             </Link>
@@ -106,20 +91,36 @@ export default function RolePage({ params, searchParams }: Props) {
             <span className="text-mn-text font-medium">{role.name}</span>
           </div>
 
-          <p className="text-mn-primary font-semibold tracking-wide uppercase text-xs mb-4">
+          <p className="text-mn-primary font-semibold tracking-wide uppercase text-xs mb-5">
             For {role.name.toLowerCase()}s
           </p>
-          <h1 className="text-5xl md:text-6xl font-semibold tracking-tight leading-[1.05] mb-6 max-w-3xl">
-            Proven AI workflows for {role.name.toLowerCase()}s.
+          <h1 className="text-5xl md:text-7xl font-semibold tracking-tight leading-[1.02] mb-6 max-w-4xl mx-auto">
+            Superpowers for your business.
           </h1>
-          <p className="text-lg text-mn-text/70 max-w-2xl leading-relaxed mb-10">
-            {role.description}. Each workflow below is already running in production —
-            sourced from n8n, Zapier, the GPT Store, Claude Skills, or built by us.
-            Pick what fits, we&apos;ll get it live in your stack.
+          <p className="text-lg md:text-xl text-mn-text/70 max-w-2xl mx-auto leading-relaxed mb-10">
+            Proven AI workflows for {role.name.toLowerCase()}s — sourced from
+            n8n, Zapier, GPT Store, Claude Skills, and our own lab. Backed by
+            real numbers.
           </p>
 
-          {/* Stat summary */}
-          <div className="grid grid-cols-3 gap-4 max-w-2xl">
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-16">
+            <Link
+              href="#workflows"
+              className="bg-black hover:bg-black/85 text-white font-medium px-7 py-3.5 rounded-full transition"
+            >
+              Browse workflows
+            </Link>
+            <Link
+              href="/book"
+              className="border border-mn-border hover:border-mn-muted text-mn-text font-medium px-7 py-3.5 rounded-full transition"
+            >
+              Book a demo
+            </Link>
+          </div>
+
+          {/* Big stats */}
+          <div className="grid grid-cols-3 gap-3 max-w-3xl mx-auto">
             <BigStat
               label="hours saved / week"
               value={totalHours}
@@ -142,21 +143,27 @@ export default function RolePage({ params, searchParams }: Props) {
       {/* Trusted-by logo band */}
       <TrustedBy />
 
-      {/* Filters + list */}
-      <section className="max-w-6xl mx-auto px-6 py-12">
-        <RoleFilters
-          roleSlug={role.slug}
-          categories={categories}
-          currentCategory={searchParams.category}
-          currentSort={sort}
-        />
+      {/* Featured workflows — Use Case grid */}
+      <section id="workflows" className="max-w-6xl mx-auto px-6 py-24">
+        <div className="max-w-3xl mb-12">
+          <p className="text-mn-primary font-semibold tracking-wide uppercase text-xs mb-3">
+            Top workflows
+          </p>
+          <h2 className="text-4xl md:text-5xl font-semibold tracking-tight leading-tight mb-4">
+            What a great workflow for {role.name.toLowerCase()}s looks like.
+          </h2>
+          <p className="text-lg text-mn-muted">
+            The top-rated, most-used workflows for your role. Each one shows
+            its tech stack so you know exactly what powers it.
+          </p>
+        </div>
 
-        {workflows.length === 0 ? (
+        {featured.length === 0 ? (
           <EmptyState roleSlug={role.slug} />
         ) : (
-          <div className="flex flex-col gap-3 mt-8">
-            {workflows.map((w) => (
-              <WorkflowListItem
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {featured.map((w) => (
+              <UseCaseCard
                 key={w.slug}
                 workflow={w}
                 roleSlug={role.slug}
@@ -164,15 +171,32 @@ export default function RolePage({ params, searchParams }: Props) {
             ))}
           </div>
         )}
+      </section>
 
-        {/* Request more */}
-        <div className="mt-16 bg-mn-bg-subtle border border-mn-border rounded-2xl p-10 text-center">
-          <h3 className="text-2xl font-semibold mb-3">
+      {/* Browse by category */}
+      {workflows.length > 0 && (
+        <div className="bg-gradient-to-b from-white to-orange-50/30">
+          <CategoryBrowser workflows={workflows} roleSlug={role.slug} />
+        </div>
+      )}
+
+      {/* Integrations grid */}
+      {integrations.length > 0 && (
+        <IntegrationsGrid integrations={integrations} />
+      )}
+
+      {/* Why trust these workflows */}
+      <WhyTrustGrid />
+
+      {/* Request more */}
+      <section className="max-w-4xl mx-auto px-6 pb-20">
+        <div className="bg-mn-bg-subtle border border-mn-border rounded-2xl p-12 text-center">
+          <h3 className="text-2xl md:text-3xl font-semibold mb-3">
             Don&apos;t see a workflow you need?
           </h3>
           <p className="text-mn-muted mb-6 max-w-md mx-auto">
-            Tell us the task you want automated. We&apos;ll build it and
-            email you when it&apos;s live.
+            Tell us the task you want automated. We&apos;ll source or build it
+            and email you when it&apos;s live.
           </p>
           <Link
             href={`/book?role=${role.slug}`}
@@ -214,9 +238,11 @@ function BigStat({
   color: string;
 }) {
   return (
-    <div className="bg-white border border-mn-border rounded-xl p-5">
-      <div className={`text-3xl font-semibold ${color}`}>{value}</div>
-      <div className="text-xs text-mn-muted uppercase tracking-wide mt-1">
+    <div className="bg-white/80 backdrop-blur border border-mn-border rounded-xl p-4 md:p-5">
+      <div className={`text-2xl md:text-3xl font-semibold ${color}`}>
+        {value}
+      </div>
+      <div className="text-[10px] md:text-xs text-mn-muted uppercase tracking-wider mt-1">
         {label}
       </div>
     </div>
