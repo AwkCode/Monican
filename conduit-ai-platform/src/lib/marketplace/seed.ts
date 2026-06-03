@@ -16,6 +16,27 @@ export const INDUSTRIES: Industry[] = [
   { slug: "ecommerce", name: "Ecommerce", description: "DTC brands and Shopify operators" },
   { slug: "education", name: "Education", description: "Tutors, course creators, and schools" },
   { slug: "nonprofits", name: "Nonprofits", description: "Small to mid-size nonprofits" },
+  { slug: "accounting", name: "Accounting & Bookkeeping", description: "CPAs, bookkeepers, and tax pros" },
+  { slug: "restaurants", name: "Restaurants & Hospitality", description: "Restaurant and hotel owners" },
+  { slug: "construction", name: "Construction", description: "GCs, builders, and remodelers" },
+  { slug: "automotive", name: "Automotive", description: "Auto repair, dealerships, body shops" },
+  { slug: "veterinary", name: "Veterinary", description: "Vet practice owners and managers" },
+  { slug: "fitness", name: "Fitness & Wellness", description: "Gym, studio, and trainer owners" },
+  { slug: "salons", name: "Salons & Beauty", description: "Hair salon, nail salon, barber shop owners" },
+  { slug: "mental-health", name: "Mental Health & Therapy", description: "Therapists, psychologists, group practices" },
+  { slug: "recruiting", name: "Recruiting & Staffing", description: "Agency owners and recruiters" },
+  { slug: "creative", name: "Photography & Creative", description: "Photographers, videographers, designers" },
+  { slug: "investing", name: "Property Investing", description: "Flippers, wholesalers, REI operators" },
+  { slug: "childcare", name: "Childcare & Daycare", description: "Daycare owners, preschool operators" },
+  { slug: "cleaning", name: "Cleaning Services", description: "Residential and commercial cleaning" },
+  { slug: "landscaping", name: "Landscaping", description: "Lawn care and landscape design" },
+  { slug: "pet-care", name: "Pet Care", description: "Grooming, daycare, dog walking, boarding" },
+  { slug: "manufacturing", name: "Manufacturing", description: "Small manufacturers and job shops" },
+  { slug: "logistics", name: "Logistics & Freight", description: "Trucking, freight brokers, 3PL" },
+  { slug: "events", name: "Events & Weddings", description: "Planners, venues, caterers" },
+  { slug: "travel", name: "Travel & Tour Operators", description: "Travel agents, tour operators" },
+  { slug: "media", name: "Media & Content Creators", description: "Podcasters, newsletter writers, YouTubers" },
+  { slug: "religious", name: "Religious Organizations", description: "Churches, synagogues, temples" },
   { slug: "other", name: "Other", description: "Tell us your industry" },
 ];
 
@@ -67,6 +88,166 @@ export const ROLES: Role[] = [
     description: "Runs CS for an early-stage SaaS" },
   { slug: "ecommerce-owner", name: "Ecommerce Owner", industrySlug: "ecommerce",
     description: "DTC brand operator on Shopify or similar" },
+
+  // Accounting & Bookkeeping
+  { slug: "solo-cpa", name: "Solo CPA", industrySlug: "accounting",
+    description: "Solo certified public accountant", searchTerms: ["cpa", "accountant", "tax prep"] },
+  { slug: "bookkeeper", name: "Bookkeeper", industrySlug: "accounting",
+    description: "Small business bookkeeper", searchTerms: ["bookkeeping", "books"] },
+  { slug: "tax-preparer", name: "Tax Preparer", industrySlug: "accounting",
+    description: "Tax prep professional or EA", searchTerms: ["taxes", "ea", "enrolled agent"] },
+
+  // Restaurants & Hospitality
+  { slug: "restaurant-owner", name: "Restaurant Owner", industrySlug: "restaurants",
+    description: "Independent restaurant operator", searchTerms: ["restaurant", "cafe", "bar"] },
+  { slug: "hotel-owner", name: "Hotel / B&B Owner", industrySlug: "restaurants",
+    description: "Boutique hotel or bed and breakfast", searchTerms: ["hotel", "inn", "b&b"] },
+  { slug: "catering-owner", name: "Catering Business Owner", industrySlug: "restaurants",
+    description: "Catering company operator", searchTerms: ["catering", "caterer"] },
+
+  // Construction
+  { slug: "general-contractor", name: "General Contractor", industrySlug: "construction",
+    description: "Residential or commercial GC", searchTerms: ["gc", "contractor", "builder"] },
+  { slug: "remodeler", name: "Remodeler", industrySlug: "construction",
+    description: "Kitchen, bath, and whole-home remodeling" },
+  { slug: "custom-home-builder", name: "Custom Home Builder", industrySlug: "construction",
+    description: "Builds custom residential homes", searchTerms: ["builder"] },
+
+  // Automotive
+  { slug: "auto-repair-owner", name: "Auto Repair Shop Owner", industrySlug: "automotive",
+    description: "Independent auto repair shop", searchTerms: ["mechanic", "auto shop", "garage"] },
+  { slug: "dealership-manager", name: "Dealership Manager", industrySlug: "automotive",
+    description: "New or used car dealership operations" },
+  { slug: "body-shop-owner", name: "Body Shop Owner", industrySlug: "automotive",
+    description: "Collision repair shop owner", searchTerms: ["collision"] },
+
+  // Veterinary
+  { slug: "vet-owner", name: "Veterinarian (Owner)", industrySlug: "veterinary",
+    description: "Practice owner DVM", searchTerms: ["dvm", "veterinarian", "vet"] },
+  { slug: "vet-practice-manager", name: "Vet Practice Manager", industrySlug: "veterinary",
+    description: "Operations manager for vet practice" },
+
+  // Fitness & Wellness
+  { slug: "gym-owner", name: "Gym Owner", industrySlug: "fitness",
+    description: "Independent gym or studio owner", searchTerms: ["gym", "fitness studio"] },
+  { slug: "personal-trainer", name: "Personal Trainer", industrySlug: "fitness",
+    description: "Solo personal trainer or coach", searchTerms: ["trainer", "coach"] },
+  { slug: "yoga-studio-owner", name: "Yoga / Pilates Studio Owner", industrySlug: "fitness",
+    description: "Boutique fitness studio operator" },
+  { slug: "nutritionist", name: "Nutritionist / Dietitian", industrySlug: "fitness",
+    description: "Private practice nutrition coach", searchTerms: ["dietitian", "rd"] },
+
+  // Salons & Beauty
+  { slug: "salon-owner", name: "Salon Owner", industrySlug: "salons",
+    description: "Hair salon or barbershop owner", searchTerms: ["hair", "barber"] },
+  { slug: "stylist", name: "Independent Stylist", industrySlug: "salons",
+    description: "Booth-rent or chair-rent stylist", searchTerms: ["hairdresser"] },
+  { slug: "nail-salon-owner", name: "Nail Salon Owner", industrySlug: "salons",
+    description: "Nail salon operator" },
+
+  // Mental Health
+  { slug: "solo-therapist", name: "Solo Therapist", industrySlug: "mental-health",
+    description: "Private practice therapist (LCSW, LPC, etc.)", searchTerms: ["therapist", "counselor", "lcsw"] },
+  { slug: "psychologist", name: "Psychologist", industrySlug: "mental-health",
+    description: "Private practice psychologist", searchTerms: ["psychologist", "psyd", "phd"] },
+  { slug: "therapy-group-practice", name: "Therapy Group Practice Owner", industrySlug: "mental-health",
+    description: "Owner of multi-clinician practice" },
+
+  // Recruiting & Staffing
+  { slug: "recruiter", name: "Recruiter", industrySlug: "recruiting",
+    description: "Independent recruiter or sourcer", searchTerms: ["headhunter", "sourcer"] },
+  { slug: "staffing-agency-owner", name: "Staffing Agency Owner", industrySlug: "recruiting",
+    description: "Owner of a staffing or recruiting agency" },
+
+  // Photography & Creative
+  { slug: "wedding-photographer", name: "Wedding Photographer", industrySlug: "creative",
+    description: "Solo or studio wedding photographer", searchTerms: ["photographer"] },
+  { slug: "videographer", name: "Videographer", industrySlug: "creative",
+    description: "Freelance or studio videographer", searchTerms: ["video", "filmmaker"] },
+  { slug: "freelance-designer", name: "Freelance Designer", industrySlug: "creative",
+    description: "Solo graphic, brand, or web designer", searchTerms: ["designer", "graphic design"] },
+
+  // Property Investing
+  { slug: "house-flipper", name: "House Flipper", industrySlug: "investing",
+    description: "Buy-and-flip real estate operator", searchTerms: ["flipper", "rehab"] },
+  { slug: "wholesaler", name: "Real Estate Wholesaler", industrySlug: "investing",
+    description: "Contract assignment wholesaler", searchTerms: ["wholesaler"] },
+  { slug: "rei-fund-operator", name: "REI Fund Operator", industrySlug: "investing",
+    description: "Multifamily or fund operator", searchTerms: ["syndicator", "multifamily"] },
+
+  // Childcare
+  { slug: "daycare-owner", name: "Daycare Owner", industrySlug: "childcare",
+    description: "Licensed daycare center operator", searchTerms: ["daycare", "childcare"] },
+  { slug: "preschool-director", name: "Preschool Director", industrySlug: "childcare",
+    description: "Private preschool director" },
+
+  // Cleaning
+  { slug: "residential-cleaning-owner", name: "Residential Cleaning Owner", industrySlug: "cleaning",
+    description: "Maid service or house cleaning company", searchTerms: ["cleaning", "maid"] },
+  { slug: "commercial-cleaning-owner", name: "Commercial Cleaning Owner", industrySlug: "cleaning",
+    description: "Janitorial or office cleaning service", searchTerms: ["janitorial"] },
+
+  // Landscaping
+  { slug: "landscaper", name: "Landscaper / Lawn Care Owner", industrySlug: "landscaping",
+    description: "Residential lawn care or landscape company", searchTerms: ["lawn care", "landscape"] },
+  { slug: "tree-service-owner", name: "Tree Service Owner", industrySlug: "landscaping",
+    description: "Arborist or tree removal company" },
+
+  // Pet Care
+  { slug: "groomer", name: "Pet Groomer", industrySlug: "pet-care",
+    description: "Mobile or shop-based pet groomer", searchTerms: ["groomer"] },
+  { slug: "dog-walker", name: "Dog Walker / Pet Sitter", industrySlug: "pet-care",
+    description: "Solo or team-based pet care" },
+  { slug: "boarding-owner", name: "Boarding Facility Owner", industrySlug: "pet-care",
+    description: "Pet boarding or daycare facility" },
+
+  // Manufacturing
+  { slug: "small-manufacturer", name: "Small Manufacturer", industrySlug: "manufacturing",
+    description: "Owner of small manufacturing or job shop" },
+
+  // Logistics
+  { slug: "trucking-owner", name: "Trucking Company Owner", industrySlug: "logistics",
+    description: "Small trucking fleet owner", searchTerms: ["trucker", "freight"] },
+  { slug: "freight-broker", name: "Freight Broker", industrySlug: "logistics",
+    description: "Independent freight broker or 3PL" },
+
+  // Events
+  { slug: "wedding-planner", name: "Wedding Planner", industrySlug: "events",
+    description: "Solo or small-team wedding planner" },
+  { slug: "event-venue-owner", name: "Event Venue Owner", industrySlug: "events",
+    description: "Venue or banquet hall operator" },
+
+  // Travel
+  { slug: "travel-agent", name: "Travel Agent", industrySlug: "travel",
+    description: "Independent travel agent or advisor", searchTerms: ["travel advisor"] },
+  { slug: "tour-operator", name: "Tour Operator", industrySlug: "travel",
+    description: "Custom or group tour operator" },
+
+  // Media & Creators
+  { slug: "podcaster", name: "Podcaster", industrySlug: "media",
+    description: "Independent podcast creator", searchTerms: ["podcast"] },
+  { slug: "newsletter-writer", name: "Newsletter Writer", industrySlug: "media",
+    description: "Substack or newsletter operator", searchTerms: ["substack", "newsletter"] },
+  { slug: "youtuber", name: "YouTuber / Creator", industrySlug: "media",
+    description: "Full-time content creator", searchTerms: ["creator", "youtube"] },
+
+  // Religious orgs
+  { slug: "pastor", name: "Pastor / Faith Leader", industrySlug: "religious",
+    description: "Pastor or leader of a religious organization", searchTerms: ["pastor", "rabbi", "imam"] },
+
+  // Education (was empty)
+  { slug: "tutor", name: "Tutor", industrySlug: "education",
+    description: "Solo subject tutor or test prep", searchTerms: ["tutor"] },
+  { slug: "course-creator", name: "Course Creator", industrySlug: "education",
+    description: "Online course or membership operator", searchTerms: ["course", "membership"] },
+  { slug: "private-school-admin", name: "Private School Admin", industrySlug: "education",
+    description: "Admissions, ops, or principal" },
+
+  // Nonprofits (was empty)
+  { slug: "nonprofit-ed", name: "Nonprofit Executive Director", industrySlug: "nonprofits",
+    description: "ED of small to mid-size nonprofit", searchTerms: ["nonprofit", "ed"] },
+  { slug: "fundraiser", name: "Fundraiser / Development Officer", industrySlug: "nonprofits",
+    description: "Major gifts or development officer" },
 ];
 
 // Helper to keep new workflows compact

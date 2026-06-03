@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { INDUSTRIES, getRolesByIndustry } from "@/lib/marketplace/seed";
+import { INDUSTRIES, ROLES, getIndustryBySlug } from "@/lib/marketplace/seed";
 
 const PAIN_POINTS = [
   { value: "lead-response", label: "Responding to leads" },
@@ -15,14 +15,72 @@ const PAIN_POINTS = [
   { value: "other", label: "Something else" },
 ];
 
+type Match = {
+  type: "role";
+  roleSlug: string;
+  roleName: string;
+  industryName: string;
+  description: string;
+  score: number;
+};
+
+function scoreMatch(query: string, candidate: string): number {
+  const q = query.toLowerCase().trim();
+  const c = candidate.toLowerCase();
+  if (!q) return 0;
+  if (c === q) return 100;
+  if (c.startsWith(q)) return 80;
+  if (c.includes(q)) return 60;
+  // word-boundary match
+  const words = c.split(/\W+/);
+  if (words.some((w) => w.startsWith(q))) return 50;
+  return 0;
+}
+
 export default function DiscoveryWizard() {
   const router = useRouter();
-  const [step, setStep] = useState<1 | 2 | 3>(1);
-  const [industry, setIndustry] = useState<string | null>(null);
-  const [role, setRole] = useState<string | null>(null);
+  const [step, setStep] = useState<1 | 2>(1);
+  const [query, setQuery] = useState("");
+  const [selectedRole, setSelectedRole] = useState<{
+    slug: string;
+    name: string;
+  } | null>(null);
   const [painPoints, setPainPoints] = useState<string[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const availableRoles = industry ? getRolesByIndustry(industry) : [];
+  // Compute search matches
+  const matches = useMemo<Match[]>(() => {
+    if (!query.trim()) return [];
+
+    const results: Match[] = [];
+
+    for (const r of ROLES) {
+      const industry = getIndustryBySlug(r.industrySlug);
+      const industryName = industry?.name || "";
+
+      // Score across role name, industry name, search terms
+      const nameScore = scoreMatch(query, r.name);
+      const industryScore = scoreMatch(query, industryName);
+      const termScore = Math.max(
+        0,
+        ...(r.searchTerms || []).map((t) => scoreMatch(query, t))
+      );
+      const score = Math.max(nameScore, industryScore * 0.7, termScore * 0.9);
+
+      if (score > 0) {
+        results.push({
+          type: "role",
+          roleSlug: r.slug,
+          roleName: r.name,
+          industryName,
+          description: r.description,
+          score,
+        });
+      }
+    }
+
+    return results.sort((a, b) => b.score - a.score).slice(0, 6);
+  }, [query]);
 
   function togglePainPoint(value: string) {
     setPainPoints((prev) =>
@@ -30,17 +88,34 @@ export default function DiscoveryWizard() {
     );
   }
 
-  function submitPainPoints() {
-    if (!role || painPoints.length === 0) return;
-    const focus = painPoints.join(",");
-    router.push(`/for/${role}?focus=${focus}`);
+  function pickRole(slug: string, name: string) {
+    setSelectedRole({ slug, name });
+    setStep(2);
   }
+
+  function submitPainPoints() {
+    if (!selectedRole || painPoints.length === 0) return;
+    const focus = painPoints.join(",");
+    router.push(`/for/${selectedRole.slug}?focus=${focus}`);
+  }
+
+  function requestMissingRole() {
+    const q = encodeURIComponent(query);
+    router.push(`/book?missing-role=${q}`);
+  }
+
+  // Focus search on mount
+  useEffect(() => {
+    if (step === 1 && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [step]);
 
   return (
     <div className="bg-white/80 backdrop-blur border border-white/60 rounded-3xl shadow-xl p-8 md:p-10 max-w-2xl mx-auto">
       {/* Progress dots */}
       <div className="flex items-center justify-center gap-2 mb-8">
-        {[1, 2, 3].map((n) => (
+        {[1, 2].map((n) => (
           <div
             key={n}
             className={`h-1.5 rounded-full transition-all ${
@@ -54,34 +129,116 @@ export default function DiscoveryWizard() {
         ))}
       </div>
 
-      {/* Step 1: Industry */}
+      {/* Step 1: Search for role / industry */}
       {step === 1 && (
         <div>
           <p className="text-mn-primary font-semibold tracking-wide uppercase text-xs mb-3 text-center">
-            Step 1 of 3
+            Step 1 of 2
           </p>
-          <h3 className="text-3xl font-semibold tracking-tight text-center mb-8">
-            What industry?
+          <h3 className="text-3xl font-semibold tracking-tight text-center mb-2">
+            What&apos;s your job?
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-            {INDUSTRIES.map((ind) => (
+          <p className="text-mn-muted text-sm text-center mb-6">
+            Type your role, industry, or what you do.
+          </p>
+
+          {/* Search input */}
+          <div className="relative">
+            <input
+              ref={inputRef}
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="e.g. real estate agent, veterinarian, accountant…"
+              className="w-full bg-white border-2 border-mn-border focus:border-mn-primary rounded-xl px-5 py-4 text-mn-text placeholder:text-mn-muted/60 text-base focus:outline-none transition"
+            />
+            {query && (
               <button
-                key={ind.slug}
-                onClick={() => {
-                  setIndustry(ind.slug);
-                  setStep(2);
-                }}
-                className="text-left px-4 py-3 rounded-xl border border-mn-border hover:border-mn-primary hover:bg-mn-primary/5 transition text-sm font-medium text-mn-text"
+                onClick={() => setQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-mn-muted hover:text-mn-text w-7 h-7 rounded-full hover:bg-mn-bg-subtle flex items-center justify-center"
+                aria-label="Clear"
               >
-                {ind.name}
+                ×
               </button>
-            ))}
+            )}
           </div>
+
+          {/* Matches dropdown */}
+          {query.trim().length > 0 && (
+            <div className="mt-3 space-y-1">
+              {matches.length > 0 ? (
+                <>
+                  <p className="text-xs uppercase tracking-wide text-mn-muted px-2 mb-2">
+                    {matches.length} match{matches.length === 1 ? "" : "es"}
+                  </p>
+                  {matches.map((m) => (
+                    <button
+                      key={m.roleSlug}
+                      onClick={() => pickRole(m.roleSlug, m.roleName)}
+                      className="w-full text-left px-4 py-3 rounded-xl border border-mn-border hover:border-mn-primary hover:bg-mn-primary/5 transition flex items-start justify-between gap-3"
+                    >
+                      <div className="min-w-0 flex-1">
+                        <div className="font-semibold text-mn-text text-sm mb-0.5">
+                          {m.roleName}
+                        </div>
+                        <div className="text-xs text-mn-muted line-clamp-1">
+                          {m.industryName} · {m.description}
+                        </div>
+                      </div>
+                      <span className="text-mn-muted text-lg flex-shrink-0">
+                        →
+                      </span>
+                    </button>
+                  ))}
+                </>
+              ) : (
+                <div className="px-4 py-6 rounded-xl border border-dashed border-mn-border text-center">
+                  <p className="text-sm text-mn-muted mb-3">
+                    We don&apos;t have <span className="font-semibold text-mn-text">{query}</span> in our library yet.
+                  </p>
+                  <button
+                    onClick={requestMissingRole}
+                    className="inline-block bg-black hover:bg-black/85 text-white px-5 py-2.5 rounded-full text-sm font-medium"
+                  >
+                    Add &quot;{query}&quot; to the queue
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Empty state — show popular roles */}
+          {!query.trim() && (
+            <div className="mt-6">
+              <p className="text-xs uppercase tracking-wide text-mn-muted mb-3">
+                Popular jobs
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  ["Real Estate Agent", "real-estate-agent"],
+                  ["SaaS Founder", "saas-founder"],
+                  ["Insurance Agent", "insurance-agent"],
+                  ["Solo Attorney", "solo-attorney"],
+                  ["Med Spa Owner", "med-spa-owner"],
+                  ["Mortgage Loan Officer", "mortgage-loan-officer"],
+                  ["Marketing Agency Owner", "agency-owner"],
+                ].map(([name, slug]) => (
+                  <button
+                    key={slug}
+                    onClick={() => pickRole(slug, name)}
+                    className="text-sm bg-white border border-mn-border hover:border-mn-primary text-mn-text px-3 py-1.5 rounded-full transition"
+                  >
+                    {name}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
 
-      {/* Step 2: Role */}
-      {step === 2 && (
+      {/* Step 2: Pain points multi-select */}
+      {step === 2 && selectedRole && (
         <div>
           <button
             onClick={() => setStep(1)}
@@ -90,66 +247,22 @@ export default function DiscoveryWizard() {
             ← Back
           </button>
           <p className="text-mn-primary font-semibold tracking-wide uppercase text-xs mb-3 text-center">
-            Step 2 of 3
-          </p>
-          <h3 className="text-3xl font-semibold tracking-tight text-center mb-8">
-            What role?
-          </h3>
-          {availableRoles.length === 0 ? (
-            <div className="text-center py-8">
-              <p className="text-mn-muted mb-6">
-                We don&apos;t have specific roles for this industry yet. Tell us
-                what you do and we&apos;ll build it for you.
-              </p>
-              <a
-                href="/book"
-                className="inline-block bg-black hover:bg-black/85 text-white px-6 py-3 rounded-full font-medium"
-              >
-                Request a role
-              </a>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-              {availableRoles.map((r) => (
-                <button
-                  key={r.slug}
-                  onClick={() => {
-                    setRole(r.slug);
-                    setStep(3);
-                  }}
-                  className="text-left px-4 py-4 rounded-xl border border-mn-border hover:border-mn-primary hover:bg-mn-primary/5 transition"
-                >
-                  <div className="font-semibold text-mn-text text-sm mb-1">
-                    {r.name}
-                  </div>
-                  <div className="text-xs text-mn-muted line-clamp-2">
-                    {r.description}
-                  </div>
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Step 3: Pain points — multi-select */}
-      {step === 3 && (
-        <div>
-          <button
-            onClick={() => setStep(2)}
-            className="text-mn-muted hover:text-mn-text text-sm mb-4 inline-flex items-center gap-1"
-          >
-            ← Back
-          </button>
-          <p className="text-mn-primary font-semibold tracking-wide uppercase text-xs mb-3 text-center">
-            Step 3 of 3
+            Step 2 of 2
           </p>
           <h3 className="text-3xl font-semibold tracking-tight text-center mb-2">
             What slows you down?
           </h3>
-          <p className="text-mn-muted text-sm text-center mb-8">
-            Select all that apply.
+          <p className="text-mn-muted text-sm text-center mb-6">
+            Select all that apply. We&apos;ll surface workflows that fix these.
           </p>
+
+          <p className="text-xs text-center text-mn-muted mb-6">
+            Showing workflows for{" "}
+            <span className="font-semibold text-mn-text">
+              {selectedRole.name}
+            </span>
+          </p>
+
           <div className="grid grid-cols-2 gap-2 mb-6">
             {PAIN_POINTS.map((p) => {
               const selected = painPoints.includes(p.value);
