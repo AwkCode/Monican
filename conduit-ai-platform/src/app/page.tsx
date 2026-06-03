@@ -32,10 +32,10 @@ export default function Home() {
                 monican.
               </Link>
               <Link
-                href="/signup"
+                href="/book"
                 className="rounded-full bg-white/40 hover:bg-white/60 backdrop-blur border border-white/50 px-6 py-2.5 text-sm font-medium text-mn-text transition"
               >
-                Get started
+                Book a demo
               </Link>
             </div>
           </header>
@@ -51,9 +51,9 @@ export default function Home() {
               <p className="mt-8 text-lg md:text-xl text-mn-text/70 max-w-2xl mx-auto leading-relaxed">
                 Sign up, set your profile, and your agents start working — responding to leads, reactivating past clients, and surfacing opportunities.
               </p>
-              <div className="mt-12 flex justify-center">
+              <div className="mt-12 flex justify-center items-center gap-6 flex-wrap">
                 <Link
-                  href="/signup"
+                  href="/book"
                   className="group bg-black hover:bg-black/85 text-white rounded-full pl-2 pr-8 py-2 inline-flex items-center gap-4 transition"
                 >
                   <span className="w-11 h-11 rounded-full bg-white flex items-center justify-center text-black">
@@ -61,7 +61,13 @@ export default function Home() {
                       <path d="M3 1.5L11 7L3 12.5V1.5Z" fill="currentColor" />
                     </svg>
                   </span>
-                  <span className="text-base font-medium">Get started</span>
+                  <span className="text-base font-medium">Book a demo</span>
+                </Link>
+                <Link
+                  href="/tools/roi-calculator"
+                  className="text-mn-text/70 hover:text-mn-text text-base font-medium underline-offset-4 hover:underline transition"
+                >
+                  Calculate your ROI &rarr;
                 </Link>
               </div>
             </div>
@@ -197,18 +203,18 @@ export default function Home() {
               Your agents are 10 minutes away.
             </h2>
             <p className="text-lg text-white/70 mb-10 max-w-xl mx-auto">
-              Sign up free. No credit card. Cancel anytime.
+              15-minute demo. Custom for your business. No pressure.
             </p>
-            <div className="flex gap-4 justify-center">
+            <div className="flex gap-4 justify-center flex-wrap">
               <Link
-                href="/signup"
-                className="bg-mn-primary hover:bg-mn-primary-hover text-white font-medium px-8 py-4 rounded-md transition-colors"
+                href="/book"
+                className="bg-mn-primary hover:bg-mn-primary-hover text-white font-medium px-8 py-4 rounded-full transition-colors"
               >
-                Start free
+                Book a demo
               </Link>
               <Link
                 href="/tools/roi-calculator"
-                className="border border-white/30 hover:border-white text-white px-8 py-4 rounded-md transition-colors"
+                className="border border-white/30 hover:border-white text-white px-8 py-4 rounded-full transition-colors"
               >
                 Calculate ROI
               </Link>
@@ -234,7 +240,7 @@ export default function Home() {
                 <ul className="space-y-3 text-sm">
                   <li><Link href="/modules" className="text-mn-muted hover:text-mn-text">Modules</Link></li>
                   <li><Link href="/tools/roi-calculator" className="text-mn-muted hover:text-mn-text">ROI Calculator</Link></li>
-                  <li><Link href="/signup" className="text-mn-muted hover:text-mn-text">Start free</Link></li>
+                  <li><Link href="/book" className="text-mn-muted hover:text-mn-text">Book a demo</Link></li>
                 </ul>
               </div>
               <div>
