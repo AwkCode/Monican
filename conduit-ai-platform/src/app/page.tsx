@@ -45,12 +45,13 @@ export default function Home() {
           <div className="relative z-10 flex flex-col items-center justify-center px-6 pt-8 pb-20">
             <div className="text-center max-w-5xl mb-12">
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[0.95] text-mn-text">
-                Find your AI team
+                The AI workflow
                 <br />
-                in 30 seconds.
+                library for every role.
               </h1>
               <p className="mt-6 text-lg md:text-xl text-mn-text/70 max-w-2xl mx-auto leading-relaxed">
-                Tell us what you do. We&apos;ll show you the workflows that save your hours, your dollars, and your sanity.
+                Proven workflows from n8n, Zapier, GPT Store, Claude Skills, and our own lab —
+                organized by your job. We set them up. You save the hours.
               </p>
             </div>
 

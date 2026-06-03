@@ -60,9 +60,14 @@ export default function WorkflowDetailPage({ params }: Props) {
             <span className="text-mn-text font-medium">{workflow.name}</span>
           </div>
 
-          <span className="inline-block text-xs font-medium px-3 py-1 rounded-full bg-mn-bg-subtle text-mn-text mb-5">
-            {workflow.category}
-          </span>
+          <div className="flex flex-wrap gap-2 mb-5">
+            <span className="text-xs font-medium px-3 py-1 rounded-full bg-mn-bg-subtle text-mn-text">
+              {workflow.category}
+            </span>
+            <span className="text-xs font-medium px-3 py-1 rounded-full bg-mn-text text-white">
+              Sourced from {workflow.source}
+            </span>
+          </div>
           <h1 className="text-4xl md:text-5xl font-semibold tracking-tight leading-[1.05] mb-5">
             {workflow.name}
           </h1>
@@ -139,23 +144,32 @@ export default function WorkflowDetailPage({ params }: Props) {
         {/* Right — sticky sidebar */}
         <aside className="md:col-span-1">
           <div className="bg-white border border-mn-border rounded-2xl p-6 sticky top-24">
-            <h3 className="text-lg font-semibold mb-4">Activate this workflow</h3>
-            <p className="text-sm text-mn-muted mb-6">
-              We&apos;ll set this up for you on a 15-minute call. Free 30-day
-              pilot if it&apos;s a fit.
+            <h3 className="text-lg font-semibold mb-2">Activate this workflow</h3>
+            <p className="text-xs text-mn-muted mb-5">
+              Sourced from <span className="font-semibold text-mn-text">{workflow.source}</span>
+              {workflow.priceModel === "free" && " · free template"}
+              {workflow.priceModel === "freemium" && " · freemium"}
+              {workflow.priceModel === "paid" && " · paid"}
+              {workflow.priceModel === "monican-setup" && " · Monican-built"}
             </p>
+
             <Link
               href={`/book?workflow=${workflow.slug}&role=${role.slug}`}
               className="block bg-black hover:bg-black/85 text-white font-medium text-center py-3 rounded-full mb-3 transition"
             >
-              Book setup demo
+              Get Monican to set it up
             </Link>
-            <Link
-              href={`/for/${role.slug}`}
-              className="block border border-mn-border hover:border-mn-muted text-mn-text font-medium text-center py-3 rounded-full transition"
-            >
-              See all workflows
-            </Link>
+
+            {workflow.sourceUrl && (
+              <a
+                href={workflow.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block border border-mn-border hover:border-mn-muted text-mn-text font-medium text-center py-3 rounded-full transition text-sm"
+              >
+                Or self-serve on {workflow.source} →
+              </a>
+            )}
 
             <div className="mt-6 pt-6 border-t border-mn-border">
               <h4 className="text-sm font-semibold mb-3">Required tools</h4>
@@ -170,6 +184,12 @@ export default function WorkflowDetailPage({ params }: Props) {
                   </li>
                 ))}
               </ul>
+            </div>
+
+            <div className="mt-5 pt-5 border-t border-mn-border text-xs text-mn-muted">
+              <p>
+                💡 <strong>Why Monican?</strong> We handle the setup, integrate with your existing tools, train it on your voice, and stay on call for issues. Or use the source link to DIY.
+              </p>
             </div>
           </div>
         </aside>

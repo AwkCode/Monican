@@ -23,6 +23,17 @@ export type WorkflowCategory =
   | "Recall"
   | "Compliance";
 
+export type WorkflowSource =
+  | "Monican"
+  | "n8n"
+  | "Zapier"
+  | "Make"
+  | "GPT Store"
+  | "Claude Skills"
+  | "Pipedream"
+  | "Anthropic"
+  | "OpenAI";
+
 export type Workflow = {
   slug: string;
   roleSlug: string;
@@ -39,7 +50,9 @@ export type Workflow = {
   requirements: string[]; // ["Gmail", "Google Sheets"]
   steps: string[]; // ordered description of what it does
   featured?: boolean;
-  aiGenerated?: boolean;
+  source: WorkflowSource; // Where this workflow comes from
+  sourceUrl?: string; // Deep link to the template on its source platform
+  priceModel?: "free" | "paid" | "freemium" | "monican-setup"; // pricing model
 };
 
 export type PainPoint =

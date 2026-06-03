@@ -106,15 +106,15 @@ export default function RolePage({ params, searchParams }: Props) {
           </div>
 
           <p className="text-mn-primary font-semibold tracking-wide uppercase text-xs mb-4">
-            AI workflows for {role.name.toLowerCase()}s
+            For {role.name.toLowerCase()}s
           </p>
           <h1 className="text-5xl md:text-6xl font-semibold tracking-tight leading-[1.05] mb-6 max-w-3xl">
-            Your dispensary of {role.name} workflows.
+            Proven AI workflows for {role.name.toLowerCase()}s.
           </h1>
           <p className="text-lg text-mn-text/70 max-w-2xl leading-relaxed mb-10">
-            {role.description}. Pick the workflows that match your pain points.
-            Each one is pre-built, battle-tested, and ready to run inside your
-            existing tools.
+            {role.description}. Each workflow below is already running in production —
+            sourced from n8n, Zapier, the GPT Store, Claude Skills, or built by us.
+            Pick what fits, we&apos;ll get it live in your stack.
           </p>
 
           {/* Stat summary */}
@@ -222,13 +222,13 @@ function BigStat({
 function EmptyState({ roleSlug }: { roleSlug: string }) {
   return (
     <div className="text-center py-16 bg-mn-bg-subtle rounded-2xl border border-mn-border">
-      <div className="text-5xl mb-4">🤖</div>
+      <div className="text-5xl mb-4">🔍</div>
       <h3 className="text-2xl font-semibold mb-3">
-        We&apos;re generating workflows for this role.
+        We&apos;re curating workflows for this role.
       </h3>
       <p className="text-mn-muted mb-6 max-w-md mx-auto">
-        This role is new to our marketplace. Want us to email you when
-        workflows are ready?
+        We add 5-10 new workflows for new roles every week. Drop your email
+        and we&apos;ll let you know when this one is live.
       </p>
       <Link
         href={`/book?role=${roleSlug}`}
