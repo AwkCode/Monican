@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { INDUSTRIES, ROLES, getIndustryBySlug } from "@/lib/marketplace/seed";
+import { ROLES, getIndustryBySlug } from "@/lib/marketplace/seed";
 
 const PAIN_POINTS = [
   { value: "lead-response", label: "Responding to leads" },
