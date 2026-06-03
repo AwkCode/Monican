@@ -20,12 +20,20 @@ export default function DiscoveryWizard() {
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [industry, setIndustry] = useState<string | null>(null);
   const [role, setRole] = useState<string | null>(null);
+  const [painPoints, setPainPoints] = useState<string[]>([]);
 
   const availableRoles = industry ? getRolesByIndustry(industry) : [];
 
-  function handlePainPoint(painPoint: string) {
-    if (!role) return;
-    router.push(`/for/${role}?focus=${painPoint}`);
+  function togglePainPoint(value: string) {
+    setPainPoints((prev) =>
+      prev.includes(value) ? prev.filter((p) => p !== value) : [...prev, value]
+    );
+  }
+
+  function submitPainPoints() {
+    if (!role || painPoints.length === 0) return;
+    const focus = painPoints.join(",");
+    router.push(`/for/${role}?focus=${focus}`);
   }
 
   return (
@@ -53,7 +61,7 @@ export default function DiscoveryWizard() {
             Step 1 of 3
           </p>
           <h3 className="text-3xl font-semibold tracking-tight text-center mb-8">
-            What industry are you in?
+            What industry?
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
             {INDUSTRIES.map((ind) => (
@@ -85,7 +93,7 @@ export default function DiscoveryWizard() {
             Step 2 of 3
           </p>
           <h3 className="text-3xl font-semibold tracking-tight text-center mb-8">
-            What&apos;s your role?
+            What role?
           </h3>
           {availableRoles.length === 0 ? (
             <div className="text-center py-8">
@@ -97,7 +105,7 @@ export default function DiscoveryWizard() {
                 href="/book"
                 className="inline-block bg-black hover:bg-black/85 text-white px-6 py-3 rounded-full font-medium"
               >
-                Request your role
+                Request a role
               </a>
             </div>
           ) : (
@@ -124,7 +132,7 @@ export default function DiscoveryWizard() {
         </div>
       )}
 
-      {/* Step 3: Pain point */}
+      {/* Step 3: Pain points — multi-select */}
       {step === 3 && (
         <div>
           <button
@@ -136,20 +144,66 @@ export default function DiscoveryWizard() {
           <p className="text-mn-primary font-semibold tracking-wide uppercase text-xs mb-3 text-center">
             Step 3 of 3
           </p>
-          <h3 className="text-3xl font-semibold tracking-tight text-center mb-8">
-            What slows you down most?
+          <h3 className="text-3xl font-semibold tracking-tight text-center mb-2">
+            What slows you down?
           </h3>
-          <div className="grid grid-cols-2 gap-2">
-            {PAIN_POINTS.map((p) => (
-              <button
-                key={p.value}
-                onClick={() => handlePainPoint(p.value)}
-                className="text-left px-4 py-3 rounded-xl border border-mn-border hover:border-mn-primary hover:bg-mn-primary/5 transition text-sm font-medium text-mn-text"
-              >
-                {p.label}
-              </button>
-            ))}
+          <p className="text-mn-muted text-sm text-center mb-8">
+            Select all that apply.
+          </p>
+          <div className="grid grid-cols-2 gap-2 mb-6">
+            {PAIN_POINTS.map((p) => {
+              const selected = painPoints.includes(p.value);
+              return (
+                <button
+                  key={p.value}
+                  onClick={() => togglePainPoint(p.value)}
+                  className={`relative text-left px-4 py-3 rounded-xl border transition text-sm font-medium ${
+                    selected
+                      ? "border-mn-primary bg-mn-primary/10 text-mn-text"
+                      : "border-mn-border text-mn-text hover:border-mn-primary/40 hover:bg-mn-primary/5"
+                  }`}
+                >
+                  <span className="flex items-center gap-2">
+                    <span
+                      className={`w-4 h-4 rounded border flex items-center justify-center transition flex-shrink-0 ${
+                        selected
+                          ? "bg-mn-primary border-mn-primary"
+                          : "border-mn-border"
+                      }`}
+                    >
+                      {selected && (
+                        <svg
+                          width="10"
+                          height="10"
+                          viewBox="0 0 10 10"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M1.5 5L4 7.5L8.5 2.5"
+                            stroke="white"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      )}
+                    </span>
+                    <span>{p.label}</span>
+                  </span>
+                </button>
+              );
+            })}
           </div>
+          <button
+            onClick={submitPainPoints}
+            disabled={painPoints.length === 0}
+            className="w-full bg-black hover:bg-black/85 disabled:bg-mn-border disabled:cursor-not-allowed text-white font-medium py-3 rounded-full transition"
+          >
+            {painPoints.length === 0
+              ? "Pick at least one"
+              : `See workflows (${painPoints.length} selected)`}
+          </button>
         </div>
       )}
     </div>
