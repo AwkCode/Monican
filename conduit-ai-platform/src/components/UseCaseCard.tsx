@@ -51,9 +51,15 @@ export default function UseCaseCard({
       </div>
 
       {/* Description */}
-      <p className="text-sm text-mn-muted leading-relaxed mb-5 line-clamp-3">
+      <p className="text-sm text-mn-muted leading-relaxed mb-4 line-clamp-3">
         {workflow.description}
       </p>
+
+      {/* Time-per-action callout */}
+      <div className="inline-flex items-center gap-1.5 bg-mn-primary/10 text-mn-primary text-xs font-semibold px-2.5 py-1 rounded-full mb-5">
+        <span>⚡</span>
+        <span>{workflow.timePerAction}</span>
+      </div>
 
       {/* Tech breadcrumb chain */}
       <div className="flex flex-wrap items-center gap-1.5 mb-5">

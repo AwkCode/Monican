@@ -42,6 +42,7 @@ export type Workflow = {
   description: string;
   longDescription?: string;
   category: WorkflowCategory;
+  timePerAction: string; // "Saves 6 min per lead reply" — concrete per-event savings
   hoursSavedWeekly: number;
   dollarsSavedMonthly: number;
   rating: number; // 0-5

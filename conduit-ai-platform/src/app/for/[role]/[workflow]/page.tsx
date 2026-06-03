@@ -71,9 +71,15 @@ export default function WorkflowDetailPage({ params }: Props) {
           <h1 className="text-4xl md:text-5xl font-semibold tracking-tight leading-[1.05] mb-5">
             {workflow.name}
           </h1>
-          <p className="text-xl text-mn-text/70 max-w-3xl leading-relaxed mb-10">
+          <p className="text-xl text-mn-text/70 max-w-3xl leading-relaxed mb-6">
             {workflow.tagline}
           </p>
+
+          {/* Time-per-action callout */}
+          <div className="inline-flex items-center gap-2 bg-mn-primary/10 text-mn-primary text-sm font-semibold px-4 py-2 rounded-full mb-10">
+            <span>⚡</span>
+            <span>{workflow.timePerAction}</span>
+          </div>
 
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl">
