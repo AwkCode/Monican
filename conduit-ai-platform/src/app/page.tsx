@@ -1,4 +1,5 @@
 import Link from "next/link";
+import DiscoveryWizard from "@/components/DiscoveryWizard";
 
 export default function Home() {
   return (
@@ -41,35 +42,32 @@ export default function Home() {
           </header>
 
           {/* Centered hero content */}
-          <div className="relative z-10 flex items-center justify-center px-6 min-h-[calc(100vh-100px)]">
-            <div className="text-center max-w-5xl">
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-semibold tracking-tight leading-[0.95] text-mn-text">
-                Your AI team,
+          <div className="relative z-10 flex flex-col items-center justify-center px-6 pt-8 pb-20">
+            <div className="text-center max-w-5xl mb-12">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[0.95] text-mn-text">
+                Find your AI team
                 <br />
-                ready in minutes.
+                in 30 seconds.
               </h1>
-              <p className="mt-8 text-lg md:text-xl text-mn-text/70 max-w-2xl mx-auto leading-relaxed">
-                Sign up, set your profile, and your agents start working — responding to leads, reactivating past clients, and surfacing opportunities.
+              <p className="mt-6 text-lg md:text-xl text-mn-text/70 max-w-2xl mx-auto leading-relaxed">
+                Tell us what you do. We&apos;ll show you the workflows that save your hours, your dollars, and your sanity.
               </p>
-              <div className="mt-12 flex justify-center items-center gap-6 flex-wrap">
-                <Link
-                  href="/book"
-                  className="group bg-black hover:bg-black/85 text-white rounded-full pl-2 pr-8 py-2 inline-flex items-center gap-4 transition"
-                >
-                  <span className="w-11 h-11 rounded-full bg-white flex items-center justify-center text-black">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M3 1.5L11 7L3 12.5V1.5Z" fill="currentColor" />
-                    </svg>
-                  </span>
-                  <span className="text-base font-medium">Book a demo</span>
-                </Link>
-                <Link
-                  href="/tools/roi-calculator"
-                  className="text-mn-text/70 hover:text-mn-text text-base font-medium underline-offset-4 hover:underline transition"
-                >
-                  Calculate your ROI &rarr;
-                </Link>
-              </div>
+            </div>
+
+            {/* Wizard */}
+            <div className="w-full max-w-2xl">
+              <DiscoveryWizard />
+            </div>
+
+            <div className="mt-8 text-sm text-mn-text/60 flex items-center gap-4 flex-wrap justify-center">
+              <span>Or</span>
+              <Link href="/book" className="underline hover:text-mn-text">
+                book a custom demo
+              </Link>
+              <span>·</span>
+              <Link href="/tools/roi-calculator" className="underline hover:text-mn-text">
+                calculate your ROI
+              </Link>
             </div>
           </div>
         </section>
