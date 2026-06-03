@@ -159,22 +159,38 @@ export default function WorkflowDetailPage({ params }: Props) {
               {workflow.priceModel === "monican-setup" && " · Monican-built"}
             </p>
 
-            <Link
-              href={`/book?workflow=${workflow.slug}&role=${role.slug}`}
-              className="block bg-black hover:bg-black/85 text-white font-medium text-center py-3 rounded-full mb-3 transition"
-            >
-              Get Monican to set it up
-            </Link>
-
-            {workflow.sourceUrl && (
-              <a
-                href={workflow.sourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block border border-mn-border hover:border-mn-muted text-mn-text font-medium text-center py-3 rounded-full transition text-sm"
-              >
-                Or self-serve on {workflow.source} →
-              </a>
+            {workflow.source === "Monican" ? (
+              <>
+                {/* Monican Original — primary CTA is book demo */}
+                <Link
+                  href={`/book?workflow=${workflow.slug}&role=${role.slug}`}
+                  className="block bg-black hover:bg-black/85 text-white font-medium text-center py-3 rounded-full mb-3 transition"
+                >
+                  Book setup demo
+                </Link>
+                <p className="text-xs text-mn-muted text-center mb-2">
+                  We set it up. You save the hours.
+                </p>
+              </>
+            ) : (
+              <>
+                {/* Sourced workflow — primary CTA is affiliate redirect */}
+                <a
+                  href={`/api/go/${role.slug}/${workflow.slug}`}
+                  className="block bg-mn-primary hover:bg-mn-primary-hover text-white font-medium text-center py-3 rounded-full mb-3 transition"
+                >
+                  Use on {workflow.source} →
+                </a>
+                <Link
+                  href={`/book?workflow=${workflow.slug}&role=${role.slug}`}
+                  className="block bg-black hover:bg-black/85 text-white font-medium text-center py-3 rounded-full mb-2 transition text-sm"
+                >
+                  Or have Monican set it up
+                </Link>
+                <p className="text-[11px] text-mn-muted text-center leading-snug mt-2">
+                  We earn a small commission if you activate via the {workflow.source} link — at no extra cost to you.
+                </p>
+              </>
             )}
 
             <div className="mt-6 pt-6 border-t border-mn-border">
@@ -194,7 +210,7 @@ export default function WorkflowDetailPage({ params }: Props) {
 
             <div className="mt-5 pt-5 border-t border-mn-border text-xs text-mn-muted">
               <p>
-                💡 <strong>Why Monican?</strong> We handle the setup, integrate with your existing tools, train it on your voice, and stay on call for issues. Or use the source link to DIY.
+                💡 <strong>Why Monican?</strong> We handle the setup, integrate with your existing tools, train it on your voice, and stay on call for issues.
               </p>
             </div>
           </div>

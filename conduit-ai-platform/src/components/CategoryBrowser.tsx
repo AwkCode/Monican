@@ -124,21 +124,27 @@ function CategoryItem({
   workflow: Workflow;
   roleSlug: string;
 }) {
+  const isMonican = workflow.source === "Monican";
+
   return (
-    <Link
-      href={`/for/${roleSlug}/${workflow.slug}`}
-      className="group block bg-white border border-mn-border rounded-xl p-5 hover:border-mn-primary/40 hover:shadow-sm transition-all"
-    >
-      <code className="text-xs bg-mn-bg-subtle text-mn-text px-2 py-1 rounded font-mono mb-3 inline-block border border-mn-border">
-        {workflow.source}
-      </code>
-      <h4 className="text-base font-semibold text-mn-text group-hover:text-mn-primary transition-colors mb-2 leading-snug">
-        {workflow.name}
-      </h4>
-      <p className="text-sm text-mn-muted leading-relaxed line-clamp-2 mb-4">
-        {workflow.description}
-      </p>
-      <div className="flex items-center justify-between text-xs">
+    <div className="group block bg-white border border-mn-border rounded-xl p-5 hover:border-mn-primary/40 hover:shadow-sm transition-all flex flex-col">
+      <Link href={`/for/${roleSlug}/${workflow.slug}`} className="block">
+        <code className="text-xs bg-mn-bg-subtle text-mn-text px-2 py-1 rounded font-mono mb-3 inline-block border border-mn-border">
+          {workflow.source}
+        </code>
+        <h4 className="text-base font-semibold text-mn-text group-hover:text-mn-primary transition-colors mb-2 leading-snug">
+          {workflow.name}
+        </h4>
+        <p className="text-sm text-mn-muted leading-relaxed line-clamp-2 mb-3">
+          {workflow.description}
+        </p>
+      </Link>
+
+      <div className="inline-flex items-center gap-1.5 bg-mn-primary/10 text-mn-primary text-[11px] font-semibold px-2 py-0.5 rounded-full mb-4 self-start">
+        ⚡ {workflow.timePerAction}
+      </div>
+
+      <div className="flex items-center justify-between text-xs mb-3">
         <span className="text-mn-primary font-semibold">
           {workflow.hoursSavedWeekly}h/wk · ${workflow.dollarsSavedMonthly >= 1000
             ? `${(workflow.dollarsSavedMonthly / 1000).toFixed(1)}k`
@@ -148,6 +154,24 @@ function CategoryItem({
           {workflow.rating.toFixed(1)}★
         </span>
       </div>
-    </Link>
+
+      <div className="mt-auto pt-3 border-t border-mn-border">
+        {isMonican ? (
+          <Link
+            href={`/for/${roleSlug}/${workflow.slug}`}
+            className="block bg-black hover:bg-black/85 text-white text-xs font-medium text-center py-2 rounded-full transition"
+          >
+            See details
+          </Link>
+        ) : (
+          <a
+            href={`/api/go/${roleSlug}/${workflow.slug}`}
+            className="block bg-mn-primary hover:bg-mn-primary-hover text-white text-xs font-medium text-center py-2 rounded-full transition"
+          >
+            Use on {workflow.source} →
+          </a>
+        )}
+      </div>
+    </div>
   );
 }

@@ -36,19 +36,17 @@ export default function UseCaseCard({
 
   // Take first 3-4 requirements as the tech breadcrumb chain
   const chain = workflow.requirements.slice(0, 4);
+  const isMonican = workflow.source === "Monican";
 
   return (
-    <Link
-      href={`/for/${roleSlug}/${workflow.slug}`}
-      className="group block bg-white border border-mn-border rounded-2xl p-6 hover:border-mn-primary/50 hover:shadow-lg transition-all h-full"
-    >
-      {/* Header: icon + title */}
-      <div className="mb-3">
-        <h3 className="text-lg font-semibold text-mn-text group-hover:text-mn-primary transition-colors leading-snug">
+    <div className="group block bg-white border border-mn-border rounded-2xl p-6 hover:border-mn-primary/50 hover:shadow-lg transition-all h-full flex flex-col">
+      {/* Header: icon + title — whole header is clickable to detail */}
+      <Link href={`/for/${roleSlug}/${workflow.slug}`} className="block">
+        <h3 className="text-lg font-semibold text-mn-text group-hover:text-mn-primary transition-colors leading-snug mb-3">
           <span className="mr-2">{icon}</span>
           {workflow.name}
         </h3>
-      </div>
+      </Link>
 
       {/* Description */}
       <p className="text-sm text-mn-muted leading-relaxed mb-4 line-clamp-3">
@@ -56,7 +54,7 @@ export default function UseCaseCard({
       </p>
 
       {/* Time-per-action callout */}
-      <div className="inline-flex items-center gap-1.5 bg-mn-primary/10 text-mn-primary text-xs font-semibold px-2.5 py-1 rounded-full mb-5">
+      <div className="inline-flex items-center gap-1.5 bg-mn-primary/10 text-mn-primary text-xs font-semibold px-2.5 py-1 rounded-full mb-5 self-start">
         <span>⚡</span>
         <span>{workflow.timePerAction}</span>
       </div>
@@ -75,8 +73,8 @@ export default function UseCaseCard({
         ))}
       </div>
 
-      {/* Bottom row: source + stats */}
-      <div className="flex items-center justify-between pt-4 border-t border-mn-border">
+      {/* Source + stats row */}
+      <div className="flex items-center justify-between pt-4 border-t border-mn-border mb-4">
         <div className="flex items-center gap-2 text-xs">
           <span className={`w-2 h-2 rounded-full ${sourceDot}`} />
           <span className="text-mn-muted font-medium">{workflow.source}</span>
@@ -90,6 +88,34 @@ export default function UseCaseCard({
           </span>
         </div>
       </div>
-    </Link>
+
+      {/* Activation CTAs — pushed to bottom with mt-auto */}
+      <div className="mt-auto flex items-center gap-2">
+        {isMonican ? (
+          <Link
+            href={`/for/${roleSlug}/${workflow.slug}`}
+            className="flex-1 bg-black hover:bg-black/85 text-white text-sm font-medium text-center py-2.5 rounded-full transition"
+          >
+            See details
+          </Link>
+        ) : (
+          <>
+            <a
+              href={`/api/go/${roleSlug}/${workflow.slug}`}
+              className="flex-1 bg-mn-primary hover:bg-mn-primary-hover text-white text-sm font-medium text-center py-2.5 rounded-full transition"
+            >
+              Use on {workflow.source}
+            </a>
+            <Link
+              href={`/for/${roleSlug}/${workflow.slug}`}
+              className="px-4 py-2.5 text-sm text-mn-muted hover:text-mn-text font-medium border border-mn-border hover:border-mn-muted rounded-full transition"
+              title="See details"
+            >
+              ›
+            </Link>
+          </>
+        )}
+      </div>
+    </div>
   );
 }
