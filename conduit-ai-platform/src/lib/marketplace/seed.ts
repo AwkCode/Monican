@@ -37,6 +37,10 @@ export const INDUSTRIES: Industry[] = [
   { slug: "travel", name: "Travel & Tour Operators", description: "Travel agents, tour operators" },
   { slug: "media", name: "Media & Content Creators", description: "Podcasters, newsletter writers, YouTubers" },
   { slug: "religious", name: "Religious Organizations", description: "Churches, synagogues, temples" },
+  { slug: "sales-revenue", name: "Sales & Revenue Teams", description: "Sales reps, AEs, BDRs, sales managers" },
+  { slug: "operations-admin", name: "Operations & Admin", description: "Ops managers, office managers, EAs" },
+  { slug: "hr-people", name: "HR & People Ops", description: "HR managers, recruiters, people teams" },
+  { slug: "marketing-internal", name: "In-House Marketing", description: "Marketing managers, content marketers, brand teams" },
   { slug: "other", name: "Other", description: "Tell us your industry" },
 ];
 
@@ -248,6 +252,56 @@ export const ROLES: Role[] = [
     description: "ED of small to mid-size nonprofit", searchTerms: ["nonprofit", "ed"] },
   { slug: "fundraiser", name: "Fundraiser / Development Officer", industrySlug: "nonprofits",
     description: "Major gifts or development officer" },
+
+  // Sales & Revenue Teams (cross-industry)
+  { slug: "sales-rep", name: "Sales Rep", industrySlug: "sales-revenue",
+    description: "Quota-carrying salesperson selling B2B or B2C",
+    searchTerms: ["sales", "salesperson", "rep", "seller", "selling"] },
+  { slug: "account-executive", name: "Account Executive", industrySlug: "sales-revenue",
+    description: "Closes deals and owns a sales territory",
+    searchTerms: ["ae", "account exec", "closer", "sales", "selling"] },
+  { slug: "bdr-sdr", name: "BDR / SDR", industrySlug: "sales-revenue",
+    description: "Outbound prospecting and lead qualification",
+    searchTerms: ["bdr", "sdr", "prospector", "outbound", "sales development", "business development", "sales"] },
+  { slug: "sales-manager", name: "Sales Manager", industrySlug: "sales-revenue",
+    description: "Leads a team of sales reps and forecasts pipeline",
+    searchTerms: ["sales manager", "sales lead", "vp sales", "head of sales", "sales"] },
+  { slug: "account-manager", name: "Account Manager", industrySlug: "sales-revenue",
+    description: "Owns existing customer relationships and expansion",
+    searchTerms: ["am", "account manager", "csm", "customer success", "sales"] },
+
+  // Operations & Admin (cross-industry)
+  { slug: "operations-manager", name: "Operations Manager", industrySlug: "operations-admin",
+    description: "Runs day-to-day operations across teams",
+    searchTerms: ["ops", "operations", "coo", "biz ops"] },
+  { slug: "office-manager", name: "Office Manager", industrySlug: "operations-admin",
+    description: "Manages the office, vendors, and admin staff",
+    searchTerms: ["office", "office mgr", "facilities"] },
+  { slug: "executive-assistant", name: "Executive Assistant", industrySlug: "operations-admin",
+    description: "EA supporting one or more executives",
+    searchTerms: ["ea", "executive assistant", "admin", "assistant"] },
+  { slug: "project-manager", name: "Project Manager", industrySlug: "operations-admin",
+    description: "Plans and ships projects across cross-functional teams",
+    searchTerms: ["pm", "project manager", "program manager"] },
+
+  // HR & People Ops
+  { slug: "hr-manager", name: "HR Manager", industrySlug: "hr-people",
+    description: "Owns people ops, hiring, and culture",
+    searchTerms: ["hr", "people ops", "human resources", "chro"] },
+  { slug: "in-house-recruiter", name: "In-house Recruiter", industrySlug: "hr-people",
+    description: "Recruits for a single company (not agency)",
+    searchTerms: ["recruiter", "talent", "ta"] },
+
+  // In-house Marketing
+  { slug: "marketing-manager", name: "Marketing Manager", industrySlug: "marketing-internal",
+    description: "Owns marketing strategy and execution for a brand",
+    searchTerms: ["marketer", "marketing", "cmo", "brand", "growth"] },
+  { slug: "content-marketer", name: "Content Marketer", industrySlug: "marketing-internal",
+    description: "Writes blogs, newsletters, and SEO content",
+    searchTerms: ["content", "writer", "seo", "blogger"] },
+  { slug: "social-media-manager", name: "Social Media Manager", industrySlug: "marketing-internal",
+    description: "Owns social channels for a brand",
+    searchTerms: ["social", "social media", "smm"] },
 ];
 
 // Helper to keep new workflows compact
