@@ -1,150 +1,104 @@
 # Monican — Project Context
 
-## CURRENT DIRECTION (read this first)
+## CURRENT DIRECTION (read this first — updated June 2026)
 
-**Monican is pivoting from consulting to a multi-tenant AI platform.**
+**Monican is an AI workflow marketplace/aggregator + done-for-you setup service.**
 
-The vision: an agency that builds AI agent suites for every industry, starting with real estate. Clients sign up on a web app, set their profile, and their agents run within minutes. No n8n manual setup per client. See `PLATFORM_PLAN.md` for the complete architecture, phases, and decisions.
+The product: a curated library of ~371 AI workflows across ~92 roles and 41 industries, organized by JOB (not by app). Workflows are sourced from n8n, Zapier, Make, GPT Store, and Claude Skills (affiliate links) plus Monican's own designs (funnel to done-for-you setup). Revenue = setup services ($500 Quick Win / $1,500 Pilot / $750-mo Retainer) + affiliate commissions once enrolled.
 
-**Short version:** Next.js + Supabase Auth owns the UI/auth/credentials. n8n runs the agent logic via templates that Vercel clones per client via n8n's API. Gmail actions flow through a Vercel proxy endpoint that holds each client's OAuth token.
+**The old multi-tenant n8n platform plan (PLATFORM_PLAN.md) is superseded.** Keep the file for history, but don't execute from it.
 
-**Current phase:** Phase 1 — Foundation. Next session starts by reading `PLATFORM_PLAN.md` Section 7 and kicking off the Next.js rebuild.
+**The app lives in `conduit-ai-platform/`** (Next.js 14 App Router + Supabase). Live at https://conduit-ai-platform.vercel.app (Vercel project name predates the Monican rebrand).
 
-**What's already built:**
-- Lead Responder n8n workflow (Published — will become `template_lead_responder`)
-- Past Client Reactivator n8n workflow (Published — will become `template_past_client_reactivator`)
-- Static HTML dashboard at `monican-dashboard.vercel.app` (will be rebuilt as Next.js, old URL stays up)
-- Supabase project with `prospects`, `outreach`, `revenue` tables (will add platform tables from PLATFORM_PLAN.md Section 2.1)
+**⚠️ Read `LAUNCH_CHECKLIST.md` before any session** — it lists the manual steps (Supabase project recreation, env vars, domain, affiliate enrollment) that code alone can't do, and what's blocked on them.
 
-**Eileen Fitzpatrick (RE/MAX Traditions, Bolton) is NOT urgent.** Platform first, Eileen becomes the first migrated client once Phase 3 is done.
-
----
+### Known state (June 11, 2026)
+- The original Supabase project (`ecbquabpmmhjycsymnhf`) **no longer resolves** — auth/login/modules on the live site fail until a new project is created and migrations are re-run (checklist item #1).
+- The marketplace itself (landing, wizard local-match, /roles, role + workflow pages, affiliate redirects) is static and works without Supabase.
+- `ANTHROPIC_API_KEY` is not set in Vercel → wizard AI search falls back to local fuzzy matching; cron agent won't run.
+- Demo form posts to `/api/demo-requests` (Supabase `demo_requests` table); fails gracefully to a mailto fallback until the DB exists.
+- Affiliate links carry `?ref=monican` but **no affiliate program enrollment exists yet** → $0 until checklist items are done.
 
 ## What This Is (Business Model)
 
-Monican is Daniel Weadock's AI platform company. Based in Bolton, MA. Real estate is the first vertical. Revenue comes from three streams:
-1. **Short-term (now):** Consulting engagements — $500 Quick Wins and $1,500 Pilots — to fund the platform build
-2. **Medium-term:** SaaS subscription tiers once the platform handles self-service signup (see PLATFORM_PLAN.md Section 4.2)
-3. **Long-term:** Enterprise + white-label deals for agencies and brokerages
+1. **Now:** Consulting engagements — $500 Quick Wins, $1,500 Pilots, $750/mo retainers — sold through the marketplace funnel (see /pricing)
+2. **Compounding:** Affiliate commissions on sourced workflows (n8n 30%/12mo, Make 35%/12mo, Zapier partner program)
+3. **Later:** Productize the Monican-built agents that sell repeatedly (Past Client Reactivator cron agent is the first — already coded)
 
----
+## Strategy guardrails (agreed June 2026)
+
+- **Depth over breadth.** Do NOT add more roles/workflows to seed.ts until analytics show demand. Demand signals: `events` table (`search_no_match`), `demo_requests.missing_role`.
+- **No fabricated social proof.** Ratings were removed June 2026 — never re-add fake ratings, review counts, or invented user metrics. Savings figures are estimates and must stay labeled "est."
+- **Sell first, build on demand.** A "Monican" workflow gets built for real when someone pays for setup. Don't pre-build speculatively.
+- **Own what's differentiated** (Signal Engine-style agents). Curate what isn't (Zapier/n8n territory).
 
 ## Daniel's Background
 
 - Recent Merrimack College grad (BS Business Admin, Corporate Finance)
-- CFO at Kings Court LLC (Boston 420 events company) — built a full-stack Next.js + Supabase app with Claude Code
+- CFO at Kings Court LLC — built a full-stack Next.js + Supabase app with Claude Code
 - Former Northwestern Mutual financial rep (insurance sales, cold calling)
 - Built SolEdge autonomous crypto trading system
-- Mind Studio AI Agent Certification, MA Insurance License
-- Based in Bolton, MA
-- Partner: Evan (shared access to dashboard)
+- Based in Boston, MA. Partner: Evan (shared dashboard access)
 
----
-
-## Core Positioning
-
-"You're not selling software. You're selling the expertise to pick the right tool, set it up, and wire it into their business." The tool is cheap. Your value is knowing which one to use and making it actually work.
-
-For the platform era, this evolves: *"AI agent suites for any industry. Sign up, set your profile, your agents are running in 10 minutes."*
-
----
-
-## Tech Stack (Platform Era)
+## Tech Stack
 
 | Layer | Tech |
 |---|---|
-| Frontend + Auth | Next.js 14 (App Router) on Vercel + Supabase Auth |
-| Database | Supabase Postgres |
-| Agent Runtime | n8n Cloud (template workflows cloned per client via API) |
-| Credential Proxy | Vercel API routes |
-| AI | Anthropic Claude (Claude Haiku 4.5 for production, Opus for complex drafts) |
-
----
+| App | Next.js 14 (App Router) on Vercel — `conduit-ai-platform/` |
+| Auth + DB | Supabase (Postgres + RLS) — needs new project, see checklist |
+| Catalog | Static seed data: `src/lib/marketplace/seed.ts` (the single source of truth) |
+| AI | Claude Haiku 4.5 (`claude-haiku-4-5`) — wizard search + email drafting |
+| Agent runtime | Vercel cron (`vercel.json`) → `/api/cron/past-client`. n8n only for legacy manual client setups |
+| Analytics | Vercel Analytics + first-party `events` table |
+| Email notify | Resend (env-gated, optional) |
 
 ## Key Files
 
-### Platform (new)
-- `PLATFORM_PLAN.md` — **Master plan.** Read first every session. Architecture, phases, decisions.
-- `Monican_Platform_Vision.pptx` — Slideshow walkthrough of the platform vision
+### Platform (`conduit-ai-platform/`)
+- `src/lib/marketplace/seed.ts` — the catalog (industries, roles, workflows). Edit here to change the library.
+- `src/lib/affiliate.ts` — affiliate URL building; codes come from `NEXT_PUBLIC_AFFILIATE_*` env vars
+- `src/lib/site.ts` — contact email + site URL constants (env-overridable)
+- `src/app/api/cron/past-client/route.ts` — the Past Client Reactivator agent (Mondays 13:00 UTC)
+- `supabase/migrations/` — run ALL of these on the new Supabase project, in order
+- `LAUNCH_CHECKLIST.md` (repo root) — manual steps + env var reference
 
-### Consulting Era (still relevant, becomes internal tools)
-- `prospects.xlsx` — 33 real estate agencies near Bolton (future beta users)
-- `01_Discovery_Call_Framework.md` — Call script (becomes enterprise sales collateral)
-- `02_Service_Menu_and_Pricing.md` — Pricing (informs SaaS tier design)
-- `03_Agentic_AI_Tool_Stack.md` — Tool knowledge reference
-- `04_How_Agentic_AI_Works.md` — Plain-English explainer (becomes landing page copy)
-- `agents/past_client_reactivator/` — Working workflow source files
-- `agents/templates/` — n8n setup guides, system prompts, test cases
+### Consulting collateral (still used for sales)
+- `01_Discovery_Call_Framework.md`, `02_Service_Menu_and_Pricing.md` (pricing page mirrors this)
+- `prospects.xlsx`, `outreach_drafts/`, `call_prep/`, `proposals/`
 
-### Live Infrastructure
-- **n8n Cloud:** (configured via environment)
-  - `Lead Responder v1` — Published
-  - `Past Client Reactivator v1` — Published, runs Mondays 8am
-- **Vercel:** Deployed (static HTML, Phase 1 will replace with Next.js app)
-- **Supabase:** Configured via environment variables
-- **Google Sheets:** Connected to n8n for lead logging
-
----
-
-## Agent Commands (updated for platform era)
+## Agent Commands
 
 ### "Where are we / what should we work on"
-- Read `PLATFORM_PLAN.md` to understand current phase
-- Check the TodoWrite list from the last session (if it persists) OR propose the next phase's first step
-- Ask Daniel which phase he wants to advance
+- Read `LAUNCH_CHECKLIST.md` — anything unchecked and unblocked is the priority
+- Check Supabase `events` + `demo_requests` tables for demand signals (once DB exists)
 
-### "Start Phase 1" / "Build the platform foundation"
-- Follow `PLATFORM_PLAN.md` Section 3, Phase 1
-- Steps are listed in Section 7 ("Next Session Starting Point")
-- Create the new Next.js project, wire up Supabase Auth, deploy
+### "Add a new role/industry" (only when demand shows)
+- Add to `INDUSTRIES` / `ROLES` / `WORKFLOWS` in `src/lib/marketplace/seed.ts`
+- Role pages, workflow pages, sitemap, and stats all derive from seed — no other edits needed
+- Keep workflows role-specific (named tools, domain language), savings honest, no ratings
 
-### "Continue from where we left off"
-- Read the TodoWrite list
-- Read the most recently modified files in the project
-- Check git log of `monican-dashboard` and any new `monican-platform` repo
+### "Make a Monican workflow real" (after a sale)
+- Pattern: follow `/api/cron/past-client` — Vercel cron + Supabase + Claude + Gmail-draft proxy
+- Never auto-send email; drafts only
 
-### "Add a new industry" (Phase 5 and beyond)
-- Create a new industry pack folder: `industries/{industry_name}/`
-- Design 2-4 core modules for that industry
-- Write a new template n8n workflow per module
-- Update the Supabase `clients.industry` enum
-- Add the new industry to the landing page gallery
-
-### Consulting-era commands (still work for short-term cashflow)
-
-#### "Find prospects" / "Search for agencies"
-- Search the web for real estate agencies (or other industries) near Bolton, MA
-- Add new finds to `prospects.xlsx`
-- Prioritize: independent agencies (HIGH), mid-size (MEDIUM), large franchises (LOW)
-
-#### "Draft outreach" / "Write emails"
-- Run: `python3 agents/outreach_drafter.py --priority HIGH`
-- Or draft custom outreach for a specific prospect
-
-#### "Prep me for a call with [agency]"
-- Research the agency, fill in the call_prep template
-- Save to `call_prep/[agency_name]_prep.md`
-
-#### "Write a proposal for [agency]"
-- Read discovery call notes, fill in `agents/templates/proposal.md`
-- Save to `proposals/[agency_name]_proposal.md`
-
----
+### Consulting-era commands (still work)
+- "Find prospects" → web search, add to `prospects.xlsx` (independents HIGH priority)
+- "Prep me for a call with [agency]" → `call_prep/[name]_prep.md`
+- "Write a proposal for [agency]" → `proposals/[name]_proposal.md`
 
 ## Tone
 
-Daniel is early-career, hungry, and scrappy. Be direct, practical, and action-oriented. No fluff. Every suggestion should end with a specific next step.
+Daniel is early-career, hungry, and scrappy. Be direct, practical, and action-oriented. No fluff. Every suggestion ends with a specific next step.
 
-Daniel gets frustrated when sessions feel like they're going in circles or when Claude introduces unnecessary steps. If something is already working, don't touch it. If a plan is already decided, execute it — don't re-litigate.
+Daniel gets frustrated when sessions go in circles or when Claude introduces unnecessary steps. If something works, don't touch it. If a plan is decided, execute — don't re-litigate.
 
-Daniel prefers honest reality checks over optimistic hand-waving. When a plan hits a wall (like the FSBO scraper situation), flag it immediately and propose alternatives rather than pushing forward into a broken build.
-
----
+Daniel prefers honest reality checks over optimistic hand-waving. When a plan hits a wall, flag it immediately and propose alternatives.
 
 ## Security Notes
 
-- Anthropic API keys have been pasted in chat multiple times. Always remind Daniel to rotate them after a build session.
-- Supabase `anon` key is safe to ship in client code (RLS handles access).
-- Supabase `service_role` key is NEVER in client code — only in Vercel server environment variables.
-- n8n API key (to be generated in Phase 2) goes in Vercel env vars only.
-- Gmail OAuth tokens (Phase 3) stored encrypted in Supabase, accessed only by Vercel server routes.
+- Remind Daniel to rotate any API key that gets pasted into chat.
+- Supabase `anon` key ships in client code (RLS protects data). `service_role` key: Vercel env vars ONLY (used by `src/lib/supabase/service.ts` for cron).
+- `/api/search` is public and calls Claude — it has per-IP rate limiting; keep it.
+- Funnel tables (`demo_requests`, `email_signups`, `events`) are anon-INSERT-only by design; read them via the Supabase dashboard.
+- Gmail OAuth: draft/modify scopes only, never send. Tokens server-side only.
+- `CRON_SECRET` required for the cron route; Vercel sends it automatically once set.
