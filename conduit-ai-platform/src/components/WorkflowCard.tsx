@@ -65,12 +65,12 @@ export default function WorkflowCard({
       {/* Stats row */}
       <div className="grid grid-cols-3 gap-3 mb-5 pt-5 border-t border-mn-border">
         <Stat
-          label="hrs/wk"
+          label="est. hrs/wk"
           value={workflow.hoursSavedWeekly}
           accent="text-mn-primary"
         />
         <Stat
-          label="$/mo"
+          label="est. $/mo"
           value={
             workflow.dollarsSavedMonthly >= 1000
               ? `${(workflow.dollarsSavedMonthly / 1000).toFixed(1)}k`
@@ -79,10 +79,9 @@ export default function WorkflowCard({
           accent="text-emerald-600"
         />
         <Stat
-          label="rating"
-          value={workflow.rating.toFixed(1)}
-          accent="text-amber-600"
-          suffix="★"
+          label="setup"
+          value={`${workflow.setupMinutes}m`}
+          accent="text-mn-text"
         />
       </div>
 

@@ -81,10 +81,10 @@ export default function UseCaseCard({
         </div>
         <div className="flex items-center gap-4 text-xs">
           <span className="text-mn-primary font-semibold">
-            {workflow.hoursSavedWeekly}h/wk
+            est. {workflow.hoursSavedWeekly}h/wk
           </span>
-          <span className="text-amber-600 font-semibold">
-            {workflow.rating.toFixed(1)}★
+          <span className="text-mn-muted font-medium">
+            {workflow.setupMinutes}-min setup
           </span>
         </div>
       </div>

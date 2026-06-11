@@ -3,7 +3,7 @@ export default function TrustedBy() {
     <section className="border-y border-mn-border bg-white">
       <div className="max-w-6xl mx-auto px-6 py-10">
         <p className="text-center text-xs uppercase tracking-widest text-mn-muted mb-8 font-medium">
-          Aggregating proven workflows from the AI platforms that built them
+          Sources we curate workflows from
         </p>
         <div className="grid grid-cols-3 md:grid-cols-6 gap-8 items-center">
           <Logo name="n8n" color="text-red-500" />
@@ -13,6 +13,10 @@ export default function TrustedBy() {
           <Logo name="Claude Skills" color="text-amber-600" sub="Anthropic" />
           <Logo name="Pipedream" color="text-blue-500" />
         </div>
+        <p className="text-center text-[11px] text-mn-muted mt-6">
+          Platform names indicate where a workflow comes from — not an
+          endorsement of Monican. All trademarks belong to their owners.
+        </p>
       </div>
     </section>
   );

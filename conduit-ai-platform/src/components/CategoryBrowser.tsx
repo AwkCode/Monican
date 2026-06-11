@@ -146,12 +146,12 @@ function CategoryItem({
 
       <div className="flex items-center justify-between text-xs mb-3">
         <span className="text-mn-primary font-semibold">
-          {workflow.hoursSavedWeekly}h/wk · ${workflow.dollarsSavedMonthly >= 1000
+          est. {workflow.hoursSavedWeekly}h/wk · ${workflow.dollarsSavedMonthly >= 1000
             ? `${(workflow.dollarsSavedMonthly / 1000).toFixed(1)}k`
             : workflow.dollarsSavedMonthly}/mo
         </span>
-        <span className="text-amber-600 font-semibold">
-          {workflow.rating.toFixed(1)}★
+        <span className="text-mn-muted font-medium">
+          {workflow.setupMinutes}m setup
         </span>
       </div>
 

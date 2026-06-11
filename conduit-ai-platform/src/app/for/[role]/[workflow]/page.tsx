@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import {
+  WORKFLOWS,
   getRoleBySlug,
   getWorkflow,
   getWorkflowsForRole,
@@ -9,6 +11,24 @@ import {
 type Props = {
   params: { role: string; workflow: string };
 };
+
+// Pre-render every workflow detail page at build time.
+export function generateStaticParams() {
+  return WORKFLOWS.map((w) => ({ role: w.roleSlug, workflow: w.slug }));
+}
+
+export function generateMetadata({ params }: Props): Metadata {
+  const role = getRoleBySlug(params.role);
+  const workflow = role ? getWorkflow(params.role, params.workflow) : undefined;
+  if (!role || !workflow) return {};
+  const description = `${workflow.tagline} ${workflow.timePerAction}. For ${role.name.toLowerCase()}s — sourced from ${workflow.source}, ~${workflow.setupMinutes} min setup.`;
+  return {
+    title: `${workflow.name} — for ${role.name}s`,
+    description,
+    alternates: { canonical: `/for/${role.slug}/${workflow.slug}` },
+    openGraph: { title: workflow.name, description },
+  };
+}
 
 export default function WorkflowDetailPage({ params }: Props) {
   const role = getRoleBySlug(params.role);
@@ -85,7 +105,7 @@ export default function WorkflowDetailPage({ params }: Props) {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl">
             <BigStat
               value={workflow.hoursSavedWeekly}
-              label="hours saved / week"
+              label="est. hours saved / week"
               color="text-mn-primary"
             />
             <BigStat
@@ -94,13 +114,13 @@ export default function WorkflowDetailPage({ params }: Props) {
                   ? `$${(workflow.dollarsSavedMonthly / 1000).toFixed(1)}k`
                   : `$${workflow.dollarsSavedMonthly}`
               }
-              label="$ saved / month"
+              label="est. $ saved / month"
               color="text-emerald-600"
             />
             <BigStat
-              value={`${workflow.rating.toFixed(1)}★`}
-              label={`from ${workflow.ratingCount} users`}
-              color="text-amber-600"
+              value={workflow.source}
+              label="source"
+              color="text-mn-text"
             />
             <BigStat
               value={`${workflow.setupMinutes} min`}
@@ -108,6 +128,11 @@ export default function WorkflowDetailPage({ params }: Props) {
               color="text-mn-text"
             />
           </div>
+          <p className="text-xs text-mn-muted mt-4 max-w-3xl">
+            Time and dollar figures are Monican estimates based on typical
+            volumes for this role — not user-reported data. We&apos;ll replace
+            them with real numbers as clients run this workflow.
+          </p>
         </div>
       </section>
 

@@ -43,10 +43,10 @@ export type Workflow = {
   longDescription?: string;
   category: WorkflowCategory;
   timePerAction: string; // "Saves 6 min per lead reply" — concrete per-event savings
+  // hoursSavedWeekly / dollarsSavedMonthly are OUR ESTIMATES from typical
+  // volumes — always label them "est." in the UI. No fabricated social proof.
   hoursSavedWeekly: number;
   dollarsSavedMonthly: number;
-  rating: number; // 0-5
-  ratingCount: number;
   setupMinutes: number;
   requirements: string[]; // ["Gmail", "Google Sheets"]
   steps: string[]; // ordered description of what it does

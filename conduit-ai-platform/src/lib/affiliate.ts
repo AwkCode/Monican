@@ -61,10 +61,10 @@ export const SOURCE_HOMEPAGES: Record<WorkflowSource, string> = {
   Zapier: "https://zapier.com/apps",
   n8n: "https://n8n.io/workflows",
   Make: "https://www.make.com/en/templates",
-  "GPT Store": "https://chat.openai.com/gpts",
-  "Claude Skills": "https://www.anthropic.com/skills",
+  "GPT Store": "https://chatgpt.com/gpts",
+  "Claude Skills": "https://claude.com/skills",
   Pipedream: "https://pipedream.com/workflows",
-  Anthropic: "https://www.anthropic.com",
+  Anthropic: "https://claude.com",
   OpenAI: "https://platform.openai.com",
 };
 

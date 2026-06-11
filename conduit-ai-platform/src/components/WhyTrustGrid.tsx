@@ -9,21 +9,21 @@ export default function WhyTrustGrid() {
           Every workflow earns its spot.
         </h2>
         <p className="text-lg text-mn-muted">
-          We don&apos;t list everything — we list what works. Every workflow
-          here meets four criteria.
+          We don&apos;t list everything — we list what we&apos;d run ourselves.
+          Every workflow here meets four criteria.
         </p>
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
         <FeatureCard
           number="01"
-          title="Proven in production"
-          description="Already running at real businesses, not lab demos. Sourced from n8n, Zapier, Make, GPT Store, Claude Skills, or built by us."
+          title="Curated, not scraped"
+          description="Hand-picked from n8n, Zapier, Make, GPT Store, and Claude Skills — plus designs from our own lab. If it's junk, it doesn't get listed."
         />
         <FeatureCard
           number="02"
-          title="Real metrics"
-          description="Hours saved and dollars earned come from user reports — not marketing pages. We update them quarterly."
+          title="Honest estimates"
+          description="Time and dollar figures are our estimates from typical volumes for each role — clearly labeled as estimates until real client data replaces them."
         />
         <FeatureCard
           number="03"

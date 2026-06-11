@@ -5,7 +5,10 @@ import CategoryBrowser from "@/components/CategoryBrowser";
 import IntegrationsGrid from "@/components/IntegrationsGrid";
 import WhyTrustGrid from "@/components/WhyTrustGrid";
 import TrustedBy from "@/components/TrustedBy";
+import EmailCapture from "@/components/EmailCapture";
+import type { Metadata } from "next";
 import {
+  ROLES,
   getRoleBySlug,
   getWorkflowsForRole,
   getIndustryBySlug,
@@ -13,8 +16,27 @@ import {
 
 type Props = {
   params: { role: string };
-  searchParams: { focus?: string };
 };
+
+// Pre-render every role page at build time — these are the SEO landing
+// pages for "AI workflows for [profession]" queries.
+export function generateStaticParams() {
+  return ROLES.map((role) => ({ role: role.slug }));
+}
+
+export function generateMetadata({ params }: Props): Metadata {
+  const role = getRoleBySlug(params.role);
+  if (!role) return {};
+  const workflows = getWorkflowsForRole(role.slug);
+  const title = `AI Workflows for ${role.name}s`;
+  const description = `${workflows.length} curated AI workflows for ${role.name.toLowerCase()}s — from n8n, Zapier, GPT Store, Claude Skills, and the Monican lab. Use them yourself or have us set them up.`;
+  return {
+    title,
+    description,
+    alternates: { canonical: `/for/${role.slug}` },
+    openGraph: { title: `${title} — Monican`, description },
+  };
+}
 
 export default function RolePage({ params }: Props) {
   const role = getRoleBySlug(params.role);
@@ -29,16 +51,14 @@ export default function RolePage({ params }: Props) {
     (sum, w) => sum + w.dollarsSavedMonthly,
     0
   );
-  const avgRating =
-    workflows.length > 0
-      ? (
-          workflows.reduce((sum, w) => sum + w.rating, 0) / workflows.length
-        ).toFixed(1)
-      : "—";
 
-  // Top 6 workflows for the featured grid (sorted by rating)
+  // Top 6 workflows for the featured grid — featured first, then biggest time savers
   const featured = [...workflows]
-    .sort((a, b) => b.rating - a.rating)
+    .sort(
+      (a, b) =>
+        Number(b.featured || false) - Number(a.featured || false) ||
+        b.hoursSavedWeekly - a.hoursSavedWeekly
+    )
     .slice(0, 6);
 
   // All integration tools across this role's workflows
@@ -98,9 +118,9 @@ export default function RolePage({ params }: Props) {
             Superpowers for your business.
           </h1>
           <p className="text-lg md:text-xl text-mn-text/70 max-w-2xl mx-auto leading-relaxed mb-10">
-            Proven AI workflows for {role.name.toLowerCase()}s — sourced from
-            n8n, Zapier, GPT Store, Claude Skills, and our own lab. Backed by
-            real numbers.
+            Curated AI workflows for {role.name.toLowerCase()}s — sourced from
+            n8n, Zapier, GPT Store, Claude Skills, and our own lab. Use them
+            yourself, or we set them up for you.
           </p>
 
           {/* CTAs */}
@@ -122,21 +142,25 @@ export default function RolePage({ params }: Props) {
           {/* Big stats */}
           <div className="grid grid-cols-3 gap-3 max-w-3xl mx-auto">
             <BigStat
-              label="hours saved / week"
+              label="est. hours saved / week"
               value={totalHours}
               color="text-mn-primary"
             />
             <BigStat
-              label="$ saved / month"
+              label="est. $ saved / month"
               value={`$${(totalDollars / 1000).toFixed(1)}k`}
               color="text-emerald-600"
             />
             <BigStat
-              label="avg rating"
-              value={`${avgRating}★`}
-              color="text-amber-600"
+              label="curated workflows"
+              value={workflows.length}
+              color="text-mn-text"
             />
           </div>
+          <p className="text-xs text-mn-muted mt-4 max-w-xl mx-auto">
+            Savings are Monican estimates across all {workflows.length}{" "}
+            workflows at typical volumes — your mileage depends on yours.
+          </p>
         </div>
       </section>
 
@@ -153,8 +177,8 @@ export default function RolePage({ params }: Props) {
             What a great workflow for {role.name.toLowerCase()}s looks like.
           </h2>
           <p className="text-lg text-mn-muted">
-            The top-rated, most-used workflows for your role. Each one shows
-            its tech stack so you know exactly what powers it.
+            Our top picks for your role. Each one shows its tech stack so you
+            know exactly what powers it.
           </p>
         </div>
 
@@ -205,6 +229,22 @@ export default function RolePage({ params }: Props) {
             Request a workflow
           </Link>
         </div>
+      </section>
+
+      {/* Email capture — for visitors not ready to book */}
+      <section className="max-w-4xl mx-auto px-6 pb-20 text-center">
+        <h3 className="text-xl font-semibold mb-2">
+          Not ready to talk to anyone?
+        </h3>
+        <p className="text-mn-muted text-sm mb-6">
+          Get new {role.name.toLowerCase()} workflows in your inbox as we add
+          them. A short email, only when there&apos;s something new.
+        </p>
+        <EmailCapture
+          roleSlug={role.slug}
+          roleName={role.name}
+          context="role-page"
+        />
       </section>
 
       {/* Closing CTA */}

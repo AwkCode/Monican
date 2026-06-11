@@ -1,7 +1,11 @@
 import Link from "next/link";
 import DiscoveryWizard from "@/components/DiscoveryWizard";
+import { INDUSTRIES, ROLES, WORKFLOWS } from "@/lib/marketplace/seed";
+import { CONTACT_EMAIL } from "@/lib/site";
 
 export default function Home() {
+  const industryCount = INDUSTRIES.filter((i) => i.slug !== "other").length;
+
   return (
     <>
       <main>
@@ -23,9 +27,9 @@ export default function Home() {
           <header className="relative z-10">
             <div className="max-w-7xl mx-auto px-8 py-6 flex items-start justify-between">
               <nav className="flex flex-col gap-2 text-sm font-medium text-mn-text/80">
-                <Link href="/modules" className="hover:text-mn-text">Modules</Link>
+                <Link href="/roles" className="hover:text-mn-text">Browse roles</Link>
+                <Link href="/pricing" className="hover:text-mn-text">Pricing</Link>
                 <Link href="/tools/roi-calculator" className="hover:text-mn-text">ROI Calculator</Link>
-                <Link href="#industries" className="hover:text-mn-text">Industries</Link>
                 <Link href="/login" className="hover:text-mn-text">Log in</Link>
               </nav>
               <Link href="/" className="flex items-center gap-2 font-semibold text-2xl tracking-tight text-mn-text">
@@ -50,7 +54,7 @@ export default function Home() {
                 library for every role.
               </h1>
               <p className="mt-6 text-lg md:text-xl text-mn-text/70 max-w-2xl mx-auto leading-relaxed">
-                Proven workflows from n8n, Zapier, GPT Store, Claude Skills, and our own lab —
+                Curated workflows from n8n, Zapier, GPT Store, Claude Skills, and our own lab —
                 organized by your job. We set them up. You save the hours.
               </p>
             </div>
@@ -80,20 +84,45 @@ export default function Home() {
               Why Monican
             </p>
             <h2 className="text-4xl md:text-5xl font-semibold tracking-tight leading-tight">
-              Monican turns every solo broker into a 10-agent shop —
+              Monican turns every solo operator into a 10-person shop —
               without the overhead, the meetings, or the burnout.
             </h2>
           </div>
         </section>
 
-        {/* Section header — The platform */}
+        {/* The library — by the numbers */}
         <section className="max-w-6xl mx-auto px-6 pt-32 pb-12">
           <p className="text-mn-primary font-semibold tracking-wide uppercase text-xs mb-4">
-            The platform
+            The library
+          </p>
+          <h2 className="text-5xl md:text-6xl font-semibold tracking-tight leading-tight max-w-3xl mb-10">
+            One place to find the workflow that fits your job.
+          </h2>
+          <div className="grid grid-cols-3 gap-4 max-w-2xl">
+            <LibraryStat value={`${WORKFLOWS.length}`} label="curated workflows" />
+            <LibraryStat value={`${ROLES.length}`} label="roles covered" />
+            <LibraryStat value={`${industryCount}`} label="industries" />
+          </div>
+          <p className="text-mn-muted text-sm mt-6 max-w-xl">
+            Every workflow shows where it comes from, what tools it needs, and
+            what we estimate it saves. Use it yourself on the source platform —
+            or have us set it up for you.
+          </p>
+        </section>
+
+        {/* Section header — From our lab */}
+        <section className="max-w-6xl mx-auto px-6 pt-20 pb-12">
+          <p className="text-mn-primary font-semibold tracking-wide uppercase text-xs mb-4">
+            From our lab
           </p>
           <h2 className="text-5xl md:text-6xl font-semibold tracking-tight leading-tight max-w-3xl">
-            Three agents. One platform.
+            Three agents we build and run for you.
           </h2>
+          <p className="text-mn-muted text-lg mt-4 max-w-2xl">
+            Our own designs — set up done-for-you, trained on your voice, with
+            a human on call. Every draft waits for your approval before
+            anything sends.
+          </p>
         </section>
 
         {/* Module 01 — Lead Responder */}
@@ -105,9 +134,9 @@ export default function Home() {
           gradient="from-orange-100 via-amber-50 to-rose-100"
           accentColor="bg-mn-primary"
           stats={[
-            { label: "Avg response time", value: "<2 min" },
-            { label: "Lead conversion lift", value: "+34%" },
-            { label: "Hours saved / week", value: "12" },
+            { label: "Draft response time", value: "<2 min" },
+            { label: "Sends without you", value: "Never" },
+            { label: "Lives in", value: "Your Gmail" },
           ]}
         />
 
@@ -116,14 +145,14 @@ export default function Home() {
           number="02"
           tagline="Your book of business, working"
           name="Past Client Reactivator"
-          description="Weekly personalized check-ins with past clients. Birthdays, home anniversaries, market updates — every reason to stay top of mind, automated."
+          description="Weekly personalized check-ins with past clients. Birthdays, closing anniversaries, market updates — every reason to stay top of mind, drafted for your review."
           gradient="from-rose-100 via-orange-50 to-amber-100"
           accentColor="bg-rose-400"
           reverse
           stats={[
-            { label: "Clients reactivated", value: "120+" },
-            { label: "Referrals generated", value: "8/mo" },
             { label: "Touch points / yr", value: "52x" },
+            { label: "Triggers on", value: "Birthdays + closings" },
+            { label: "You approve", value: "Every send" },
           ]}
         />
 
@@ -136,9 +165,9 @@ export default function Home() {
           gradient="from-amber-100 via-rose-50 to-orange-100"
           accentColor="bg-amber-500"
           stats={[
-            { label: "Signals / week", value: "30+" },
-            { label: "Lead time advantage", value: "60 days" },
-            { label: "Conversion to listing", value: "1 in 8" },
+            { label: "Data source", value: "Public records" },
+            { label: "Every signal", value: "Scored 1–10" },
+            { label: "Digest lands", value: "Monday 8am" },
           ]}
         />
 
@@ -154,14 +183,26 @@ export default function Home() {
                 Industries
               </p>
               <h2 className="text-5xl md:text-6xl font-semibold tracking-tight leading-tight">
-                Built for real estate. <span className="text-white/50">Coming for everyone else.</span>
+                {industryCount} industries.{" "}
+                <span className="text-white/50">Find yours.</span>
               </h2>
             </div>
-            <div className="grid md:grid-cols-4 gap-px bg-white/10 border border-white/10 rounded-2xl overflow-hidden">
-              <IndustryTile name="Real Estate" status="Live" active />
-              <IndustryTile name="Legal" status="Coming soon" />
-              <IndustryTile name="Dental" status="Coming soon" />
-              <IndustryTile name="Your industry?" status="Tell us" />
+            <div className="flex flex-wrap gap-3">
+              {INDUSTRIES.filter((i) => i.slug !== "other").map((industry) => (
+                <Link
+                  key={industry.slug}
+                  href={`/roles#${industry.slug}`}
+                  className="border border-white/15 hover:border-white/50 hover:bg-white/5 rounded-full px-5 py-2.5 text-sm text-white/80 hover:text-white transition"
+                >
+                  {industry.name}
+                </Link>
+              ))}
+              <Link
+                href="/book"
+                className="border border-mn-primary/60 bg-mn-primary/10 hover:bg-mn-primary/20 rounded-full px-5 py-2.5 text-sm text-white transition"
+              >
+                Your industry missing? Tell us →
+              </Link>
             </div>
           </div>
         </section>
@@ -178,19 +219,19 @@ export default function Home() {
           </div>
           <div className="grid md:grid-cols-3 gap-px bg-mn-border border border-mn-border rounded-2xl overflow-hidden">
             <FeatureTile
-              icon="💌"
-              title="Lives in your tools"
-              description="Your agents work inside your existing Gmail, Sheets, and CRM. No new logins. No migration."
+              icon="🧭"
+              title="Organized by your job"
+              description="Not by app, not by trigger. Tell us what you do and see only the workflows that matter for your role."
             />
             <FeatureTile
               icon="✋"
               title="You stay in control"
-              description="Every draft is reviewed before it sends. You approve, edit, or reject. The voice stays yours."
+              description="Our agents draft — they never auto-send. You approve, edit, or reject. The voice stays yours."
             />
             <FeatureTile
-              icon="⚡"
-              title="Live in 10 minutes"
-              description="Sign up, connect Gmail, fill your profile. Your agents are running before lunch."
+              icon="🔧"
+              title="Done-for-you setup"
+              description="Use any workflow yourself on its source platform, or have us wire it into your Gmail, Sheets, and CRM. No migration."
             />
           </div>
         </section>
@@ -199,7 +240,7 @@ export default function Home() {
         <section className="bg-mn-text text-white">
           <div className="max-w-4xl mx-auto px-6 py-24 md:py-32 text-center">
             <h2 className="text-4xl md:text-5xl font-semibold tracking-tight leading-tight mb-6">
-              Your agents are 10 minutes away.
+              Find your workflows in 2 minutes.
             </h2>
             <p className="text-lg text-white/70 mb-10 max-w-xl mx-auto">
               15-minute demo. Custom for your business. No pressure.
@@ -212,10 +253,10 @@ export default function Home() {
                 Book a demo
               </Link>
               <Link
-                href="/tools/roi-calculator"
+                href="/roles"
                 className="border border-white/30 hover:border-white text-white px-8 py-4 rounded-full transition-colors"
               >
-                Calculate ROI
+                Browse all roles
               </Link>
             </div>
           </div>
@@ -231,41 +272,59 @@ export default function Home() {
                   <span className="font-semibold text-lg">Monican</span>
                 </div>
                 <p className="text-mn-muted text-sm max-w-xs leading-relaxed">
-                  AI agent suites for every industry. Built in Boston, MA.
+                  The AI workflow library for every role. Built in Boston, MA.
                 </p>
               </div>
               <div>
                 <h4 className="font-semibold text-sm mb-4">Product</h4>
                 <ul className="space-y-3 text-sm">
-                  <li><Link href="/modules" className="text-mn-muted hover:text-mn-text">Modules</Link></li>
+                  <li><Link href="/roles" className="text-mn-muted hover:text-mn-text">Browse roles</Link></li>
+                  <li><Link href="/pricing" className="text-mn-muted hover:text-mn-text">Pricing</Link></li>
                   <li><Link href="/tools/roi-calculator" className="text-mn-muted hover:text-mn-text">ROI Calculator</Link></li>
                   <li><Link href="/book" className="text-mn-muted hover:text-mn-text">Book a demo</Link></li>
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold text-sm mb-4">Industries</h4>
+                <h4 className="font-semibold text-sm mb-4">Popular roles</h4>
                 <ul className="space-y-3 text-sm">
-                  <li><span className="text-mn-muted">Real Estate</span></li>
-                  <li><span className="text-mn-muted">Legal (soon)</span></li>
-                  <li><span className="text-mn-muted">Dental (soon)</span></li>
+                  <li><Link href="/for/real-estate-agent" className="text-mn-muted hover:text-mn-text">Real Estate Agent</Link></li>
+                  <li><Link href="/for/general-contractor" className="text-mn-muted hover:text-mn-text">General Contractor</Link></li>
+                  <li><Link href="/for/solo-cpa" className="text-mn-muted hover:text-mn-text">Solo CPA</Link></li>
+                  <li><Link href="/for/gym-owner" className="text-mn-muted hover:text-mn-text">Gym Owner</Link></li>
                 </ul>
               </div>
               <div>
                 <h4 className="font-semibold text-sm mb-4">Company</h4>
                 <ul className="space-y-3 text-sm">
                   <li><Link href="/login" className="text-mn-muted hover:text-mn-text">Log in</Link></li>
-                  <li><a href="mailto:daniel@monican.ai" className="text-mn-muted hover:text-mn-text">Contact</a></li>
+                  <li><a href={`mailto:${CONTACT_EMAIL}`} className="text-mn-muted hover:text-mn-text">Contact</a></li>
+                  <li><Link href="/privacy" className="text-mn-muted hover:text-mn-text">Privacy</Link></li>
+                  <li><Link href="/terms" className="text-mn-muted hover:text-mn-text">Terms</Link></li>
                 </ul>
               </div>
             </div>
             <div className="pt-8 border-t border-mn-border flex flex-col md:flex-row justify-between gap-4 text-sm text-mn-muted">
               <p>&copy; {new Date().getFullYear()} Monican &middot; Boston, MA</p>
-              <p>Built with Claude, Next.js, and Supabase.</p>
+              <p>
+                Some outbound links are affiliate links — we may earn a
+                commission at no cost to you.
+              </p>
             </div>
           </div>
         </footer>
       </main>
     </>
+  );
+}
+
+function LibraryStat({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="bg-white border border-mn-border rounded-2xl p-6">
+      <div className="text-4xl font-semibold text-mn-text">{value}</div>
+      <div className="text-xs text-mn-muted uppercase tracking-wider mt-2">
+        {label}
+      </div>
+    </div>
   );
 }
 
@@ -321,15 +380,15 @@ function ModuleSpotlight({
             <div className="flex items-center gap-2 mb-6">
               <div className={`w-2.5 h-2.5 ${accentColor} rounded-full`} />
               <span className="text-sm font-medium text-mn-text">
-                {name} — live
+                {name} — done-for-you
               </span>
             </div>
             <div className="space-y-5">
               {stats.map((s, i) => (
                 <div key={i}>
-                  <div className="flex justify-between items-baseline mb-2">
+                  <div className="flex justify-between items-baseline mb-2 gap-4">
                     <span className="text-mn-muted text-sm">{s.label}</span>
-                    <span className="text-2xl font-semibold text-mn-text">
+                    <span className="text-xl font-semibold text-mn-text text-right">
                       {s.value}
                     </span>
                   </div>
@@ -346,32 +405,6 @@ function ModuleSpotlight({
         </div>
       </div>
     </section>
-  );
-}
-
-function IndustryTile({
-  name,
-  status,
-  active = false,
-}: {
-  name: string;
-  status: string;
-  active?: boolean;
-}) {
-  return (
-    <div className="bg-mn-text p-8 hover:bg-white/5 transition group">
-      <div className="flex items-center gap-2 mb-6">
-        <div
-          className={`w-2 h-2 rounded-full ${
-            active ? "bg-green-400" : "bg-white/30"
-          }`}
-        />
-        <p className="text-xs uppercase tracking-wide text-white/50 font-medium">
-          {status}
-        </p>
-      </div>
-      <h3 className="text-2xl font-semibold text-white">{name}</h3>
-    </div>
   );
 }
 

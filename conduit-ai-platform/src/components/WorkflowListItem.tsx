@@ -82,9 +82,9 @@ export default function WorkflowListItem({
 
         {/* Right side: stats + arrow */}
         <div className="hidden md:flex flex-shrink-0 items-center gap-6">
-          <InlineStat label="hrs/wk" value={workflow.hoursSavedWeekly} accent="text-mn-primary" />
+          <InlineStat label="est. hrs/wk" value={workflow.hoursSavedWeekly} accent="text-mn-primary" />
           <InlineStat
-            label="$/mo"
+            label="est. $/mo"
             value={
               workflow.dollarsSavedMonthly >= 1000
                 ? `${(workflow.dollarsSavedMonthly / 1000).toFixed(1)}k`
@@ -93,9 +93,9 @@ export default function WorkflowListItem({
             accent="text-emerald-600"
           />
           <InlineStat
-            label="rating"
-            value={`${workflow.rating.toFixed(1)}★`}
-            accent="text-amber-600"
+            label="setup"
+            value={`${workflow.setupMinutes}m`}
+            accent="text-mn-text"
           />
           <div className="text-mn-muted group-hover:text-mn-primary text-2xl transition-colors">
             →
@@ -106,15 +106,15 @@ export default function WorkflowListItem({
       {/* Mobile stats row */}
       <div className="md:hidden flex items-center justify-between gap-2 mt-4 pt-4 border-t border-mn-border text-sm">
         <span className="text-mn-primary font-semibold">
-          {workflow.hoursSavedWeekly} hrs/wk
+          est. {workflow.hoursSavedWeekly} hrs/wk
         </span>
         <span className="text-emerald-600 font-semibold">
-          ${workflow.dollarsSavedMonthly >= 1000
+          est. ${workflow.dollarsSavedMonthly >= 1000
             ? `${(workflow.dollarsSavedMonthly / 1000).toFixed(1)}k`
             : workflow.dollarsSavedMonthly}/mo
         </span>
-        <span className="text-amber-600 font-semibold">
-          {workflow.rating.toFixed(1)}★
+        <span className="text-mn-muted font-medium">
+          {workflow.setupMinutes}m setup
         </span>
         <span className="text-mn-muted">→</span>
       </div>
