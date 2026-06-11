@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/past-client",
+      "schedule": "0 13 * * 1"
+    }
+  ]
+}
