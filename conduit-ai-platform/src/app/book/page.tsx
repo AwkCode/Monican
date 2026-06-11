@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import BookForm from "./BookForm";
+import { CONTACT_EMAIL } from "@/lib/site";
 
 export default function BookDemoPage() {
   return (
@@ -32,11 +34,11 @@ export default function BookDemoPage() {
             Book a demo
           </p>
           <h1 className="text-4xl md:text-5xl font-semibold tracking-tight leading-[1.05] mb-6">
-            See your AI team in 15 minutes.
+            See your AI workflows in 15 minutes.
           </h1>
           <p className="text-lg text-mn-text/70 leading-relaxed mb-10 max-w-md">
-            I&apos;ll walk you through how your three agents would work for your
-            business — live, on your screen, with your actual data.
+            I&apos;ll walk you through the workflows that fit your role — live,
+            on your screen, with your actual data.
           </p>
 
           <div className="space-y-5">
@@ -50,17 +52,19 @@ export default function BookDemoPage() {
             <p className="text-sm text-mn-muted">
               Prefer email? Reach me at{" "}
               <a
-                href="mailto:daniel@monican.ai"
+                href={`mailto:${CONTACT_EMAIL}`}
                 className="text-mn-text font-medium hover:text-mn-primary"
               >
-                daniel@monican.ai
+                {CONTACT_EMAIL}
               </a>
             </p>
           </div>
         </div>
 
         {/* Right — form */}
-        <BookForm />
+        <Suspense fallback={null}>
+          <BookForm />
+        </Suspense>
       </div>
     </main>
   );

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ROLES, getIndustryBySlug } from "@/lib/marketplace/seed";
+import { logEvent } from "@/lib/events";
 
 /**
  * POST /api/search
@@ -35,12 +36,40 @@ function setCached(query: string, matches: string[]) {
   });
 }
 
+// Per-IP rate limiting. In-memory per serverless instance — not airtight,
+// but it stops tight loops from running up the Anthropic bill on a public
+// endpoint. 15 Claude calls per IP per minute is far above human typing.
+const rateBuckets = new Map<string, { count: number; windowStart: number }>();
+const RATE_WINDOW_MS = 60 * 1000;
+const RATE_LIMIT = 15;
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const bucket = rateBuckets.get(ip);
+  if (!bucket || now - bucket.windowStart > RATE_WINDOW_MS) {
+    rateBuckets.set(ip, { count: 1, windowStart: now });
+    return false;
+  }
+  bucket.count += 1;
+  if (rateBuckets.size > 10_000) rateBuckets.clear(); // memory backstop
+  return bucket.count > RATE_LIMIT;
+}
+
 export async function POST(request: NextRequest) {
   const body = await request.json().catch(() => ({}));
-  const query: string = (body.query || "").trim();
+  const query: string = (body.query || "").trim().slice(0, 100);
 
   if (query.length < 2) {
     return NextResponse.json({ matches: [], source: "validation" });
+  }
+
+  const ip =
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+  if (isRateLimited(ip)) {
+    return NextResponse.json(
+      { matches: [], source: "rate-limited" },
+      { status: 429 }
+    );
   }
 
   // Cache check
@@ -124,6 +153,14 @@ Rules:
     const validSlugs = slugs.filter((slug) => ROLES.some((r) => r.slug === slug));
 
     setCached(query, validSlugs);
+
+    // Demand signal: every AI search is logged; zero-match queries are the
+    // roles people want that we don't have yet.
+    await logEvent(
+      validSlugs.length === 0 ? "search_no_match" : "search",
+      { query, matches: validSlugs },
+      request
+    );
 
     return NextResponse.json({ matches: validSlugs, source: "claude" });
   } catch (e) {

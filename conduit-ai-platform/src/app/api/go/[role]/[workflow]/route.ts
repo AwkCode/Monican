@@ -7,6 +7,7 @@ import {
   buildAffiliateUrl,
   SOURCE_HOMEPAGES,
 } from "@/lib/affiliate";
+import { logEvent } from "@/lib/events";
 
 /**
  * Tracked affiliate redirect.
@@ -46,16 +47,18 @@ export async function GET(
     fallback
   );
 
-  // Log click for now (swap to Supabase or analytics later)
-  console.log("[affiliate-click]", {
-    role: role.slug,
-    workflow: workflow.slug,
-    source: workflow.source,
-    destination,
-    referer: request.headers.get("referer") || null,
-    userAgent: request.headers.get("user-agent")?.slice(0, 120) || null,
-    timestamp: new Date().toISOString(),
-  });
+  // Persist the click so we can see which workflows convert
+  await logEvent(
+    "affiliate_click",
+    {
+      role: role.slug,
+      workflow: workflow.slug,
+      source: workflow.source,
+      destination,
+      userAgent: request.headers.get("user-agent")?.slice(0, 120) || null,
+    },
+    request
+  );
 
   return NextResponse.redirect(destination, { status: 302 });
 }
